@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.evansp.setup.user.def.models">
+    <class name="Address" table="TBADDRESS">
+        <id name="addressId" type="java.lang.Long">
+            <column name="ADDRESS_ID" sql-type="BIGINT" not-null="true"/>
+        </id>
+        <property name="streetName" type="java.lang.String">
+            <column name="STREET_NAME" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="streetNumber" type="java.lang.String">
+            <column name="STREET_NUMBER" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="postalCode" type="java.lang.String">
+            <column name="POSTAL_CODE" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="city" type="java.lang.String">
+            <column name="CITY" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="country" type="java.lang.String">
+            <column name="COUNTRY" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
