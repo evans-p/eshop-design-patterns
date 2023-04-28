@@ -9,5 +9,8 @@
         <module name="eshop-design-patterns" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="eshop-user" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
