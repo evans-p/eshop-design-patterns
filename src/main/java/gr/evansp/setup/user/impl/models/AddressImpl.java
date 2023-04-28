@@ -1,6 +1,7 @@
 package gr.evansp.setup.user.impl.models;
 
 import gr.evansp.setup.user.def.models.Address;
+import gr.evansp.setup.user.def.models.UserProfile;
 
 /**
  * Implementation of {@link Address}.
@@ -10,8 +11,19 @@ public class AddressImpl implements Address {
   private String streetName;
   private String streetNumber;
   private String postalCode;
+  private UserProfile userProfile;
   private String city;
   private String country;
+
+  @Override
+  public UserProfile getUserProfile() {
+    return userProfile;
+  }
+
+  @Override
+  public void setUserProfile(UserProfile userProfile) {
+    this.userProfile = userProfile;
+  }
 
   @Override
   public int hashCode() {
