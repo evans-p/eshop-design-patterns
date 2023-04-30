@@ -4,6 +4,9 @@
 # Intellij
 .idea/
 
+# Target
+target/
+
 # Log file
 *.log
 

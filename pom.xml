@@ -6,12 +6,20 @@
 
     <groupId>gr.evansp</groupId>
     <artifactId>eshop-design-patterns</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>eshop-common</module>
+        <module>eshop-product</module>
+        <module>eshop-user</module>
+    </modules>
 
     <properties>
+        <revision>0.0.1-SNAPSHOT</revision>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
