@@ -12,6 +12,7 @@
         <module>eshop-common</module>
         <module>eshop-product</module>
         <module>eshop-user</module>
+        <module>eshop-it</module>
     </modules>
 
     <properties>
