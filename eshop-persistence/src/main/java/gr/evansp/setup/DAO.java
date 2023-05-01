@@ -1,4 +1,4 @@
-package gr.evansp.dao;
+package gr.evansp.setup;
 
 import gr.evansp.ecb.Entity;
 

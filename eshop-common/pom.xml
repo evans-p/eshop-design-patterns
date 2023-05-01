@@ -9,12 +9,4 @@
         <version>${revision}</version>
     </parent>
     <artifactId>eshop-common</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>gr.evansp</groupId>
-            <artifactId>eshop-common</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
 </project>
