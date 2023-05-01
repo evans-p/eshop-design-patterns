@@ -23,7 +23,7 @@
             <column name="DATE_LAST_MODIFIED" sql-type="Date"/>
         </property>
         <set name="addresses" table="TBADDERSS" lazy="false" inverse="true" fetch="select" cascade="all">
-            <key column="">
+            <key>
                 <column name="USER_ID" not-null="true"/>
             </key>
             <one-to-many class="gr.evansp.setup.user.def.models.Address"/>

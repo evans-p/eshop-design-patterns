@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.evansp.setup.product.def.models">
+    <class name="Product" table="TBPRODUCT">
+        <id name="productId" type="java.lang.Long">
+            <column name="PRODUCT_ID" sql-type="BIGINT" not-null="true"/>
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" sql-type="VARCHAR(100)" not-null="true"/>
+        </property>
+        <property name="SKU" type="java.lang.String">
+            <column name="SKU" sql-type="VARCHAR(100)" not-null="true"/>
+        </property>
+        <property name="inventoryCount" type="java.lang.Integer">
+            <column name="INVENTORY_COUNT" sql-type="INTEGER" not-null="true"/>
+        </property>
+        <property name="inventoryLimit" type="java.lang.Integer">
+            <column name="INVENTORY_LIMIT" sql-type="INTEGER" not-null="true"/>
+        </property>
+        <property name="price" type="java.math.BigDecimal">
+            <column name="PRICE" sql-type="DECIMAL(8,2)" not-null="true"/>
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" sql-type="VARCHAR(250)" not-null="false"/>
+        </property>
+        <property name="dateAdded" type="java.util.Date">
+            <column name="DATE_ADDED" sql-type="DATE" not-null="true"/>
+        </property>
+        <property name="dateLastModified" type="java.util.Date">
+            <column name="DATE_LAST_MODIFIED" sql-type="DATE" not-null="false"/>
+        </property>
+        <many-to-one name="category" class="Category" cascade="all" lazy="false" fetch="select">
+            <column name="CATEGORY_ID" sql-type="BIGINT" not-null="true"/>
+        </many-to-one>
+        <subclass name="gr.evansp.setup.product.impl.models.ProductImpl" discriminator-value="P"/>
+    </class>
+</hibernate-mapping>
