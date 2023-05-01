@@ -13,7 +13,6 @@ public class UserProfileImpl implements UserProfile {
   private String phoneNo;
   private Date dateAdded;
   private Date dateLastModified;
-  //  private User user;
   private Set<Address> addresses;
 
 

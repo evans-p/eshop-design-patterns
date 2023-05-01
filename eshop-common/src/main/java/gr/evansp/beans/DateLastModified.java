@@ -1,4 +1,4 @@
-package gr.evansp.setup.user.def.beans;
+package gr.evansp.beans;
 
 import java.util.Date;
 

@@ -1,6 +1,5 @@
 package gr.evansp.factory;
 
-
 import gr.evansp.ecb.Entity;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -40,7 +39,7 @@ public class Factory {
    * A method that receives a package name, as a string, and returns all the
    * classes and interfaces in the package provided.
    *
-   * @param packageName the name of a package. Example: poulakise.setup.
+   * @param packageName the name of a package. Example: gr.evansp.setup.
    * @return a set of all the classes and interfaces in the package provided.
    */
   private static Set<Class> findAllClasses(String packageName) {

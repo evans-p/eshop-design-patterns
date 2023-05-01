@@ -8,13 +8,13 @@
         <artifactId>eshop-design-patterns</artifactId>
         <version>${revision}</version>
     </parent>
-
     <artifactId>eshop-common</artifactId>
 
-    <properties>
-        <maven.compiler.source>${maven.compiler.source}</maven.compiler.source>
-        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-        <project.build.sourceEncoding>${project.build.sourceEncoding}</project.build.sourceEncoding>
-    </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
 </project>
