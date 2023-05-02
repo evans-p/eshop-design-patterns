@@ -1,6 +1,6 @@
 package gr.evansp.factory;
 
-import gr.evansp.ecb.Entity;
+import gr.evansp.common.Entity;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 

@@ -5,7 +5,7 @@ import gr.evansp.beans.DateAdded;
 import gr.evansp.beans.DateLastModified;
 import gr.evansp.beans.Description;
 import gr.evansp.beans.Named;
-import gr.evansp.ecb.Entity;
+import gr.evansp.common.Entity;
 import gr.evansp.setup.product.def.beans.*;
 
 /**

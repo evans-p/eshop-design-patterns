@@ -1,4 +1,4 @@
-package gr.evansp.ecb;
+package gr.evansp.common;
 
 public interface Control {
 }

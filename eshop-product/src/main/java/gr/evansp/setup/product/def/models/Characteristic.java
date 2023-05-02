@@ -2,7 +2,7 @@ package gr.evansp.setup.product.def.models;
 
 import gr.evansp.beans.Named;
 import gr.evansp.beans.Value;
-import gr.evansp.ecb.Entity;
+import gr.evansp.common.Entity;
 import gr.evansp.setup.product.def.beans.ProductDependent;
 
 /**

@@ -1,6 +1,6 @@
 package gr.evansp.setup;
 
-import gr.evansp.ecb.Entity;
+import gr.evansp.common.Entity;
 
 import java.util.List;
 
