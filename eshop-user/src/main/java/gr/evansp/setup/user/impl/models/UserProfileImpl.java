@@ -40,7 +40,6 @@ public class UserProfileImpl implements UserProfile {
         ", phoneNo='" + phoneNo + '\'' +
         ", dateAdded=" + dateAdded +
         ", dateLastModified=" + dateLastModified +
-        ", addresses=" + addresses +
         '}';
   }
 

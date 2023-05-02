@@ -30,7 +30,6 @@ public class CharacteristicImpl implements Characteristic {
         "characteristicId=" + characteristicId +
         ", name='" + name + '\'' +
         ", value='" + value + '\'' +
-        ", product=" + product +
         '}';
   }
 

@@ -21,5 +21,10 @@
             <artifactId>eshop-product</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-persistence</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 </project>

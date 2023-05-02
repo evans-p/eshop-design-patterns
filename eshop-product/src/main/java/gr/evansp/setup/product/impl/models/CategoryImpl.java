@@ -35,7 +35,6 @@ public class CategoryImpl implements Category {
         "categoryId=" + categoryId +
         ", name='" + name + '\'' +
         ", description='" + description + '\'' +
-        ", products=" + products +
         '}';
   }
 

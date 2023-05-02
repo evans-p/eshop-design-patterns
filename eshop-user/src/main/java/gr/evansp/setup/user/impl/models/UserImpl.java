@@ -73,7 +73,6 @@ public class UserImpl implements User {
         "userId=" + userId +
         ", email='" + email + '\'' +
         ", password='" + password + '\'' +
-        ", userProfile=" + userProfile +
         '}';
   }
 }

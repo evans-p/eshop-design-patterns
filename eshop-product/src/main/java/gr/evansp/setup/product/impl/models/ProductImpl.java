@@ -158,11 +158,11 @@ public class ProductImpl implements Product {
         ", inventoryCount=" + inventoryCount +
         ", inventoryLimit=" + inventoryLimit +
         ", category=" + category +
-        ", characteristics=" + characteristics +
         ", price=" + price +
         ", description='" + description + '\'' +
         ", dateAdded=" + dateAdded +
         ", dateLastModified=" + dateLastModified +
+        ", characteristics=" + characteristics +
         '}';
   }
 }

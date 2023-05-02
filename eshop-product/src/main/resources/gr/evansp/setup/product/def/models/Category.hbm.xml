@@ -11,7 +11,7 @@
             <column name="NAME" sql-type="VARCHAR(100)"/>
         </property>
         <property name="description" type="java.lang.String">
-            <column name="NAME" sql-type="VARCHAR(250)"/>
+            <column name="DESCRIPTION" sql-type="VARCHAR(250)"/>
         </property>
         <set name="products" table="TBPRODUCT" lazy="false" inverse="true" fetch="select" cascade="save-update">
             <key>
