@@ -7,7 +7,7 @@ import gr.evansp.exceptions.RuleException;
  *
  * @param <T>
  */
-public interface Rule<T extends Entity> {
+public interface Rule<T extends Entity> extends Entity {
   /**
    * Getter for validator input.
    *
@@ -23,9 +23,9 @@ public interface Rule<T extends Entity> {
   public void setInput(T input);
 
   /**
-   * main method of validator. Called to validate input object.
+   * Main method of validator. Called to validate input object.
    * If the input object fails to validate, throws {@link RuleException}.
    */
-  public void validate() throws RuleException;
+  public void apply() throws RuleException;
 
 }
