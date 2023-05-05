@@ -14,6 +14,7 @@ import gr.evansp.setup.user.def.models.User;
  * <li>password must not be null.</li>
  * <li>password must be at least 10 characters.</li>
  * <li>password must contain at least 1 number, 1 character and 1 symbol.</li>
+ * <li>UserProfile must not be null, and must also be validated, using {@link UserProfileValidator}</li>
  */
 public interface UserValidator extends Rule<User> {
   //EMPTY

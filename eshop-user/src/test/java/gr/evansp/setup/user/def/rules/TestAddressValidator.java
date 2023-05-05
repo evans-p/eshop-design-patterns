@@ -29,7 +29,6 @@ public class TestAddressValidator {
     Mockito.when(address.getPostalCode()).thenReturn("123");
     Mockito.when(address.getUserProfile()).thenReturn(userProfile);
     Mockito.when(address.getAddressId()).thenReturn(100l);
-
   }
 
   @After

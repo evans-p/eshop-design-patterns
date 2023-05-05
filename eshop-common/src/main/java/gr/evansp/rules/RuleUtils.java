@@ -26,10 +26,10 @@ public class RuleUtils {
   }
 
   public static boolean checkContainsLetter(String str) {
-    return str.matches("[a-zA-Z]+");
+    return str.matches(".*[a-zA-Z].*");
   }
 
   public static boolean checkContainsNumber(String str) {
-    return str.matches("[0-9]+");
+    return str.matches(".*[0-9].*");
   }
 }

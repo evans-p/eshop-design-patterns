@@ -1,7 +1,9 @@
 package gr.evansp.setup.user.impl.rules;
 
 import gr.evansp.exceptions.RuleException;
+import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.rules.UserProfileValidator;
 import gr.evansp.setup.user.def.rules.UserValidator;
 
 import static gr.evansp.rules.RuleUtils.*;
@@ -12,6 +14,8 @@ import static gr.evansp.rules.RuleUtils.*;
  */
 public class UserValidatorImpl implements UserValidator {
   private User input;
+
+  private UserProfileValidator validator = Factory.create(UserProfileValidator.class);
 
   @Override
   public User getInput() {
@@ -25,6 +29,25 @@ public class UserValidatorImpl implements UserValidator {
 
   @Override
   public void apply() throws RuleException {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append(validateUserId());
+    builder.append(validateEmail());
+    builder.append(validatePassword());
+    builder.append(validateUserProfile());
+
+    if (builder.toString().length() > 0)
+      throw new RuleException(builder.toString());
+
+    validator.setInput(input.getUserProfile());
+    validator.apply();
+  }
+
+  private String validateUserProfile() {
+    if (input.getUserProfile() == null) {
+      return "UserProfile must not be null";
+    }
+    return "";
   }
 
   private String validateUserId() {
@@ -40,7 +63,7 @@ public class UserValidatorImpl implements UserValidator {
       return "Email must not be empty.";
     if (!input.getEmail().contains("@"))
       return "Email must contain '@' character.";
-    if (input.getEmail().chars().filter(c -> c == 'e').count() > 1)
+    if (input.getEmail().chars().filter(c -> c == '@').count() > 1)
       return "Email must contain exactly one '@' character";
     if (!input.getEmail().split("@")[1].contains("."))
       return "Email must contain '.' character after '@' character";
