@@ -8,7 +8,8 @@ import gr.evansp.setup.user.def.models.User;
  * in order to be validated:
  * <li>userId must not be null</li>
  * <li>email must not be null</li>
- * <li>email must contain the '@' character</li>
+ * <li>email must not be empty</li>
+ * <li>email must contain the '@' character just once</li>
  * <li>email must contain the '.' character, after the '@' character</li>
  * <li>password must not be null.</li>
  * <li>password must be at least 10 characters.</li>
