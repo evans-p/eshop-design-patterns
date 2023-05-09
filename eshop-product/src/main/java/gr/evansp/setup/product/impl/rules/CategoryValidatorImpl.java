@@ -19,7 +19,8 @@ public class CategoryValidatorImpl implements CategoryValidator {
   public void setInput(Category input) {
     this.input = input;
   }
-
+  
+  @Override
   public void apply() throws RuleException {
     StringBuilder builder = new StringBuilder();
 
