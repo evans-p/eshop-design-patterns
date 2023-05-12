@@ -1,7 +1,14 @@
 package gr.evansp.rules;
 
+import gr.evansp.common.Rule;
+
+/**
+ * Utility method for {@link Rule}.
+ */
 public class RuleUtils {
-  //private constructor
+  /**
+   * private constructor
+   */
   private RuleUtils() {
     //EMPTY
   }

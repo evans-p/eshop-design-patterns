@@ -32,19 +32,19 @@ public interface DAO<T extends Entity> {
    *
    * @param entity The entity to save.
    */
-  public boolean save(T entity) throws DataException;
+  public void save(T entity) throws DataException;
 
   /**
    * Updates an entity.
    *
    * @param entity entity to update
    */
-  public boolean update(T entity) throws DataException;
+  public void update(T entity) throws DataException;
 
   /**
    * Deletes the specified entity
    *
-   * @param object the entity to delete
+   * @param entity the entity to delete
    */
-  public boolean delete(T entity) throws DataException;
+  public void delete(T entity) throws DataException;
 }

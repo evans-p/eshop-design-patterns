@@ -2,7 +2,7 @@ package gr.evansp.setup.user;
 
 import gr.evansp.exceptions.DataException;
 import gr.evansp.setup.DAO;
-import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.models.Address;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -14,37 +14,37 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of {@link DAO} for {@link User}
+ * Implementation of {@link DAO} for {@link Address}
  */
-public class UserDAO implements DAO<User> {
+public class AddressDAO implements DAO<Address> {
   @Override
-  public User get(Long id) throws DataException {
+  public Address get(Long id) throws DataException {
     if (id == null) {
       return null;
     }
     try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
-      User user = (User) session.get(User.class, id);
+      Address address = (Address) session.get(Address.class, id);
       session.close();
-      return user;
+      return address;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<User> getAll() throws DataException {
+  public List<Address> getAll() throws DataException {
     try (
         Session session = new Configuration().buildSessionFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
-      CriteriaQuery<User> cq = cb.createQuery(User.class);
-      Root<User> rootEntry = cq.from(User.class);
-      CriteriaQuery<User> all = cq.select(rootEntry);
+      CriteriaQuery<Address> cq = cb.createQuery(Address.class);
+      Root<Address> rootEntry = cq.from(Address.class);
+      CriteriaQuery<Address> all = cq.select(rootEntry);
 
-      TypedQuery<User> allQuery = session.createQuery(all);
+      TypedQuery<Address> allQuery = session.createQuery(all);
       return allQuery.getResultList();
     } catch (Exception e) {
       throw new DataException(e.getStackTrace().toString());
@@ -52,36 +52,32 @@ public class UserDAO implements DAO<User> {
   }
 
   @Override
-  public void save(User entity) throws DataException {
+  public void save(Address entity) throws DataException {
     try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
       session.persist(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public void update(User entity) throws DataException {
-    try (
-        Session session = new Configuration().buildSessionFactory().openSession();
-    ) {
+  public void update(Address entity) throws DataException {
+    try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
       session.merge(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public void delete(User entity) throws DataException {
-    try (
-        Session session = new Configuration().buildSessionFactory().openSession();
-    ) {
+  public void delete(Address entity) throws DataException {
+    try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
       session.remove(entity);

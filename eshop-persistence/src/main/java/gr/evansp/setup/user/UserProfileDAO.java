@@ -2,7 +2,7 @@ package gr.evansp.setup.user;
 
 import gr.evansp.exceptions.DataException;
 import gr.evansp.setup.DAO;
-import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.models.UserProfile;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -14,37 +14,37 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of {@link DAO} for {@link User}
+ * Implementation of {@link DAO} for {@link UserProfile}
  */
-public class UserDAO implements DAO<User> {
+public class UserProfileDAO implements DAO<UserProfile> {
   @Override
-  public User get(Long id) throws DataException {
+  public UserProfile get(Long id) throws DataException {
     if (id == null) {
       return null;
     }
     try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
-      User user = (User) session.get(User.class, id);
+      UserProfile userProfile = (UserProfile) session.get(UserProfile.class, id);
       session.close();
-      return user;
+      return userProfile;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<User> getAll() throws DataException {
+  public List<UserProfile> getAll() throws DataException {
     try (
         Session session = new Configuration().buildSessionFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
-      CriteriaQuery<User> cq = cb.createQuery(User.class);
-      Root<User> rootEntry = cq.from(User.class);
-      CriteriaQuery<User> all = cq.select(rootEntry);
+      CriteriaQuery<UserProfile> cq = cb.createQuery(UserProfile.class);
+      Root<UserProfile> rootEntry = cq.from(UserProfile.class);
+      CriteriaQuery<UserProfile> all = cq.select(rootEntry);
 
-      TypedQuery<User> allQuery = session.createQuery(all);
+      TypedQuery<UserProfile> allQuery = session.createQuery(all);
       return allQuery.getResultList();
     } catch (Exception e) {
       throw new DataException(e.getStackTrace().toString());
@@ -52,7 +52,7 @@ public class UserDAO implements DAO<User> {
   }
 
   @Override
-  public void save(User entity) throws DataException {
+  public void save(UserProfile entity) throws DataException {
     try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
@@ -64,10 +64,8 @@ public class UserDAO implements DAO<User> {
   }
 
   @Override
-  public void update(User entity) throws DataException {
-    try (
-        Session session = new Configuration().buildSessionFactory().openSession();
-    ) {
+  public void update(UserProfile entity) throws DataException {
+    try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -78,16 +76,14 @@ public class UserDAO implements DAO<User> {
   }
 
   @Override
-  public void delete(User entity) throws DataException {
-    try (
-        Session session = new Configuration().buildSessionFactory().openSession();
-    ) {
+  public void delete(UserProfile entity) throws DataException {
+    try (Session session = new Configuration().buildSessionFactory().openSession();) {
 
       session.beginTransaction();
       session.remove(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e.getStackTrace().toString());
     }
   }
 }
