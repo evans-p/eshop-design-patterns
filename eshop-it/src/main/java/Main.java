@@ -1,10 +1,5 @@
 public class Main {
   public static void main(String[] args) {
-    String s = "abc";
-    String regex = "";
-    System.out.println(s.matches(regex));
-    System.out.println("avc1".matches(regex));
-    System.out.println("".matches(regex));
 //    Random random = new Random();
 //
 //    Category category = Factory.create(Category.class);

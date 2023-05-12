@@ -1,6 +1,7 @@
 package gr.evansp.setup;
 
 import gr.evansp.common.Entity;
+import gr.evansp.exceptions.DataException;
 
 import java.util.List;
 
@@ -11,12 +12,12 @@ import java.util.List;
  */
 public interface DAO<T extends Entity> {
   /**
-   * gets an Entity form the database based on its Id.
+   * gets an Entity from the database based on its Id.
    *
    * @param id id of the entity
-   * @return the entith
+   * @return the entity
    */
-  public T get(Long id);
+  public T get(Long id) throws DataException;
 
 
   /**
@@ -24,26 +25,26 @@ public interface DAO<T extends Entity> {
    *
    * @return A list with all the instances of the entity.
    */
-  public List<T> getAll();
+  public List<T> getAll() throws DataException;
 
   /**
    * Saves a new entity to the database.
    *
    * @param entity The entity to save.
    */
-  public void save(T entity);
+  public boolean save(T entity) throws DataException;
 
   /**
    * Updates an entity.
    *
    * @param entity entity to update
    */
-  public void update(T entity);
+  public boolean update(T entity) throws DataException;
 
   /**
    * Deletes the specified entity
    *
    * @param object the entity to delete
    */
-  public void delete(T object);
+  public boolean delete(T entity) throws DataException;
 }

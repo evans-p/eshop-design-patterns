@@ -1,6 +1,7 @@
 package gr.evansp.factory;
 
 import gr.evansp.common.Entity;
+import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -17,6 +18,12 @@ import java.util.stream.Collectors;
  */
 public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
+
+  //TODO: Move to a more appropriate place...
+  static {
+    System.out.println("Configuring hibernate...");
+    new Configuration().configure();
+  }
 
   /**
    * private noArgs constructor.
