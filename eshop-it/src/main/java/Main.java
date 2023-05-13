@@ -1,5 +1,9 @@
+import gr.evansp.factory.Factory;
+import gr.evansp.setup.user.def.models.User;
+
 public class Main {
   public static void main(String[] args) {
+    System.out.println(Factory.createPersistence(User.class).getClass().getSimpleName());
 //    Random random = new Random();
 //
 //    Category category = Factory.create(Category.class);

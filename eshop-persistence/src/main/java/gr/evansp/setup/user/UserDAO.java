@@ -1,7 +1,7 @@
 package gr.evansp.setup.user;
 
+import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
-import gr.evansp.setup.DAO;
 import gr.evansp.setup.user.def.models.User;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;

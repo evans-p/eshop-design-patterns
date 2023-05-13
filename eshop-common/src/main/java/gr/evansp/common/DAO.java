@@ -1,6 +1,5 @@
-package gr.evansp.setup;
+package gr.evansp.common;
 
-import gr.evansp.common.Entity;
 import gr.evansp.exceptions.DataException;
 
 import java.util.List;

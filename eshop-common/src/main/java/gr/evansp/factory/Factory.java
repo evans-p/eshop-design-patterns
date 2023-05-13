@@ -1,11 +1,14 @@
 package gr.evansp.factory;
 
+import gr.evansp.common.DAO;
 import gr.evansp.common.Entity;
 import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +23,7 @@ public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
 
   //TODO: Move to a more appropriate place...
+  //TODO: call findAllClasses in a static block, so that the classes are always available.
   static {
     System.out.println("Configuring hibernate...");
     new Configuration().configure();
@@ -76,6 +80,36 @@ public class Factory {
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
                  | InvocationTargetException e) {
           System.out.println("Failed to create object");
+        }
+      }
+    }
+    return null;
+  }
+
+  public static <M extends Entity> DAO<M> createPersistence(Class<M> type) {
+    Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
+
+    for (Class clazz : classes) {
+      if (clazz.isInterface()) {
+        continue;
+      }
+      if (!Arrays.asList(clazz.getInterfaces()).contains(DAO.class)) {
+        continue;
+      }
+      Type[] interfaces = clazz.getGenericInterfaces();
+      for (Type interfaze : interfaces) {
+        if (interfaze instanceof ParameterizedType) {
+          Type[] genericTypes = ((ParameterizedType) interfaze).getActualTypeArguments();
+          for (Type type1 : genericTypes) {
+            if (type1.equals(type)) {
+              try {
+                return (DAO<M>) clazz.getConstructor().newInstance();
+              } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+                       | InvocationTargetException e) {
+                System.out.println("Failed to create object");
+              }
+            }
+          }
         }
       }
     }
