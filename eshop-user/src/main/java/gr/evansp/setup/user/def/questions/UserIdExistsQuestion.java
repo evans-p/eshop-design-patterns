@@ -6,7 +6,7 @@ import gr.evansp.setup.user.def.models.User;
 /**
  * Checks if the ID of the user provided exists or not.
  */
-public interface UserIdExistsQuestion extends Question {
+public interface UserIdExistsQuestion extends Question<Boolean> {
   /**
    * Getter for input
    *

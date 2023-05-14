@@ -9,6 +9,7 @@ import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
 import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
+import gr.evansp.setup.user.impl.questions.NextUserIdQuestionImpl;
 
 
 /**
@@ -18,7 +19,8 @@ public class SaveUserOperationImpl implements SaveUserOperation {
   private User input;
 
   private UserValidator validator = Factory.create(UserValidator.class);
-  private UserIdExistsQuestion question = Factory.create(UserIdExistsQuestion.class);
+  private UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
+  private NextUserIdQuestionImpl nextUserIdQuestion = Factory.create(NextUserIdQuestionImpl.class);
   private DAO<User> dao = Factory.createPersistence(User.class);
 
   @Override
@@ -30,13 +32,17 @@ public class SaveUserOperationImpl implements SaveUserOperation {
     validator.setInput(input);
     validator.apply();
 
-    question.setInput(input);
-    question.ask();
+    idExistsQuestion.setInput(input);
+    idExistsQuestion.ask();
 
-    if (question.answer()) {
-      dao.save(input);
+    if (idExistsQuestion.answer()) {
+      dao.update(input);
+      return;
     }
 
+    nextUserIdQuestion.ask();
+    input.setUserId(nextUserIdQuestion.answer());
+    dao.save(input);
   }
 
   @Override

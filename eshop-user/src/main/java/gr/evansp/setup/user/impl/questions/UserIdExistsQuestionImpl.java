@@ -33,7 +33,7 @@ public class UserIdExistsQuestionImpl implements UserIdExistsQuestion {
       answer = false;
       return;
     }
-    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.userID=" + input.getUserId();
+    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.userId=" + input.getUserId();
     try (
         Session session = new Configuration().buildSessionFactory().openSession();
     ) {
@@ -49,7 +49,7 @@ public class UserIdExistsQuestionImpl implements UserIdExistsQuestion {
     }
   }
 
-  public boolean answer() {
+  public Boolean answer() {
     return answer;
   }
 }

@@ -6,7 +6,7 @@ import gr.evansp.exceptions.LogicException;
 /**
  * Interface to be used for questions towards the DB.
  */
-public interface Question extends Entity {
+public interface Question<T> extends Entity {
   /**
    * Asks the question.
    *
@@ -20,5 +20,5 @@ public interface Question extends Entity {
    * @return Result of the question.
    * @throws DataException
    */
-  public boolean answer();
+  public T answer();
 }
