@@ -18,4 +18,5 @@ import gr.evansp.setup.user.def.models.User;
  */
 public interface UserValidator extends Rule<User> {
   //EMPTY
+
 }

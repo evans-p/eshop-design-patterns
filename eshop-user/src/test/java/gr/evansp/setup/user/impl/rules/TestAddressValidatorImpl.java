@@ -1,5 +1,7 @@
 package gr.evansp.setup.user.impl.rules;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
@@ -39,14 +41,14 @@ public class TestAddressValidatorImpl {
   }
 
   @Test
-  public void testApply_ok() throws RuleException {
+  public void testApply_ok() throws RuleException, DataException, LogicException {
     sut.setInput(address);
     sut.apply();
   }
 
 
   @Test(expected = RuleException.class)
-  public void testValidateAddressId_null() throws RuleException {
+  public void testValidateAddressId_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getAddressId()).thenReturn(null);
 
     sut.setInput(address);
@@ -54,7 +56,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCity_null() throws RuleException {
+  public void testValidateCity_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getCity()).thenReturn(null);
 
     sut.setInput(address);
@@ -62,7 +64,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCity_containsNumbers() throws RuleException {
+  public void testValidateCity_containsNumbers() throws RuleException, DataException, LogicException {
     Mockito.when(address.getCity()).thenReturn("A123");
 
     sut.setInput(address);
@@ -70,7 +72,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCountry_null() throws RuleException {
+  public void testValidateCountry_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getCountry()).thenReturn(null);
 
     sut.setInput(address);
@@ -78,7 +80,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCountry_containsNumbers() throws RuleException {
+  public void testValidateCountry_containsNumbers() throws RuleException, DataException, LogicException {
     Mockito.when(address.getCountry()).thenReturn("A123");
 
     sut.setInput(address);
@@ -86,7 +88,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateStreetName_null() throws RuleException {
+  public void testValidateStreetName_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getStreetName()).thenReturn(null);
 
     sut.setInput(address);
@@ -94,7 +96,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateStreetName_containsNumbers() throws RuleException {
+  public void testValidateStreetName_containsNumbers() throws RuleException, DataException, LogicException {
     Mockito.when(address.getStreetName()).thenReturn("A123");
 
     sut.setInput(address);
@@ -102,7 +104,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateStreetNumber_null() throws RuleException {
+  public void testValidateStreetNumber_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getStreetNumber()).thenReturn(null);
 
     sut.setInput(address);
@@ -110,7 +112,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateStreetNumber_containsLetters() throws RuleException {
+  public void testValidateStreetNumber_containsLetters() throws RuleException, DataException, LogicException {
     Mockito.when(address.getStreetNumber()).thenReturn("A123");
 
     sut.setInput(address);
@@ -118,7 +120,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidatePostalCode_null() throws RuleException {
+  public void testValidatePostalCode_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getPostalCode()).thenReturn(null);
 
     sut.setInput(address);
@@ -126,7 +128,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidatePostalCode_containsLetters() throws RuleException {
+  public void testValidatePostalCode_containsLetters() throws RuleException, DataException, LogicException {
     Mockito.when(address.getPostalCode()).thenReturn("A123");
 
     sut.setInput(address);
@@ -134,7 +136,7 @@ public class TestAddressValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateUserProfile_null() throws RuleException {
+  public void testValidateUserProfile_null() throws RuleException, DataException, LogicException {
     Mockito.when(address.getUserProfile()).thenReturn(null);
 
     sut.setInput(address);

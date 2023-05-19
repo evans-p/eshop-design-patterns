@@ -1,5 +1,7 @@
 package gr.evansp.setup.user.impl.rules;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
@@ -27,7 +29,7 @@ public class UserProfileValidatorImpl implements UserProfileValidator {
   }
 
   @Override
-  public void apply() throws RuleException {
+  public void apply() throws RuleException, DataException, LogicException {
     StringBuilder builder = new StringBuilder();
 
     builder.append(validateUserId());

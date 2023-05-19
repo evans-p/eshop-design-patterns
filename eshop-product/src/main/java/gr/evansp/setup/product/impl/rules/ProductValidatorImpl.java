@@ -1,5 +1,7 @@
 package gr.evansp.setup.product.impl.rules;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Characteristic;
@@ -24,7 +26,7 @@ public class ProductValidatorImpl implements ProductValidator {
   }
 
   @Override
-  public void apply() throws RuleException {
+  public void apply() throws RuleException, DataException, LogicException {
     StringBuilder builder = new StringBuilder();
 
     builder.append(validateProductId());

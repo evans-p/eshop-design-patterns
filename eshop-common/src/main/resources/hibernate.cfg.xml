@@ -12,11 +12,11 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.default_schema">ESHOP_DESIGN_PATTERNS</property>
 
-        <mapping resource="gr/evansp/setup/user/def/models/User.hbm.xml"/>
-        <mapping resource="gr/evansp/setup/user/def/models/UserProfile.hbm.xml"/>
-        <mapping resource="gr/evansp/setup/user/def/models/Address.hbm.xml"/>
-        <mapping resource="gr/evansp/setup/product/def/models/Category.hbm.xml"/>
-        <mapping resource="gr/evansp/setup/product/def/models/Product.hbm.xml"/>
-        <mapping resource="gr/evansp/setup/product/def/models/Characteristic.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/user/def/models/User.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/user/def/models/UserProfile.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/user/def/models/Address.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/product/def/models/Category.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/product/def/models/Product.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/product/def/models/Characteristic.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

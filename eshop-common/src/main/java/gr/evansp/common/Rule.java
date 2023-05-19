@@ -1,5 +1,7 @@
 package gr.evansp.common;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 
 /**
@@ -26,6 +28,6 @@ public interface Rule<T extends Entity> extends Entity {
    * Main method of validator. Called to validate input object.
    * If the input object fails to validate, throws {@link RuleException}.
    */
-  public void apply() throws RuleException;
+  public void apply() throws RuleException, DataException, LogicException;
 
 }

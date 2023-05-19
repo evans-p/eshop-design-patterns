@@ -1,5 +1,7 @@
 package gr.evansp.setup.product.def.rules;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Category;
@@ -28,27 +30,27 @@ public class TestCategoryValidator {
 //  }
 
   @Test
-  public void testApply_ok() throws RuleException {
+  public void testApply_ok() throws RuleException, DataException, LogicException {
     sut.setInput(category);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCategoryId_null() throws RuleException {
+  public void testValidateCategoryId_null() throws RuleException, DataException, LogicException {
     Mockito.when(category.getCategoryId()).thenReturn(null);
     sut.setInput(category);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_null() throws RuleException {
+  public void testValidateName_null() throws RuleException, DataException, LogicException {
     Mockito.when(category.getName()).thenReturn(null);
     sut.setInput(category);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_empty() throws RuleException {
+  public void testValidateName_empty() throws RuleException, DataException, LogicException {
     Mockito.when(category.getName()).thenReturn("");
     sut.setInput(category);
     sut.apply();

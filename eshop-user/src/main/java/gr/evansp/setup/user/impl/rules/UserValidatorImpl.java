@@ -1,8 +1,11 @@
 package gr.evansp.setup.user.impl.rules;
 
+import gr.evansp.exceptions.DataException;
+import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.questions.UserEmailExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserProfileValidator;
 import gr.evansp.setup.user.def.rules.UserValidator;
 
@@ -13,9 +16,18 @@ import static gr.evansp.rules.RuleUtils.*;
  * implementation of {@link UserValidator}
  */
 public class UserValidatorImpl implements UserValidator {
+  private UserEmailExistsQuestion question = Factory.create(UserEmailExistsQuestion.class);
   private User input;
-
   private UserProfileValidator validator = Factory.create(UserProfileValidator.class);
+
+
+  public UserEmailExistsQuestion getQuestion() {
+    return question;
+  }
+  
+  public void setQuestion(UserEmailExistsQuestion question) {
+    this.question = question;
+  }
 
   @Override
   public User getInput() {
@@ -28,7 +40,7 @@ public class UserValidatorImpl implements UserValidator {
   }
 
   @Override
-  public void apply() throws RuleException {
+  public void apply() throws RuleException, DataException, LogicException {
     StringBuilder builder = new StringBuilder();
 
     builder.append(validateUserId());
@@ -56,7 +68,7 @@ public class UserValidatorImpl implements UserValidator {
     return "";
   }
 
-  private String validateEmail() {
+  private String validateEmail() throws DataException, LogicException {
     if (input.getEmail() == null)
       return "Email must not be null.";
     if (input.getEmail() == "")
@@ -69,6 +81,11 @@ public class UserValidatorImpl implements UserValidator {
       return "Email must contain '.' character after '@' character";
     if (input.getEmail().split("@")[1].chars().filter(c -> c == '.').count() > 1)
       return "Email must contain '.' exactly one character after '@' character";
+    question.setInput(input);
+    question.ask();
+    if (question.answer()) {
+      return "Email must be unique";
+    }
     return "";
   }
 

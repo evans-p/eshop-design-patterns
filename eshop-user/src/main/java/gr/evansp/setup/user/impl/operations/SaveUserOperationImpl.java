@@ -51,7 +51,7 @@ public class SaveUserOperationImpl implements SaveUserOperation {
     }
   }
 
-  private void saveNewUser() throws RuleException, DataException {
+  private void saveNewUser() throws RuleException, DataException, LogicException {
     // Validate input.
     validator.setInput(input);
     validator.apply();

@@ -4,13 +4,13 @@ import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.user.def.models.User;
-import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
+import gr.evansp.setup.user.def.questions.UserEmailExistsQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class UserIdExistsQuestionImpl implements UserIdExistsQuestion {
+public class UserEmailExistsQuestionImpl implements UserEmailExistsQuestion {
   private User input;
   private boolean answer;
 
@@ -29,11 +29,11 @@ public class UserIdExistsQuestionImpl implements UserIdExistsQuestion {
     if (input == null) {
       throw new LogicException("Input cannot be null.");
     }
-    if (input.getUserId() == null) {
+    if (input.getEmail() == null) {
       answer = false;
       return;
     }
-    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.userId=" + input.getUserId();
+    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.email='" + input.getEmail() + "'";
     try (
         Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {

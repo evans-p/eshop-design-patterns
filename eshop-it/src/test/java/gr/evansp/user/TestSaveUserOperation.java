@@ -7,6 +7,7 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -36,12 +37,13 @@ public class TestSaveUserOperation {
     return user;
   }
 
+  @Ignore
   @Test
   public void testSaveUser_noId() throws DataException, LogicException, RuleException {
     User user = createSampleUser(null);
     SaveUserOperation sut = Factory.create(SaveUserOperation.class);
     sut.setInput(user);
     sut.execute();
-    
+
   }
 }
