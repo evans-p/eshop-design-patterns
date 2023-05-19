@@ -24,10 +24,6 @@ public class Factory {
   //TODO: Move to a more appropriate place...
   //TODO: call findAllClasses in a static block, so that the classes are always available.
   //TODO: Move all configurations in a sigleton class, from where you can access Session Factory
-//  static {
-//    System.out.println("Configuring hibernate...");
-//    new Configuration().configure();
-//  }
 
   /**
    * private noArgs constructor.
@@ -118,7 +114,7 @@ public class Factory {
     return null;
   }
 
-  public static <M extends Entity> M createImplementation(Class<M> type) {
+  private static <M extends Entity> M createImplementation(Class<M> type) {
     Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
 
     for (Class clazz : classes) {

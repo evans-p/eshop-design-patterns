@@ -6,6 +6,7 @@ import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
@@ -19,16 +20,19 @@ import static org.mockito.Mockito.when;
 
 public class TestSaveUserOperationImpl {
   SaveUserOperationImpl sut;
+  UserProfile userProfile;
 
   @Before
   public void setup() {
     sut = Factory.create(SaveUserOperationImpl.class);
 
+    userProfile = Mockito.mock(UserProfile.class);
     sut.validator = Mockito.mock(UserValidator.class);
     sut.idExistsQuestion = Mockito.mock(UserIdExistsQuestion.class);
     sut.nextUserIdQuestion = Mockito.mock(NextUserIdQuestion.class);
     sut.dao = Mockito.mock(DAO.class);
     sut.setInput(Mockito.mock(User.class));
+    sut.input.setUserProfile(userProfile);
   }
 
   @Test(expected = LogicException.class)
@@ -42,6 +46,9 @@ public class TestSaveUserOperationImpl {
     when(sut.getInput().getUserId()).thenReturn(null);
     when(sut.nextUserIdQuestion.answer()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
+    doNothing().when(sut.input).setUserId(isA(Long.class));
+    when(sut.input.getUserProfile()).thenReturn(userProfile);
+    doNothing().when(userProfile).setUserId(isA(Long.class));
     doNothing().when(sut.dao).save(isA(User.class));
     sut.execute();
   }

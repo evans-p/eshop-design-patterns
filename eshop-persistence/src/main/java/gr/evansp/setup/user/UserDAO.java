@@ -2,6 +2,7 @@ package gr.evansp.setup.user;
 
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
+import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.user.def.models.User;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -22,7 +23,7 @@ public class UserDAO implements DAO<User> {
     if (id == null) {
       return null;
     }
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       User user = (User) session.get(User.class, id);
@@ -53,7 +54,7 @@ public class UserDAO implements DAO<User> {
 
   @Override
   public void save(User entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.persist(entity);

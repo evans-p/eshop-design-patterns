@@ -30,7 +30,9 @@ public class SaveUserOperationImpl implements SaveUserOperation {
 
     if (input.getUserId() == null) {
       nextUserIdQuestion.ask();
-      input.setUserId(nextUserIdQuestion.answer());
+      Long id = nextUserIdQuestion.answer();
+      input.setUserId(id);
+      input.getUserProfile().setUserId(id);
       saveNewUser();
       return;
     }

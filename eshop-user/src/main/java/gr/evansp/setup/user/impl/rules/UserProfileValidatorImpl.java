@@ -40,9 +40,11 @@ public class UserProfileValidatorImpl implements UserProfileValidator {
     if (builder.toString().length() > 0)
       throw new RuleException(builder.toString());
 
-    for (Address address : input.getAddresses()) {
-      addressValidator.setInput(address);
-      addressValidator.apply();
+    if ((input.getAddresses() != null) && (!input.getAddresses().isEmpty())) {
+      for (Address address : input.getAddresses()) {
+        addressValidator.setInput(address);
+        addressValidator.apply();
+      }
     }
   }
 

@@ -2,9 +2,9 @@ package gr.evansp.setup.user.impl.questions;
 
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
+import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.NativeQuery;
 
 public class NextUserIdQuestionImpl implements NextUserIdQuestion {
@@ -14,7 +14,7 @@ public class NextUserIdQuestionImpl implements NextUserIdQuestion {
   public void ask() throws DataException, LogicException {
 
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('USER_ID_SEQUENCE');");
