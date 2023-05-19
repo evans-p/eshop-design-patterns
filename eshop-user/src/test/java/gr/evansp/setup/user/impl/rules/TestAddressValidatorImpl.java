@@ -1,10 +1,11 @@
-package gr.evansp.setup.user.def.rules;
+package gr.evansp.setup.user.impl.rules;
 
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
 import gr.evansp.setup.user.def.models.UserProfile;
-import org.junit.After;
+import gr.evansp.setup.user.def.rules.AddressValidator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -12,7 +13,7 @@ import org.mockito.Mockito;
 /**
  * Test class for {@link AddressValidator}
  */
-public class TestAddressValidator {
+public class TestAddressValidatorImpl {
   private Address address;
   private UserProfile userProfile;
   private AddressValidator sut = Factory.create(AddressValidator.class);
@@ -31,9 +32,10 @@ public class TestAddressValidator {
     Mockito.when(address.getAddressId()).thenReturn(100l);
   }
 
-  @After
-  public void cleanup() {
-    address = null;
+  @Test
+  public void testGetInput() {
+    sut.setInput(address);
+    Assert.assertEquals(address, sut.getInput());
   }
 
   @Test

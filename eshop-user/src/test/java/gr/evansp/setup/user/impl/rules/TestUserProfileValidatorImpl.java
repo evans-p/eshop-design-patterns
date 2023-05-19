@@ -1,9 +1,11 @@
-package gr.evansp.setup.user.def.rules;
+package gr.evansp.setup.user.impl.rules;
 
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.UserProfile;
+import gr.evansp.setup.user.def.rules.UserProfileValidator;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,7 +18,7 @@ import java.util.Collections;
 /**
  * Test class for {@link UserProfileValidator}
  */
-public class TestUserProfileValidator {
+public class TestUserProfileValidatorImpl {
   private UserProfile userProfile;
   private UserProfileValidator sut = Factory.create(UserProfileValidator.class);
 
@@ -37,6 +39,12 @@ public class TestUserProfileValidator {
   @After
   public void cleanup() {
     userProfile = null;
+  }
+
+  @Test
+  public void testGetInput() {
+    sut.setInput(userProfile);
+    Assert.assertEquals(userProfile, sut.getInput());
   }
 
   @Test
