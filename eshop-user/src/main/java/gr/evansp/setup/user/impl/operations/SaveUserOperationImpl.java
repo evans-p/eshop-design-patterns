@@ -7,21 +7,20 @@ import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
+import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
-import gr.evansp.setup.user.impl.questions.NextUserIdQuestionImpl;
 
 
 /**
  * Implementation of {@link SaveUserOperation}
  */
 public class SaveUserOperationImpl implements SaveUserOperation {
-  UserValidator validator = Factory.create(UserValidator.class);
-  UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
-  NextUserIdQuestionImpl nextUserIdQuestion = Factory.create(NextUserIdQuestionImpl.class);
-  DAO<User> dao = Factory.createPersistence(User.class);
-
-  private User input;
+  public UserValidator validator = Factory.create(UserValidator.class);
+  public UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
+  public NextUserIdQuestion nextUserIdQuestion = Factory.create(NextUserIdQuestion.class);
+  public DAO<User> dao = Factory.createPersistence(User.class);
+  User input;
 
   @Override
   public void execute() throws DataException, RuleException, LogicException {

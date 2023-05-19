@@ -2,7 +2,6 @@ package gr.evansp.factory;
 
 import gr.evansp.common.DAO;
 import gr.evansp.common.Entity;
-import org.hibernate.cfg.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -24,10 +23,11 @@ public class Factory {
 
   //TODO: Move to a more appropriate place...
   //TODO: call findAllClasses in a static block, so that the classes are always available.
-  static {
-    System.out.println("Configuring hibernate...");
-    new Configuration().configure();
-  }
+  //TODO: Move all configurations in a sigleton class, from where you can access Session Factory
+//  static {
+//    System.out.println("Configuring hibernate...");
+//    new Configuration().configure();
+//  }
 
   /**
    * private noArgs constructor.
@@ -43,7 +43,9 @@ public class Factory {
    * @return an instance of the class provided.
    */
   public static <M extends Entity> M create(Class<M> type) {
-    return getClassImplementation(type);
+    if (type.isInterface())
+      return getImplementationByInterface(type);
+    return createImplementation(type);
   }
 
   /**
@@ -66,7 +68,7 @@ public class Factory {
    * @param type the class
    * @return Instance of the class provided.
    */
-  private static <M extends Entity> M getClassImplementation(Class<M> type) {
+  private static <M extends Entity> M getImplementationByInterface(Class<M> type) {
     Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
 
     for (Class clazz : classes) {
@@ -110,6 +112,26 @@ public class Factory {
               }
             }
           }
+        }
+      }
+    }
+    return null;
+  }
+
+  public static <M extends Entity> M createImplementation(Class<M> type) {
+    Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
+
+    for (Class clazz : classes) {
+      if (clazz.isInterface()) {
+        continue;
+      }
+      if (clazz.equals(type)) {
+
+        try {
+          return (M) clazz.getConstructor().newInstance();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+                 | InvocationTargetException e) {
+          System.out.println("Failed to create object");
         }
       }
     }
