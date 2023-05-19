@@ -9,7 +9,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,9 @@ public class UserDAO implements DAO<User> {
     if (id == null) {
       return null;
     }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
+    ) {
 
       session.beginTransaction();
       User user = (User) session.get(User.class, id);
@@ -37,7 +38,7 @@ public class UserDAO implements DAO<User> {
   @Override
   public List<User> getAll() throws DataException {
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -54,7 +55,9 @@ public class UserDAO implements DAO<User> {
 
   @Override
   public void save(User entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
+    ) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -67,7 +70,7 @@ public class UserDAO implements DAO<User> {
   @Override
   public void update(User entity) throws DataException {
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       session.beginTransaction();
@@ -81,7 +84,7 @@ public class UserDAO implements DAO<User> {
   @Override
   public void delete(User entity) throws DataException {
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       session.beginTransaction();
