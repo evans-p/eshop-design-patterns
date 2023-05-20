@@ -9,7 +9,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,14 +29,14 @@ public class AddressDAO implements DAO<Address> {
       session.close();
       return address;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e.getStackTrace().toString());
     }
   }
 
   @Override
   public List<Address> getAll() throws DataException {
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -54,7 +53,7 @@ public class AddressDAO implements DAO<Address> {
 
   @Override
   public void save(Address entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -66,7 +65,7 @@ public class AddressDAO implements DAO<Address> {
 
   @Override
   public void update(Address entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -78,7 +77,7 @@ public class AddressDAO implements DAO<Address> {
 
   @Override
   public void delete(Address entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.remove(entity);

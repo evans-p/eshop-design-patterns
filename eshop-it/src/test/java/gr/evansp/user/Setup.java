@@ -1,18 +1,19 @@
+package gr.evansp.user;
+
 import gr.evansp.factory.Factory;
+import gr.evansp.setup.user.def.models.Address;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.models.UserProfile;
 
 import java.util.Calendar;
+import java.util.Random;
 
-/**
- * Setup class for Integration Tests. Creates sample Objects.
- */
 public class Setup {
-  /**
-   * Empty Noarg Constructor.
-   */
-  private Setup() {
-    //EMPTY
+  public static int generateRandomNumber() {
+    Random r = new Random();
+    int low = 10;
+    int high = 10000;
+    return r.nextInt(high - low) + low;
   }
 
   public static User createSampleUser(Long id) {
@@ -20,9 +21,8 @@ public class Setup {
     UserProfile profile = Factory.create(UserProfile.class);
 
     user.setUserId(id);
-    user.setEmail("example");
+    user.setEmail(generateRandomNumber() + "example@example.com");
     user.setPassword("12345678@asd");
-
 
     profile.setUserId(id);
     profile.setFirstName("Evans");
@@ -33,5 +33,17 @@ public class Setup {
 
     user.setUserProfile(profile);
     return user;
+  }
+
+  public static Address createSampleAddress() {
+    Address address = Factory.create(Address.class);
+
+    address.setPostalCode("123");
+    address.setCountry("example");
+    address.setCity("example");
+    address.setStreetName("example");
+    address.setStreetNumber("123");
+
+    return address;
   }
 }

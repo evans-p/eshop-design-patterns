@@ -6,54 +6,23 @@ import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
-import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Integration test class for user.
+ * Integration test class for {@link User}.
  */
-public class TestUserOperationsIT {
-
-  public static int generateRandomNumber() {
-    Random r = new Random();
-    int low = 10;
-    int high = 10000;
-    return r.nextInt(high - low) + low;
-  }
-
-  public static User createSampleUser(Long id) {
-    User user = Factory.create(User.class);
-    UserProfile profile = Factory.create(UserProfile.class);
-
-    user.setUserId(id);
-    user.setEmail(generateRandomNumber() + "example@example.com");
-    user.setPassword("12345678@asd");
-
-
-    profile.setUserId(id);
-    profile.setFirstName("Evans");
-    profile.setLastName("Poulakis");
-    profile.setPhoneNo("6978418570");
-    profile.setDateAdded(Calendar.getInstance().getTime());
-    profile.setDateLastModified(Calendar.getInstance().getTime());
-
-    user.setUserProfile(profile);
-    return user;
-  }
-
+public class TestUserOperationsIT extends Setup {
   @Test
   public void testSaveUser_noId() throws DataException, LogicException, RuleException {
     User user = createSampleUser(null);
     SaveUserOperation sut = Factory.create(SaveUserOperation.class);
     sut.setInput(user);
     sut.execute();
-
   }
 
   @Test

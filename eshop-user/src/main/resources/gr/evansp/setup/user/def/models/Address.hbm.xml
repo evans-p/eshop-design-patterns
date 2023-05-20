@@ -22,7 +22,8 @@
         <property name="country" type="java.lang.String">
             <column name="COUNTRY" sql-type="VARCHAR(50)" not-null="true"/>
         </property>
-        <many-to-one name="userProfile" class="UserProfile" cascade="all" lazy="false" fetch="select">
+        <many-to-one name="userProfile" class="UserProfile" cascade="save-update" lazy="false" fetch="select"
+                     foreign-key="">
             <column name="USER_ID" sql-type="BIGINT" not-null="true"/>
         </many-to-one>
         <subclass name="gr.evansp.setup.user.impl.models.AddressImpl" discriminator-value="U"/>
