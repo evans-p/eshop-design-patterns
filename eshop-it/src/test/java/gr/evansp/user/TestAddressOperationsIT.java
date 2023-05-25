@@ -49,4 +49,29 @@ public class TestAddressOperationsIT extends Setup {
     dao.delete(sut.getInput());
     Assert.assertNull(dao.get(sut.getInput().getAddressId()));
   }
+
+  @Test
+  public void TestUpdateAddress() throws DataException, LogicException, RuleException {
+    User user = createSampleUser(null);
+    SaveUserOperation sut2 = Factory.create(SaveUserOperation.class);
+    sut2.setInput(user);
+    sut2.execute();
+
+    Address address = createSampleAddress();
+    address.setUserProfile(user.getUserProfile());
+    SaveAddressOperation sut = Factory.create(SaveAddressOperation.class);
+    sut.setInput(address);
+    sut.execute();
+
+    DAO<Address> dao = Factory.createPersistence(Address.class);
+    Address returned = dao.get(sut.getInput().getAddressId());
+
+    Assert.assertEquals(returned, address);
+
+    returned.setCity("AncientEpidauros");
+    sut.setInput(returned);
+    sut.execute();
+    returned = dao.get(sut.getInput().getAddressId());
+    Assert.assertNotEquals(returned.getCity(), address.getCity());
+  }
 }
