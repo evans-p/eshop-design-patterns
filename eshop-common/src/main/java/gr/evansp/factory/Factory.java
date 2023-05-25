@@ -4,11 +4,15 @@ import gr.evansp.common.DAO;
 import gr.evansp.common.Entity;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,10 +24,14 @@ import java.util.stream.Collectors;
  */
 public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
+  private static Map<Class, Class> interfaceToClassMap = new HashMap<>();
+  private static Map<Class, Class> interfaceToDAOMap = new HashMap<>();
 
-  //TODO: Move to a more appropriate place...
   //TODO: call findAllClasses in a static block, so that the classes are always available.
-  //TODO: Move all configurations in a sigleton class, from where you can access Session Factory
+
+  static {
+    fillInterfaceToDAOMap();
+  }
 
   /**
    * private noArgs constructor.
@@ -65,28 +73,47 @@ public class Factory {
    * @return Instance of the class provided.
    */
   private static <M extends Entity> M getImplementationByInterface(Class<M> type) {
-    Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
+    if (!interfaceToClassMap.containsKey(type)) {
+      fillInterfaceToClassMap();
+    }
 
-    for (Class clazz : classes) {
-      if (clazz.isInterface()) {
-        continue;
-      }
-
-      if (Arrays.asList(clazz.getInterfaces()).contains(type)) {
-        try {
-          return (M) clazz.getConstructor().newInstance();
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                 | InvocationTargetException e) {
-          System.out.println("Failed to create object");
-        }
-      }
+    try {
+      return (M) interfaceToClassMap.get(type).getConstructor().newInstance();
+    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+             | InvocationTargetException e) {
+      System.out.println("Failed to create object");
     }
     return null;
   }
 
   public static <M extends Entity> DAO<M> createPersistence(Class<M> type) {
-    Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
+    if (!interfaceToDAOMap.containsKey(type)) {
+      fillInterfaceToDAOMap();
+    }
+    try {
+      return (DAO<M>) interfaceToDAOMap.get(type).getConstructor().newInstance();
+    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+             | InvocationTargetException e) {
+      System.out.println("Failed to create object");
+    }
+    return null;
+  }
 
+  private static <M extends Entity> M createImplementation(Class<M> type) {
+    try {
+      return (M) type.getConstructor().newInstance();
+    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
+             | InvocationTargetException e) {
+      System.out.println("Failed to create object");
+    }
+    return null;
+  }
+
+  private static <M extends Entity> void fillInterfaceToDAOMap() {
+    Reflections reflections = new Reflections(new ConfigurationBuilder()
+        .setUrls(ClasspathHelper.forPackage(BASE_PACKAGE_NAME))
+        .setScanners(new SubTypesScanner(false)));
+    Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
     for (Class clazz : classes) {
       if (clazz.isInterface()) {
         continue;
@@ -99,38 +126,24 @@ public class Factory {
         if (interfaze instanceof ParameterizedType) {
           Type[] genericTypes = ((ParameterizedType) interfaze).getActualTypeArguments();
           for (Type type1 : genericTypes) {
-            if (type1.equals(type)) {
-              try {
-                return (DAO<M>) clazz.getConstructor().newInstance();
-              } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                       | InvocationTargetException e) {
-                System.out.println("Failed to create object");
-              }
-            }
+            interfaceToDAOMap.put((Class) type1, clazz);
           }
         }
       }
     }
-    return null;
   }
 
-  private static <M extends Entity> M createImplementation(Class<M> type) {
-    Set<Class> classes = findAllClasses(BASE_PACKAGE_NAME);
-
+  private static void fillInterfaceToClassMap() {
+    Reflections reflections = new Reflections(new ConfigurationBuilder()
+        .setUrls(ClasspathHelper.forPackage(BASE_PACKAGE_NAME))
+        .setScanners(new SubTypesScanner(false)));
+    Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
     for (Class clazz : classes) {
-      if (clazz.isInterface()) {
-        continue;
-      }
-      if (clazz.equals(type)) {
-
-        try {
-          return (M) clazz.getConstructor().newInstance();
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-                 | InvocationTargetException e) {
-          System.out.println("Failed to create object");
+      if (!clazz.isInterface()) {
+        for (Class c : clazz.getInterfaces()) {
+          interfaceToClassMap.put(c, clazz);
         }
       }
     }
-    return null;
   }
 }
