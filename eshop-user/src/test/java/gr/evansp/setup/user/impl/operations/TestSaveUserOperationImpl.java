@@ -10,6 +10,7 @@ import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -73,5 +74,12 @@ public class TestSaveUserOperationImpl {
     doNothing().when(sut.dao).update(isA(User.class));
 
     sut.execute();
+  }
+
+  @Test
+  public void testGetInput() {
+    User user = Mockito.mock(User.class);
+    sut.setInput(user);
+    Assert.assertEquals(sut.getInput(), user);
   }
 }

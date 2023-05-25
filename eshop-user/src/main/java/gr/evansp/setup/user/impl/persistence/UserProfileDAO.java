@@ -1,4 +1,4 @@
-package gr.evansp.setup.user;
+package gr.evansp.setup.user.impl.persistence;
 
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
@@ -9,7 +9,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +36,7 @@ public class UserProfileDAO implements DAO<UserProfile> {
   @Override
   public List<UserProfile> getAll() throws DataException {
     try (
-        Session session = new Configuration().buildSessionFactory().openSession();
+        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -54,7 +53,7 @@ public class UserProfileDAO implements DAO<UserProfile> {
 
   @Override
   public void save(UserProfile entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -66,7 +65,7 @@ public class UserProfileDAO implements DAO<UserProfile> {
 
   @Override
   public void update(UserProfile entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -78,13 +77,11 @@ public class UserProfileDAO implements DAO<UserProfile> {
 
   @Override
   public void delete(UserProfile entity) throws DataException {
-    try (Session session = new Configuration().buildSessionFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.remove(entity);
       session.getTransaction().commit();
-    } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
     }
   }
 }

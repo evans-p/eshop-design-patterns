@@ -16,11 +16,25 @@ import java.util.Random;
 /**
  * Integration test class for {@link User}.
  */
-public class TestUserOperationsIT extends Setup {
+public class TestCRUDUserOperationsIT extends Setup {
   @Test
   public void testSaveUser_noId() throws DataException, LogicException, RuleException {
     User user = createSampleUser(null);
     SaveUserOperation sut = Factory.create(SaveUserOperation.class);
+    sut.setInput(user);
+    sut.execute();
+  }
+
+  @Test
+  public void testSaveUser_noProfile() throws DataException, LogicException, RuleException {
+    User user = createSampleUser(null);
+    user.setUserProfile(null);
+    SaveUserOperation sut = Factory.create(SaveUserOperation.class);
+    sut.setInput(user);
+    sut.execute();
+
+    user.setUserId(sut.getInput().getUserId());
+    user.setUserProfile(createSampleUserProfile(sut.getInput().getUserId()));
     sut.setInput(user);
     sut.execute();
   }

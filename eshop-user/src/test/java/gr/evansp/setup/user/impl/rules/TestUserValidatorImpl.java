@@ -55,20 +55,11 @@ public class TestUserValidatorImpl {
   @Test
   public void testGetInput() {
     sut.setInput(user);
-//    sut.set
     Assert.assertEquals(user, sut.getInput());
   }
 
   @Test
   public void testApply_ok() throws RuleException, DataException, LogicException {
-    sut.setInput(user);
-    sut.setQuestion(question);
-    sut.apply();
-  }
-
-  @Test(expected = RuleException.class)
-  public void testValidateUserProfile_null() throws RuleException, DataException, LogicException {
-    Mockito.when(user.getUserProfile()).thenReturn(null);
     sut.setInput(user);
     sut.setQuestion(question);
     sut.apply();

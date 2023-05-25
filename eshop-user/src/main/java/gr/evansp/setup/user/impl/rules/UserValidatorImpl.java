@@ -24,7 +24,7 @@ public class UserValidatorImpl implements UserValidator {
   public UserEmailExistsQuestion getQuestion() {
     return question;
   }
-  
+
   public void setQuestion(UserEmailExistsQuestion question) {
     this.question = question;
   }
@@ -46,13 +46,14 @@ public class UserValidatorImpl implements UserValidator {
     builder.append(validateUserId());
     builder.append(validateEmail());
     builder.append(validatePassword());
-    builder.append(validateUserProfile());
 
     if (builder.toString().length() > 0)
       throw new RuleException(builder.toString());
 
-    validator.setInput(input.getUserProfile());
-    validator.apply();
+    if (input.getUserProfile() != null) {
+      validator.setInput(input.getUserProfile());
+      validator.apply();
+    }
   }
 
   private String validateUserProfile() {

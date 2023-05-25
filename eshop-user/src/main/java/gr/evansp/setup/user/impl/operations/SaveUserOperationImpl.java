@@ -16,10 +16,10 @@ import gr.evansp.setup.user.def.rules.UserValidator;
  * Implementation of {@link SaveUserOperation}
  */
 public class SaveUserOperationImpl implements SaveUserOperation {
-  public UserValidator validator = Factory.create(UserValidator.class);
-  public UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
-  public NextUserIdQuestion nextUserIdQuestion = Factory.create(NextUserIdQuestion.class);
-  public DAO<User> dao = Factory.createPersistence(User.class);
+  UserValidator validator = Factory.create(UserValidator.class);
+  UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
+  NextUserIdQuestion nextUserIdQuestion = Factory.create(NextUserIdQuestion.class);
+  DAO<User> dao = Factory.createPersistence(User.class);
   User input;
 
   @Override
@@ -27,28 +27,24 @@ public class SaveUserOperationImpl implements SaveUserOperation {
     if (input == null) {
       throw new LogicException("Input(User) cannot be null.");
     }
-
+    //TODO Create Flow for no userProfile.
     if (input.getUserId() == null) {
       nextUserIdQuestion.ask();
       Long id = nextUserIdQuestion.answer();
       input.setUserId(id);
-      input.getUserProfile().setUserId(id);
+      if (input.getUserProfile() != null) {
+        input.getUserProfile().setUserId(id);
+      }
       saveNewUser();
       return;
+    }
+    if (input.getUserProfile() != null) {
+      input.getUserProfile().setUserId(input.getUserId());
     }
     // Validate input.
     validator.setInput(input);
     validator.apply();
-    // Check if user PK already exists in User DB table(TBUSER).
-    idExistsQuestion.setInput(input);
-    idExistsQuestion.ask();
-
-    if (idExistsQuestion.answer()) {
-      // user Id already exists.
-      dao.update(input);
-    } else {
-      dao.save(input);
-    }
+    dao.update(input);
   }
 
   private void saveNewUser() throws RuleException, DataException, LogicException {

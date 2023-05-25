@@ -16,6 +16,17 @@ public class Setup {
     return r.nextInt(high - low) + low;
   }
 
+  public static UserProfile createSampleUserProfile(Long id) {
+    UserProfile profile = Factory.create(UserProfile.class);
+    profile.setUserId(id);
+    profile.setFirstName("Evans");
+    profile.setLastName("Poulakis");
+    profile.setPhoneNo("6978418570");
+    profile.setDateAdded(Calendar.getInstance().getTime());
+    profile.setDateLastModified(Calendar.getInstance().getTime());
+    return profile;
+  }
+
   public static User createSampleUser(Long id) {
     User user = Factory.create(User.class);
     UserProfile profile = Factory.create(UserProfile.class);

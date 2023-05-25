@@ -21,8 +21,8 @@ import java.util.Collections;
  * Test class for {@link UserProfileValidator}
  */
 public class TestUserProfileValidatorImpl {
-  private UserProfile userProfile;
-  private UserProfileValidator sut = Factory.create(UserProfileValidator.class);
+  UserProfile userProfile;
+  UserProfileValidator sut = Factory.create(UserProfileValidator.class);
 
   @Before
   public void setup() {

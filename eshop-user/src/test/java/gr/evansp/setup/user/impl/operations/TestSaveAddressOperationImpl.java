@@ -9,6 +9,7 @@ import gr.evansp.setup.user.def.models.Address;
 import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.NextAddressIdQuestion;
 import gr.evansp.setup.user.def.rules.AddressValidator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -62,5 +63,12 @@ public class TestSaveAddressOperationImpl {
     doNothing().when(sut.dao).update(isA(Address.class));
 
     sut.execute();
+  }
+
+  @Test
+  public void testGetInput() {
+    Address address = Mockito.mock(Address.class);
+    sut.setInput(address);
+    Assert.assertEquals(sut.getInput(), address);
   }
 }

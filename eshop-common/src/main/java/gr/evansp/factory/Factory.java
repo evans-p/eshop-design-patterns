@@ -27,12 +27,6 @@ public class Factory {
   private static Map<Class, Class> interfaceToClassMap = new HashMap<>();
   private static Map<Class, Class> interfaceToDAOMap = new HashMap<>();
 
-  //TODO: call findAllClasses in a static block, so that the classes are always available.
-
-  static {
-    fillInterfaceToDAOMap();
-  }
-
   /**
    * private noArgs constructor.
    */
@@ -81,7 +75,7 @@ public class Factory {
       return (M) interfaceToClassMap.get(type).getConstructor().newInstance();
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
              | InvocationTargetException e) {
-      System.out.println("Failed to create object");
+      //EMPTY
     }
     return null;
   }
@@ -94,7 +88,7 @@ public class Factory {
       return (DAO<M>) interfaceToDAOMap.get(type).getConstructor().newInstance();
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
              | InvocationTargetException e) {
-      System.out.println("Failed to create object");
+      //EMPTY
     }
     return null;
   }
@@ -104,7 +98,7 @@ public class Factory {
       return (M) type.getConstructor().newInstance();
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
              | InvocationTargetException e) {
-      System.out.println("Failed to create object");
+      //EMPTY
     }
     return null;
   }
@@ -141,7 +135,9 @@ public class Factory {
     for (Class clazz : classes) {
       if (!clazz.isInterface()) {
         for (Class c : clazz.getInterfaces()) {
-          interfaceToClassMap.put(c, clazz);
+          if (!interfaceToClassMap.containsKey(c)) {
+            interfaceToClassMap.put(c, clazz);
+          }
         }
       }
     }

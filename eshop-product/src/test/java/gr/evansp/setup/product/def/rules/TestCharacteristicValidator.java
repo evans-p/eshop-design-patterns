@@ -6,6 +6,8 @@ import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
+import gr.evansp.setup.product.impl.rules.CharacteristicValidatorImpl;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,7 +18,7 @@ import org.mockito.Mockito;
 public class TestCharacteristicValidator {
   private Characteristic characteristic;
   private Product product;
-  private CharacteristicValidator sut = Factory.create(CharacteristicValidator.class);
+  private CharacteristicValidatorImpl sut = Factory.create(CharacteristicValidatorImpl.class);
 
   @Before
   public void setup() {
@@ -27,6 +29,12 @@ public class TestCharacteristicValidator {
     Mockito.when(characteristic.getProduct()).thenReturn(product);
     Mockito.when(characteristic.getName()).thenReturn("Characteristic1");
     Mockito.when(characteristic.getValue()).thenReturn("value");
+  }
+
+  @Test
+  public void testGetInput() {
+    sut.setInput(characteristic);
+    Assert.assertEquals(characteristic, sut.getInput());
   }
 
   @Test

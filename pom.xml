@@ -13,7 +13,6 @@
         <module>eshop-product</module>
         <module>eshop-user</module>
         <module>eshop-it</module>
-        <module>eshop-persistence</module>
     </modules>
 
     <properties>

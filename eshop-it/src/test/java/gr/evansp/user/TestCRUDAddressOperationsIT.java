@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Integration test class for {@link Address}.
  */
-public class TestAddressOperationsIT extends Setup {
+public class TestCRUDAddressOperationsIT extends Setup {
   @Test
   public void TestSaveNewAddress() throws DataException, LogicException, RuleException {
     User user = createSampleUser(null);

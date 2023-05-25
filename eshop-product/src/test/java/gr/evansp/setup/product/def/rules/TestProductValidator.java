@@ -7,6 +7,8 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
+import gr.evansp.setup.product.impl.rules.ProductValidatorImpl;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,14 +26,14 @@ public class TestProductValidator {
   private Product product;
   private Category category;
   private Characteristic characteristic;
-  private ProductValidator sut;
+  private ProductValidatorImpl sut;
 
   @Before
   public void setup() {
     product = Mockito.mock(Product.class);
     category = Mockito.mock(Category.class);
     characteristic = Mockito.mock(Characteristic.class);
-    sut = Factory.create(ProductValidator.class);
+    sut = Factory.create(ProductValidatorImpl.class);
 
     Mockito.when(product.getProductId()).thenReturn(10L);
     Mockito.when(product.getSKU()).thenReturn("SKU");
@@ -49,6 +51,12 @@ public class TestProductValidator {
     Mockito.when(characteristic.getProduct()).thenReturn(product);
     Mockito.when(characteristic.getName()).thenReturn("Characteristic1");
     Mockito.when(characteristic.getValue()).thenReturn("value");
+  }
+
+  @Test
+  public void testGetInput() {
+    sut.setInput(product);
+    Assert.assertEquals(product, sut.getInput());
   }
 
   @Test

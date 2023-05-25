@@ -1,4 +1,4 @@
-package gr.evansp.setup.user;
+package gr.evansp.setup.user.impl.persistence;
 
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;

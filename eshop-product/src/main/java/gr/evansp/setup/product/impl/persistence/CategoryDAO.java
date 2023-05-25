@@ -1,9 +1,9 @@
-package gr.evansp.setup.user;
+package gr.evansp.setup.product.impl.persistence;
 
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
-import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.product.def.models.Category;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -13,40 +13,35 @@ import org.hibernate.Session;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Implementation of {@link DAO} for {@link User}
- */
-public class UserDAO implements DAO<User> {
+public class CategoryDAO implements DAO<Category> {
   @Override
-  public User get(Long id) throws DataException {
+  public Category get(Long id) throws DataException {
     if (id == null) {
       return null;
     }
-    try (
-        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
-    ) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
-      User user = (User) session.get(User.class, id);
+      Category address = (Category) session.get(Category.class, id);
       session.close();
-      return user;
+      return address;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e.getStackTrace().toString());
     }
   }
 
   @Override
-  public List<User> getAll() throws DataException {
+  public List<Category> getAll() throws DataException {
     try (
         Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {
 
       CriteriaBuilder cb = session.getCriteriaBuilder();
-      CriteriaQuery<User> cq = cb.createQuery(User.class);
-      Root<User> rootEntry = cq.from(User.class);
-      CriteriaQuery<User> all = cq.select(rootEntry);
+      CriteriaQuery<Category> cq = cb.createQuery(Category.class);
+      Root<Category> rootEntry = cq.from(Category.class);
+      CriteriaQuery<Category> all = cq.select(rootEntry);
 
-      TypedQuery<User> allQuery = session.createQuery(all);
+      TypedQuery<Category> allQuery = session.createQuery(all);
       return allQuery.getResultList();
     } catch (Exception e) {
       throw new DataException(e.getStackTrace().toString());
@@ -54,38 +49,32 @@ public class UserDAO implements DAO<User> {
   }
 
   @Override
-  public void save(User entity) throws DataException {
-    try (
-        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
-    ) {
+  public void save(Category entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.persist(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public void update(User entity) throws DataException {
-    try (
-        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
-    ) {
+  public void update(Category entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.merge(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public void delete(User entity) throws DataException {
-    try (
-        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
-    ) {
+  public void delete(Category entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
       session.remove(entity);

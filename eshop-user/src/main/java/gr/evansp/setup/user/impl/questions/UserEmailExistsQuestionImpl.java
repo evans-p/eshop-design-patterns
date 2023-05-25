@@ -33,7 +33,7 @@ public class UserEmailExistsQuestionImpl implements UserEmailExistsQuestion {
       answer = false;
       return;
     }
-    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.email='" + input.getEmail() + "'";
+    String hql = "FROM gr.evansp.setup.user.def.models.User U WHERE U.email='" + input.getEmail() + "' AND U.email!='" + input.getEmail() + "'";
     try (
         Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
     ) {

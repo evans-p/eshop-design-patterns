@@ -14,9 +14,9 @@ import gr.evansp.setup.user.def.rules.AddressValidator;
  * Implementation of {@link SaveAddressOperation}
  */
 public class SaveAddressOperationImpl implements SaveAddressOperation {
-  public AddressValidator validator = Factory.create(AddressValidator.class);
-  public DAO<Address> dao = Factory.createPersistence(Address.class);
-  public NextAddressIdQuestion question = Factory.create(NextAddressIdQuestion.class);
+  AddressValidator validator = Factory.create(AddressValidator.class);
+  DAO<Address> dao = Factory.createPersistence(Address.class);
+  NextAddressIdQuestion question = Factory.create(NextAddressIdQuestion.class);
 
   Address input;
 

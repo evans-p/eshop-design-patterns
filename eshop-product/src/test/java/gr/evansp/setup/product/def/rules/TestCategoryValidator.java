@@ -5,6 +5,8 @@ import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Category;
+import gr.evansp.setup.product.impl.rules.CategoryValidatorImpl;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -14,7 +16,7 @@ import org.mockito.Mockito;
  */
 public class TestCategoryValidator {
   private Category category;
-  private CategoryValidator sut = Factory.create(CategoryValidator.class);
+  private CategoryValidatorImpl sut = Factory.create(CategoryValidatorImpl.class);
 
   @Before
   public void setup() {
@@ -24,10 +26,11 @@ public class TestCategoryValidator {
     Mockito.when(category.getName()).thenReturn("Category");
   }
 
-//  @After
-//  public void cleanup() {
-//    category = null;
-//  }
+  @Test
+  public void testGetInput() {
+    sut.setInput(category);
+    Assert.assertEquals(category, sut.getInput());
+  }
 
   @Test
   public void testApply_ok() throws RuleException, DataException, LogicException {
