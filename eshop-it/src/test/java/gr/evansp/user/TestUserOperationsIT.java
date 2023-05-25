@@ -72,5 +72,6 @@ public class TestUserOperationsIT extends Setup {
   public void testGetAllUsers() throws DataException, LogicException, RuleException {
     DAO<User> dao = Factory.createPersistence(User.class);
     List<User> returned = dao.getAll();
+    Assert.assertTrue(!returned.isEmpty());
   }
 }

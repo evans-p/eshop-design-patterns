@@ -12,6 +12,8 @@ import gr.evansp.setup.user.def.operations.SaveUserOperation;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * Integration test class for {@link Address}.
  */
@@ -73,5 +75,12 @@ public class TestAddressOperationsIT extends Setup {
     sut.execute();
     returned = dao.get(sut.getInput().getAddressId());
     Assert.assertNotEquals(returned.getCity(), address.getCity());
+  }
+
+  @Test
+  public void testGetAllAddresses() throws DataException, LogicException, RuleException {
+    DAO<Address> dao = Factory.createPersistence(Address.class);
+    List<Address> returned = dao.getAll();
+    Assert.assertTrue(!returned.isEmpty());
   }
 }
