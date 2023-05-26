@@ -8,7 +8,6 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
-import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
 
 
@@ -17,7 +16,6 @@ import gr.evansp.setup.user.def.rules.UserValidator;
  */
 public class SaveUserOperationImpl implements SaveUserOperation {
   UserValidator validator = Factory.create(UserValidator.class);
-  UserIdExistsQuestion idExistsQuestion = Factory.create(UserIdExistsQuestion.class);
   NextUserIdQuestion nextUserIdQuestion = Factory.create(NextUserIdQuestion.class);
   DAO<User> dao = Factory.createPersistence(User.class);
   User input;
@@ -27,7 +25,6 @@ public class SaveUserOperationImpl implements SaveUserOperation {
     if (input == null) {
       throw new LogicException("Input(User) cannot be null.");
     }
-    //TODO Create Flow for no userProfile.
     if (input.getUserId() == null) {
       nextUserIdQuestion.ask();
       Long id = nextUserIdQuestion.answer();

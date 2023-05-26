@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 
 /**
@@ -44,20 +43,6 @@ public class Factory {
     if (type.isInterface())
       return getImplementationByInterface(type);
     return createImplementation(type);
-  }
-
-  /**
-   * A method that receives a package name, as a string, and returns all the
-   * classes and interfaces in the package provided.
-   *
-   * @param packageName the name of a package. Example: gr.evansp.setup.
-   * @return a set of all the classes and interfaces in the package provided.
-   */
-  private static Set<Class> findAllClasses(String packageName) {
-    Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
-    return reflections.getSubTypesOf(Object.class)
-        .stream()
-        .collect(Collectors.toSet());
   }
 
   /**

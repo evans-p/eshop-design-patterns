@@ -8,7 +8,6 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
-import gr.evansp.setup.user.def.questions.UserIdExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +28,6 @@ public class TestSaveUserOperationImpl {
 
     userProfile = Mockito.mock(UserProfile.class);
     sut.validator = Mockito.mock(UserValidator.class);
-    sut.idExistsQuestion = Mockito.mock(UserIdExistsQuestion.class);
     sut.nextUserIdQuestion = Mockito.mock(NextUserIdQuestion.class);
     sut.dao = Mockito.mock(DAO.class);
     sut.setInput(Mockito.mock(User.class));
@@ -58,8 +56,6 @@ public class TestSaveUserOperationImpl {
   public void testExecute_idDoesNotExist() throws DataException, LogicException, RuleException {
     when(sut.getInput().getUserId()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
-    doNothing().when(sut.idExistsQuestion).ask();
-    when(sut.idExistsQuestion.answer()).thenReturn(false);
     doNothing().when(sut.dao).save(isA(User.class));
 
     sut.execute();
@@ -69,8 +65,6 @@ public class TestSaveUserOperationImpl {
   public void testExecute_idExists() throws DataException, LogicException, RuleException {
     when(sut.getInput().getUserId()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
-    doNothing().when(sut.idExistsQuestion).ask();
-    when(sut.idExistsQuestion.answer()).thenReturn(true);
     doNothing().when(sut.dao).update(isA(User.class));
 
     sut.execute();
