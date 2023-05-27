@@ -1,4 +1,4 @@
-package gr.evansp.setup.product.def.operations;
+package gr.evansp.setup.product.def.questions;
 
 import gr.evansp.common.Question;
 import gr.evansp.setup.product.def.models.Characteristic;

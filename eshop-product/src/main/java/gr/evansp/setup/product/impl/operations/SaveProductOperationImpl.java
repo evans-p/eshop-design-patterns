@@ -7,8 +7,8 @@ import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
-import gr.evansp.setup.product.def.operations.NextCharacteristicIdQuestion;
 import gr.evansp.setup.product.def.operations.SaveProductOperation;
+import gr.evansp.setup.product.def.questions.NextCharacteristicIdQuestion;
 import gr.evansp.setup.product.def.questions.NextProductIdQuestion;
 import gr.evansp.setup.product.def.rules.ProductValidator;
 

@@ -9,7 +9,10 @@ import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Product;
 import gr.evansp.setup.product.def.operations.SaveCategoryOperation;
 import gr.evansp.setup.product.def.operations.SaveProductOperation;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -74,5 +77,14 @@ public class TestCRUDProductOperations extends Setup {
 
     assertEquals(returned2, returned1);
     assertEquals(returned1.getName(), returned2.getName());
+  }
+
+  @Test
+  public void testGetAllProducts() throws DataException, LogicException, RuleException {
+    DAO<Product> dao = Factory.createPersistence(Product.class);
+
+    List<Product> products = dao.getAll();
+    Assert.assertTrue(!products.isEmpty());
+    Assert.assertTrue(products.size() > 0);
   }
 }
