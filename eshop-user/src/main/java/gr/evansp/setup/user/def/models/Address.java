@@ -6,7 +6,7 @@ import gr.evansp.setup.user.def.beans.*;
 /**
  * User address.
  */
-public interface Address extends AddressPK, StreetName, StreetNumber, PostalCode, City, Country,
-    UserProfileDependent, Entity {
+public interface Address extends AddressPK, StreetName, StreetNumber, PostalCode,
+    City, Country, Entity {
   //EMPTY
 }

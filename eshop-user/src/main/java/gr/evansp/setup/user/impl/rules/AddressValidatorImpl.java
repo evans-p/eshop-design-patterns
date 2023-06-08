@@ -22,7 +22,7 @@ public class AddressValidatorImpl implements AddressValidator {
   public void setInput(Address address) {
     this.input = address;
   }
-  
+
   @Override
   public void apply() throws RuleException {
     StringBuilder builder = new StringBuilder();
@@ -31,13 +31,20 @@ public class AddressValidatorImpl implements AddressValidator {
     builder.append(validateCity());
     builder.append(validateCountry());
     builder.append(validatePostalCode());
-    builder.append(validateUserProfile());
     builder.append(validateStreetName());
     builder.append(validateStreetNameNumber());
+    builder.append(validateUserId());
 
     if (builder.toString().length() > 0) {
       throw new RuleException(builder.toString());
     }
+  }
+
+  private String validateUserId() {
+    String result = "";
+    if (input.getUserId() == null)
+      return "User Id cannot be null.\n";
+    return result;
   }
 
   private String validateAddressId() {
@@ -89,13 +96,6 @@ public class AddressValidatorImpl implements AddressValidator {
       return "Country cannot be null.";
     if (!checkContainsOnlyLetters(input.getCountry()))
       result += "Country must contain only letters.";
-    return result;
-  }
-
-  private String validateUserProfile() {
-    String result = "";
-    if (input.getUserProfile() == null)
-      return "UserProfile cannot be null.";
     return result;
   }
 }

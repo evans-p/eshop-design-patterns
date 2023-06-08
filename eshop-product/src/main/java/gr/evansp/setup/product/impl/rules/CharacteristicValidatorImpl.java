@@ -25,19 +25,28 @@ public class CharacteristicValidatorImpl implements CharacteristicValidator {
     StringBuilder builder = new StringBuilder();
 
     builder.append(validateCharacteristicId());
+    builder.append(validateProductId());
+    builder.append(validateCategoryId());
     builder.append(validateName());
     builder.append(validateValue());
-    builder.append(validateProduct());
 
     if (builder.toString().length() > 0) {
       throw new RuleException(builder.toString());
     }
   }
 
-  private String validateProduct() {
-    if (input.getProduct() == null)
-      return "Characteristic product cannot be null";
+  private String validateProductId() {
+    if (input.getProductId() == null) {
+      return "Product Id must not be null";
+    }
     return "";
+  }
+
+  private String validateCategoryId() {
+    String result = "";
+    if (input.getCategoryId() == null)
+      return "Category Id cannot be null.\n";
+    return result;
   }
 
   private String validateCharacteristicId() {

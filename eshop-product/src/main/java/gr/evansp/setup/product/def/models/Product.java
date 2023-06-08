@@ -12,7 +12,7 @@ import gr.evansp.setup.product.def.beans.*;
  * Product of the eshop.
  */
 public interface Product extends ProductPK, SKU, Named, InventoryCount, InventoryLimit,
-    CategoryDependent, Characteristics, Price, Description, DateAdded, DateLastModified,
+    Characteristics, Price, Description, DateAdded, DateLastModified,
     Entity {
   //EMPTY
 }

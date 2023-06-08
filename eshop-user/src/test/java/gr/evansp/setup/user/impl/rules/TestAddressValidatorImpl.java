@@ -30,7 +30,6 @@ public class TestAddressValidatorImpl {
     Mockito.when(address.getStreetNumber()).thenReturn("123");
     Mockito.when(address.getStreetName()).thenReturn("example");
     Mockito.when(address.getPostalCode()).thenReturn("123");
-    Mockito.when(address.getUserProfile()).thenReturn(userProfile);
     Mockito.when(address.getAddressId()).thenReturn(100l);
   }
 
@@ -130,14 +129,6 @@ public class TestAddressValidatorImpl {
   @Test(expected = RuleException.class)
   public void testValidatePostalCode_containsLetters() throws RuleException, DataException, LogicException {
     Mockito.when(address.getPostalCode()).thenReturn("A123");
-
-    sut.setInput(address);
-    sut.apply();
-  }
-
-  @Test(expected = RuleException.class)
-  public void testValidateUserProfile_null() throws RuleException, DataException, LogicException {
-    Mockito.when(address.getUserProfile()).thenReturn(null);
 
     sut.setInput(address);
     sut.apply();

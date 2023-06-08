@@ -3,7 +3,7 @@ package gr.evansp.setup.product.def.models;
 /**
  * Primary key for {@link Product}
  */
-public interface ProductPK {
+public interface ProductPK extends CategoryPK {
   /**
    * Getter for product Id.
    *

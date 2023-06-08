@@ -3,7 +3,7 @@ package gr.evansp.setup.product.def.models;
 /**
  * Primary key for {@link Characteristic}
  */
-public interface CharacteristicPK {
+public interface CharacteristicPK extends ProductPK {
   /**
    * Getter for Characteristic id.
    *

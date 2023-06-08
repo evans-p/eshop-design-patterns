@@ -9,6 +9,9 @@ import org.hibernate.query.NativeQuery;
 
 import java.util.Arrays;
 
+/**
+ * Implementation of {@link NextCharacteristicIdQuestion}
+ */
 public class NextCharacteristicIdQuestionImpl implements NextCharacteristicIdQuestion {
   private Long answer;
 

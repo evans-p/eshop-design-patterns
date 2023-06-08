@@ -22,10 +22,10 @@ public class AddressDAO implements DAO<Address> {
     if (id == null) {
       return null;
     }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Address address = (Address) session.get(Address.class, id);
+      Address address = session.get(Address.class, id);
       session.close();
       return address;
     } catch (Exception e) {

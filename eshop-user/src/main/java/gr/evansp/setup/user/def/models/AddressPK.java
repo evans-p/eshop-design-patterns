@@ -3,7 +3,7 @@ package gr.evansp.setup.user.def.models;
 /**
  * Address primary key.
  */
-public interface AddressPK {
+public interface AddressPK extends UserPK {
   /**
    * Getter for address Id.
    *

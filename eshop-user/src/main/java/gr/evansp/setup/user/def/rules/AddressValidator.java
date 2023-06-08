@@ -17,7 +17,6 @@ import gr.evansp.setup.user.def.models.Address;
  * <li>city must contain only letters</li>
  * <li>Country must not be null</li>
  * <li>Country must contain only letters</li>
- * <li> userPorfile must not be null</li>
  */
 public interface AddressValidator extends Rule<Address> {
   //EMPTY

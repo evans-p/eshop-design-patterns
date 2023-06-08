@@ -39,4 +39,14 @@ public class Setup {
 
     return product;
   }
+
+  public Characteristic createSampleCharacteristic(Product product) {
+    Characteristic characteristic = Factory.create(Characteristic.class);
+
+    characteristic.setName("characteristic");
+    characteristic.setValue("Value");
+    characteristic.setProduct(product);
+
+    return characteristic;
+  }
 }

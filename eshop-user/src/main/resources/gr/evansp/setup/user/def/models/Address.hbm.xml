@@ -3,9 +3,10 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="gr.evansp.setup.user.def.models">
     <class name="Address" table="TBADDRESS">
-        <id name="addressId" type="java.lang.Long">
-            <column name="ADDRESS_ID" sql-type="BIGINT" not-null="true"/>
-        </id>
+        <composite-id>
+            <key-property name="addressId" column="ADDRESS_ID"/>
+            <key-property name="userId" column="USER_ID"/>
+        </composite-id>
         <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
         <property name="streetName" type="java.lang.String">
             <column name="STREET_NAME" sql-type="VARCHAR(50)" not-null="true"/>
@@ -22,10 +23,6 @@
         <property name="country" type="java.lang.String">
             <column name="COUNTRY" sql-type="VARCHAR(50)" not-null="true"/>
         </property>
-        <many-to-one name="userProfile" class="UserProfile" cascade="save-update" lazy="false" fetch="select"
-                     foreign-key="">
-            <column name="USER_ID" sql-type="BIGINT" not-null="true"/>
-        </many-to-one>
         <subclass name="gr.evansp.setup.user.impl.models.AddressImpl" discriminator-value="U"/>
     </class>
 </hibernate-mapping>

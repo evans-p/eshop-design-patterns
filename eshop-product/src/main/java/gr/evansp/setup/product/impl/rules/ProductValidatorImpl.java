@@ -31,7 +31,6 @@ public class ProductValidatorImpl implements ProductValidator {
 
     builder.append(validateProductId());
     builder.append(validateCharacteristics());
-    builder.append(validateCategory());
     builder.append(validateName());
     builder.append(validateSKU());
     builder.append(validateInventoryCount());
@@ -39,6 +38,7 @@ public class ProductValidatorImpl implements ProductValidator {
     builder.append(validatePrice());
     builder.append(validateDateAdded());
     builder.append(validateDateLastModified());
+    builder.append(validateCategoryId());
 
     if (!builder.isEmpty()) {
       throw new RuleException(builder.toString());
@@ -48,6 +48,13 @@ public class ProductValidatorImpl implements ProductValidator {
       characteristicValidator.setInput(c);
       characteristicValidator.apply();
     }
+  }
+
+  private String validateCategoryId() {
+    String result = "";
+    if (input.getCategoryId() == null)
+      return "Category Id cannot be null.\n";
+    return result;
   }
 
   private String validateProductId() {
@@ -101,13 +108,6 @@ public class ProductValidatorImpl implements ProductValidator {
 
     if (input.getInventoryCount() < input.getInventoryLimit()) {
       return "Product inventory count cannot greater than inventory limit.";
-    }
-    return "";
-  }
-
-  private String validateCategory() {
-    if (input.getCategory() == null) {
-      return "Product category must not be null";
     }
     return "";
   }
