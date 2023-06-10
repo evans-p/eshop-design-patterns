@@ -6,35 +6,29 @@ import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
-import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.NextAddressIdQuestion;
 import gr.evansp.setup.user.def.rules.AddressValidator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
- * Tests for {@link SaveAddressOperationImpl}
+ * Tests for {@link SaveAddressOperationImpl}.
  */
+@SuppressWarnings("unchecked")
 public class TestSaveAddressOperationImpl {
   SaveAddressOperationImpl sut;
-  UserProfile userProfile;
 
   @Before
   public void setup() {
     sut = Factory.create(SaveAddressOperationImpl.class);
-
-    userProfile = Mockito.mock(UserProfile.class);
     sut.validator = Mockito.mock(AddressValidator.class);
     sut.question = Mockito.mock(NextAddressIdQuestion.class);
     sut.dao = Mockito.mock(DAO.class);
     sut.setInput(Mockito.mock(Address.class));
-    sut.input.setUserProfile(userProfile);
   }
 
   @Test(expected = LogicException.class)
@@ -49,10 +43,15 @@ public class TestSaveAddressOperationImpl {
     when(sut.question.answer()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
     doNothing().when(sut.input).setAddressId(isA(Long.class));
-    when(sut.input.getUserProfile()).thenReturn(userProfile);
-    doNothing().when(userProfile).setUserId(isA(Long.class));
     doNothing().when(sut.dao).save(isA(Address.class));
     sut.execute();
+
+    verify(sut.question, times(1)).ask();
+    verify(sut.question, times(1)).answer();
+    verify(sut.validator, times(1)).apply();
+    verify(sut.validator, times(1)).setInput(isA(Address.class));
+    verify(sut.dao, times(1)).save(isA(Address.class));
+    verify(sut.dao, times(0)).update(isA(Address.class));
   }
 
   @Test
@@ -63,12 +62,12 @@ public class TestSaveAddressOperationImpl {
     doNothing().when(sut.dao).update(isA(Address.class));
 
     sut.execute();
-  }
 
-  @Test
-  public void testGetInput() {
-    Address address = Mockito.mock(Address.class);
-    sut.setInput(address);
-    Assert.assertEquals(sut.getInput(), address);
+    verify(sut.question, times(0)).ask();
+    verify(sut.question, times(0)).answer();
+    verify(sut.validator, times(1)).apply();
+    verify(sut.validator, times(1)).setInput(isA(Address.class));
+    verify(sut.dao, times(0)).save(isA(Address.class));
+    verify(sut.dao, times(1)).update(isA(Address.class));
   }
 }

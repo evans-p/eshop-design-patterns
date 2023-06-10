@@ -8,14 +8,17 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.operations.SaveUserProfileOperation;
 import gr.evansp.setup.user.def.rules.UserProfileValidator;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Implementation of {@link SaveUserProfileOperation}
+ * Implementation of {@link SaveUserProfileOperation}.
  */
 public class SaveUserProfileOperationImpl implements SaveUserProfileOperation {
   UserProfileValidator validator = Factory.create(UserProfileValidator.class);
   DAO<UserProfile> dao = Factory.createPersistence(UserProfile.class);
-
+  @Setter
+  @Getter
   UserProfile input;
 
   @Override
@@ -28,15 +31,5 @@ public class SaveUserProfileOperationImpl implements SaveUserProfileOperation {
     validator.apply();
 
     dao.update(input);
-  }
-
-  @Override
-  public UserProfile getInput() {
-    return input;
-  }
-
-  @Override
-  public void setInput(UserProfile input) {
-    this.input = input;
   }
 }

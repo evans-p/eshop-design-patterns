@@ -15,19 +15,23 @@ public interface Rule<T extends Entity> extends Entity {
    *
    * @return input
    */
-  public T getInput();
+  T getInput();
 
   /**
    * Setter for validator input.
    *
    * @param input intput to set.
    */
-  public void setInput(T input);
+  void setInput(T input);
 
   /**
    * Main method of validator. Called to validate input object.
-   * If the input object fails to validate, throws {@link RuleException}.
+   * If the input object fails to validate throws exceptions.
+   *
+   * @throws RuleException-  dummy
+   * @throws DataException-  dummy
+   * @throws LogicException- dummy
    */
-  public void apply() throws RuleException, DataException, LogicException;
+  void apply() throws RuleException, DataException, LogicException;
 
 }

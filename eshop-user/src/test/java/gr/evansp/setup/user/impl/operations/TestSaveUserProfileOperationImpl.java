@@ -15,6 +15,7 @@ import static org.mockito.Mockito.*;
 /**
  * Tests for {@link SaveUserProfileOperationImpl}
  */
+@SuppressWarnings("unchecked")
 public class TestSaveUserProfileOperationImpl {
   SaveUserProfileOperationImpl sut;
   UserProfile userProfile;
@@ -39,6 +40,10 @@ public class TestSaveUserProfileOperationImpl {
     doNothing().when(sut.validator).apply();
     doNothing().when(sut.dao).update(isA(UserProfile.class));
     sut.execute();
+
+    verify(sut.validator, times(1)).setInput(isA(UserProfile.class));
+    verify(sut.validator, times(1)).apply();
+    verify(sut.dao, times(1)).update(isA(UserProfile.class));
   }
 
   @Test

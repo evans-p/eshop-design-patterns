@@ -8,7 +8,6 @@ import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.models.UserProfile;
 import gr.evansp.setup.user.def.questions.UserEmailExistsQuestion;
 import gr.evansp.setup.user.def.rules.UserProfileValidator;
-import gr.evansp.setup.user.def.rules.UserValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +17,15 @@ import java.util.Calendar;
 import java.util.Collections;
 
 /**
- * Test class for {@link UserValidator}
+ * Test class for {@link UserValidatorImpl}
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class TestUserValidatorImpl {
-  private User user;
-  private UserProfile userProfile;
-  private UserProfileValidator userProfileValidator;
-  private UserEmailExistsQuestion question;
-  private UserValidatorImpl sut = Factory.create(UserValidatorImpl.class);
+  User user;
+  UserProfile userProfile;
+  UserProfileValidator userProfileValidator;
+  UserEmailExistsQuestion question;
+  UserValidatorImpl sut = Factory.create(UserValidatorImpl.class);
 
 
   @Before
@@ -61,7 +61,7 @@ public class TestUserValidatorImpl {
   @Test
   public void testApply_ok() throws RuleException, DataException, LogicException {
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -69,7 +69,15 @@ public class TestUserValidatorImpl {
   public void testValidateUserId_null() throws RuleException, DataException, LogicException {
     Mockito.when(user.getUserId()).thenReturn(null);
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
+  public void testValidateUserProfile_null() throws RuleException, DataException, LogicException {
+    Mockito.when(user.getUserProfile()).thenReturn(null);
+    sut.setInput(user);
+    sut.question = question;
     sut.apply();
   }
 
@@ -77,7 +85,7 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_null() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn(null);
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -85,7 +93,7 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_empty() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn("");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -93,7 +101,7 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_noAtChar() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn("example");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -101,7 +109,7 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_tooManyAtChars() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn("@@example");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -109,7 +117,7 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_noDotChar() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn("@example");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -117,16 +125,16 @@ public class TestUserValidatorImpl {
   public void testValidateEmail_tooManyDotChars() throws RuleException, DataException, LogicException {
     Mockito.when(user.getEmail()).thenReturn("@example..");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
   public void testValidateEmail_exists() throws RuleException, DataException, LogicException {
-    Mockito.when(user.getEmail()).thenReturn("@example..");
+    Mockito.when(user.getEmail()).thenReturn("random@random.com");
     Mockito.when(question.answer()).thenReturn(true);
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -134,7 +142,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_null() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn(null);
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -142,7 +150,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_empty() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn("");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -150,7 +158,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_tooShort() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn("example");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -158,7 +166,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_noSymbols() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn("123123123example");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -166,7 +174,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_noLetters() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn("41351412523535@@#!@#");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 
@@ -174,7 +182,7 @@ public class TestUserValidatorImpl {
   public void testValidatePassword_noNumbers() throws RuleException, DataException, LogicException {
     Mockito.when(user.getPassword()).thenReturn("dsfasfgsdfasfasdf$#$$@#$#$#@");
     sut.setInput(user);
-    sut.setQuestion(question);
+    sut.question = question;
     sut.apply();
   }
 }
