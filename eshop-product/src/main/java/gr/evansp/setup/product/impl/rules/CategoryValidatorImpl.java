@@ -1,25 +1,20 @@
 package gr.evansp.setup.product.impl.rules;
 
+import gr.evansp.constants.StringConstants;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.rules.CategoryValidator;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * implementation of {@link CategoryValidator}.
  */
 public class CategoryValidatorImpl implements CategoryValidator {
+  @Setter
+  @Getter
   private Category input;
 
-  @Override
-  public Category getInput() {
-    return input;
-  }
-
-  @Override
-  public void setInput(Category input) {
-    this.input = input;
-  }
-  
   @Override
   public void apply() throws RuleException {
     StringBuilder builder = new StringBuilder();
@@ -33,9 +28,10 @@ public class CategoryValidatorImpl implements CategoryValidator {
   }
 
   private String validateCategoryId() {
-    String result = "";
-    if (input.getCategoryId() == null)
+    String result = StringConstants.EMPTY;
+    if (input.getCategoryId() == null) {
       return "Category Id cannot be null.\n";
+    }
     return result;
   }
 
@@ -46,6 +42,6 @@ public class CategoryValidatorImpl implements CategoryValidator {
     if (input.getName().length() == 0) {
       return "Category name cannot be empty.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 }

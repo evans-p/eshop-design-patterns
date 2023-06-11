@@ -4,48 +4,38 @@ import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.product.def.models.Product;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.util.Arrays;
 import java.util.List;
 
-
+@SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
 public class ProductDAO implements DAO<Product> {
   @Override
   public Product get(Long id) throws DataException {
     if (id == null) {
       return null;
     }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Product product = (Product) session.get(Product.class, id);
+      Product product = session.get(Product.class, id);
       session.close();
       return product;
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
   public List<Product> getAll() throws DataException {
-    try (
-        Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();
-    ) {
-
-      CriteriaBuilder cb = session.getCriteriaBuilder();
-      CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-      Root<Product> rootEntry = cq.from(Product.class);
-      CriteriaQuery<Product> all = cq.select(rootEntry);
-
-      TypedQuery<Product> allQuery = session.createQuery(all);
-      return allQuery.getResultList();
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+      String hql = "gr.evansp.setup.product.def.models.Product";
+      Query query = session.createQuery(hql);
+      return query.getResultList();
     } catch (Exception e) {
-      throw new DataException(e.getStackTrace().toString());
+      throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 

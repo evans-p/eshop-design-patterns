@@ -3,9 +3,10 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="gr.evansp.setup.product.def.models">
     <class name="Product" table="TBPRODUCT">
-        <id name="productId" type="java.lang.Long">
-            <column name="PRODUCT_ID" sql-type="BIGINT" not-null="true"/>
-        </id>
+        <composite-id>
+            <key-property name="productId" column="PRODUCT_ID"/>
+            <key-property name="categoryId" column="CATEGORY_ID"/>
+        </composite-id>
         <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
         <property name="name" type="java.lang.String">
             <column name="NAME" sql-type="VARCHAR(100)" not-null="true"/>
@@ -32,15 +33,13 @@
             <column name="DATE_LAST_MODIFIED" sql-type="DATE" not-null="false"/>
         </property>
         <set name="characteristics" table="TBCHARACTERISTIC" lazy="false" inverse="true" fetch="select"
-             cascade="save-update">
+             cascade="all">
             <key>
                 <column name="PRODUCT_ID" not-null="true"/>
+                <column name="CHARACTERISTIC_ID" not-null="true"/>
             </key>
             <one-to-many class="gr.evansp.setup.product.def.models.Characteristic"/>
         </set>
-        <many-to-one name="category" class="Category" lazy="false" fetch="select">
-            <column name="CATEGORY_ID" sql-type="BIGINT" not-null="true"/>
-        </many-to-one>
         <subclass name="gr.evansp.setup.product.impl.models.ProductImpl" discriminator-value="P"/>
     </class>
 </hibernate-mapping>

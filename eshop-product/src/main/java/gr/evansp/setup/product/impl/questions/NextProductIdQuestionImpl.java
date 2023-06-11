@@ -9,6 +9,7 @@ import org.hibernate.query.NativeQuery;
 
 import java.util.Arrays;
 
+@SuppressWarnings({"unused", "deprecation", "rawtypes"})
 public class NextProductIdQuestionImpl implements NextProductIdQuestion {
   private Long answer;
 

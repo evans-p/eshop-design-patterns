@@ -1,5 +1,6 @@
 package gr.evansp.setup.product.impl.models;
 
+import gr.evansp.constants.StringConstants;
 import gr.evansp.setup.product.def.models.Category;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,6 +19,6 @@ public class CategoryImpl implements Category {
   @EqualsAndHashCode.Include
   private Long categoryId;
 
-  private String name;
-  private String description;
+  private String name = StringConstants.EMPTY;
+  private String description = StringConstants.EMPTY;
 }

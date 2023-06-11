@@ -13,12 +13,6 @@
         <property name="description" type="java.lang.String">
             <column name="DESCRIPTION" sql-type="VARCHAR(250)"/>
         </property>
-        <set name="products" table="TBPRODUCT" lazy="false" inverse="true" fetch="select" cascade="save-update">
-            <key>
-                <column name="CATEGORY_ID" not-null="true"/>
-            </key>
-            <one-to-many class="gr.evansp.setup.product.def.models.Product"/>
-        </set>
         <subclass name="gr.evansp.setup.product.impl.models.CategoryImpl" discriminator-value="U"/>
     </class>
 </hibernate-mapping>

@@ -3,9 +3,11 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="gr.evansp.setup.product.def.models">
     <class name="Characteristic" table="TBCHARACTERISTIC">
-        <id name="characteristicId" type="java.lang.Long">
-            <column name="CHARACTERISTIC_ID" sql-type="BIGINT" not-null="true"/>
-        </id>
+        <composite-id>
+            <key-property name="productId" column="PRODUCT_ID"/>
+            <key-property name="categoryId" column="CATEGORY_ID"/>
+            <key-property name="characteristicId" column="CHARACTERISTIC_ID"/>
+        </composite-id>
         <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
         <property name="name" type="java.lang.String">
             <column name="NAME" sql-type="VARCHAR(100)" not-null="true"/>
@@ -13,9 +15,6 @@
         <property name="value" type="java.lang.String">
             <column name="VALUE" sql-type="VARCHAR(100)" not-null="true"/>
         </property>
-        <many-to-one name="product" class="Product" cascade="all" lazy="false" fetch="select">
-            <column name="PRODUCT_ID" sql-type="BIGINT" not-null="true"/>
-        </many-to-one>
         <subclass name="gr.evansp.setup.product.impl.models.CharacteristicImpl" discriminator-value="U"/>
     </class>
 </hibernate-mapping>

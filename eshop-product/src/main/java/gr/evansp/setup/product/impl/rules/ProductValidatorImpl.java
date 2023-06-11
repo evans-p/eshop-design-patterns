@@ -1,5 +1,6 @@
 package gr.evansp.setup.product.impl.rules;
 
+import gr.evansp.constants.StringConstants;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
@@ -8,22 +9,16 @@ import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
 import gr.evansp.setup.product.def.rules.CharacteristicValidator;
 import gr.evansp.setup.product.def.rules.ProductValidator;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 public class ProductValidatorImpl implements ProductValidator {
+  @Setter
+  @Getter
   private Product input;
   private CharacteristicValidator characteristicValidator = Factory.create(CharacteristicValidator.class);
-
-  @Override
-  public Product getInput() {
-    return input;
-  }
-
-  @Override
-  public void setInput(Product input) {
-    this.input = input;
-  }
 
   @Override
   public void apply() throws RuleException, DataException, LogicException {
@@ -51,7 +46,7 @@ public class ProductValidatorImpl implements ProductValidator {
   }
 
   private String validateCategoryId() {
-    String result = "";
+    String result = StringConstants.EMPTY;
     if (input.getCategoryId() == null)
       return "Category Id cannot be null.\n";
     return result;
@@ -61,17 +56,17 @@ public class ProductValidatorImpl implements ProductValidator {
     if (input.getProductId() == null) {
       return "Product Id must not be null";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateSKU() {
     if (input.getSKU() == null) {
       return "Product SKU must not be null";
     }
-    if (input.getSKU() == "") {
+    if (input.getSKU().equals(StringConstants.EMPTY)) {
       return "Product SKU must not be empty";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateName() {
@@ -81,7 +76,7 @@ public class ProductValidatorImpl implements ProductValidator {
     if (input.getName().length() == 0) {
       return "Product name must not be empty.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateInventoryLimit() {
@@ -91,7 +86,7 @@ public class ProductValidatorImpl implements ProductValidator {
     if (input.getInventoryLimit() < 0) {
       return "Product inventory limit cannot be negative";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateInventoryCount() {
@@ -106,44 +101,49 @@ public class ProductValidatorImpl implements ProductValidator {
     if (input.getInventoryLimit() == null)
       return "Product inventory limit must not be null";
 
-    if (input.getInventoryCount() < input.getInventoryLimit()) {
+    if (input.getInventoryCount() > input.getInventoryLimit()) {
       return "Product inventory count cannot greater than inventory limit.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validatePrice() {
     if (input.getPrice() == null) {
       return "Product price must not be null";
+
+    }
+    if (input.getPrice().compareTo(BigDecimal.ZERO) == 0) {
+
+      return "Product price cannot be zero.";
     }
     if (input.getPrice().compareTo(BigDecimal.ZERO) < 0) {
 
       return "Product price cannot be negative.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateDateAdded() {
     if (input.getDateAdded() == null)
       return "Date added cannot be null.";
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateDateLastModified() {
     if (input.getDateLastModified() == null)
-      return "";
+      return StringConstants.EMPTY;
     if (input.getDateAdded() == null)
-      return "";
+      return StringConstants.EMPTY;
     if (input.getDateAdded().compareTo(input.getDateLastModified()) > 0) {
       return "Date last modified must be the same or greater than date added.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 
   private String validateCharacteristics() {
     if (input.getCharacteristics() == null) {
       return "Product characteristics cannot be null.";
     }
-    return "";
+    return StringConstants.EMPTY;
   }
 }

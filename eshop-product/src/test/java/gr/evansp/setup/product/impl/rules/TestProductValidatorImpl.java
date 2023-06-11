@@ -1,13 +1,12 @@
-package gr.evansp.setup.product.def.rules;
+package gr.evansp.setup.product.impl.rules;
 
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
-import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
-import gr.evansp.setup.product.impl.rules.ProductValidatorImpl;
+import gr.evansp.setup.product.def.rules.ProductValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,25 +21,23 @@ import java.util.Set;
 /**
  * Test class {@link ProductValidator}
  */
-public class TestProductValidator {
+public class TestProductValidatorImpl {
   private Product product;
-  private Category category;
   private Characteristic characteristic;
   private ProductValidatorImpl sut;
 
   @Before
   public void setup() {
     product = Mockito.mock(Product.class);
-    category = Mockito.mock(Category.class);
     characteristic = Mockito.mock(Characteristic.class);
     sut = Factory.create(ProductValidatorImpl.class);
 
     Mockito.when(product.getProductId()).thenReturn(10L);
+    Mockito.when(product.getCategoryId()).thenReturn(10L);
     Mockito.when(product.getSKU()).thenReturn("SKU");
     Mockito.when(product.getName()).thenReturn("name");
     Mockito.when(product.getInventoryCount()).thenReturn(10);
     Mockito.when(product.getInventoryLimit()).thenReturn(10);
-    Mockito.when(product.getCategory()).thenReturn(category);
     Mockito.when(product.getCharacteristics()).thenReturn(Set.of(characteristic));
     Mockito.when(product.getPrice()).thenReturn(new BigDecimal(100));
     Mockito.when(product.getDescription()).thenReturn("123");
@@ -48,7 +45,8 @@ public class TestProductValidator {
     Mockito.when(product.getDateLastModified()).thenReturn(Calendar.getInstance().getTime());
 
     Mockito.when(characteristic.getCharacteristicId()).thenReturn(10L);
-    Mockito.when(characteristic.getProduct()).thenReturn(product);
+    Mockito.when(characteristic.getProductId()).thenReturn(10L);
+    Mockito.when(characteristic.getCategoryId()).thenReturn(10L);
     Mockito.when(characteristic.getName()).thenReturn("Characteristic1");
     Mockito.when(characteristic.getValue()).thenReturn("value");
   }
@@ -60,7 +58,7 @@ public class TestProductValidator {
   }
 
   @Test
-  public void testApply_ok() throws RuleException, DataException, LogicException {
+  public void testApply_ok() throws RuleException, LogicException, DataException {
     sut.setInput(product);
     sut.apply();
   }
@@ -68,6 +66,13 @@ public class TestProductValidator {
   @Test(expected = RuleException.class)
   public void testValidateProductId_null() throws RuleException, DataException, LogicException {
     Mockito.when(product.getProductId()).thenReturn(null);
+    sut.setInput(product);
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
+  public void testValidateCategoryId_null() throws RuleException, DataException, LogicException {
+    Mockito.when(product.getCategoryId()).thenReturn(null);
     sut.setInput(product);
     sut.apply();
   }
@@ -129,8 +134,9 @@ public class TestProductValidator {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCategory_null() throws RuleException, DataException, LogicException {
-    Mockito.when(product.getCategory()).thenReturn(null);
+  public void testValidateInventoryCount_smallerThanInventoryLimit() throws RuleException, DataException, LogicException {
+    Mockito.when(product.getInventoryCount()).thenReturn(10);
+    Mockito.when(product.getInventoryLimit()).thenReturn(5);
     sut.setInput(product);
     sut.apply();
   }
@@ -150,6 +156,13 @@ public class TestProductValidator {
   }
 
   @Test(expected = RuleException.class)
+  public void testValidatePrice_zero() throws RuleException, DataException, LogicException {
+    Mockito.when(product.getPrice()).thenReturn(BigDecimal.ZERO);
+    sut.setInput(product);
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
   public void testValidateDateAdded_null() throws RuleException, DataException, LogicException {
     Mockito.when(product.getDateAdded()).thenReturn(null);
     sut.setInput(product);
@@ -157,10 +170,25 @@ public class TestProductValidator {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateDateLastModified_smallerThanDateAdded() throws RuleException, ParseException, DataException, LogicException {
+  public void testValidateCharacteristics_null() throws RuleException, DataException, LogicException, ParseException {
+
+    Mockito.when(product.getCharacteristics()).thenReturn(null);
+    sut.setInput(product);
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
+  public void testValidateDateLastModified_smallerThanDateAdded() throws RuleException, DataException, LogicException, ParseException {
 
     Mockito.when(product.getDateAdded()).thenReturn(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2021"));
     Mockito.when(product.getDateLastModified()).thenReturn(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"));
+    sut.setInput(product);
+    sut.apply();
+  }
+
+  @Test
+  public void testValidateDateLastModified_null() throws RuleException, DataException, LogicException, ParseException {
+    Mockito.when(product.getDateLastModified()).thenReturn(null);
     sut.setInput(product);
     sut.apply();
   }

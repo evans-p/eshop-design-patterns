@@ -1,32 +1,28 @@
-package gr.evansp.setup.product.def.rules;
+package gr.evansp.setup.product.impl.rules;
 
-import gr.evansp.exceptions.DataException;
-import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Characteristic;
-import gr.evansp.setup.product.def.models.Product;
-import gr.evansp.setup.product.impl.rules.CharacteristicValidatorImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Test class for {@link CharacteristicValidator}
+ * Test class for {@link CharacteristicValidatorImpl}
  */
-public class TestCharacteristicValidator {
+@SuppressWarnings("FieldMayBeFinal")
+public class TestCharacteristicValidatorImpl {
   private Characteristic characteristic;
-  private Product product;
   private CharacteristicValidatorImpl sut = Factory.create(CharacteristicValidatorImpl.class);
 
   @Before
   public void setup() {
-    product = Mockito.mock(Product.class);
     characteristic = Mockito.mock(Characteristic.class);
 
     Mockito.when(characteristic.getCharacteristicId()).thenReturn(10L);
-    Mockito.when(characteristic.getProduct()).thenReturn(product);
+    Mockito.when(characteristic.getProductId()).thenReturn(10L);
+    Mockito.when(characteristic.getCategoryId()).thenReturn(10L);
     Mockito.when(characteristic.getName()).thenReturn("Characteristic1");
     Mockito.when(characteristic.getValue()).thenReturn("value");
   }
@@ -38,49 +34,56 @@ public class TestCharacteristicValidator {
   }
 
   @Test
-  public void testApply_ok() throws RuleException, DataException, LogicException {
+  public void testApply_ok() throws RuleException {
     sut.setInput(characteristic);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCharacteristicId_null() throws RuleException, DataException, LogicException {
+  public void testValidateCharacteristicId_null() throws RuleException {
     Mockito.when(characteristic.getCharacteristicId()).thenReturn(null);
     sut.setInput(characteristic);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_null() throws RuleException, DataException, LogicException {
+  public void testValidateProductId_null() throws RuleException {
+    Mockito.when(characteristic.getProductId()).thenReturn(null);
+    sut.setInput(characteristic);
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
+  public void testValidateCategoryId_null() throws RuleException {
+    Mockito.when(characteristic.getCategoryId()).thenReturn(null);
+    sut.setInput(characteristic);
+    sut.apply();
+  }
+
+  @Test(expected = RuleException.class)
+  public void testValidateName_null() throws RuleException {
     Mockito.when(characteristic.getName()).thenReturn(null);
     sut.setInput(characteristic);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_empty() throws RuleException, DataException, LogicException {
+  public void testValidateName_empty() throws RuleException {
     Mockito.when(characteristic.getName()).thenReturn("");
     sut.setInput(characteristic);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateValue_null() throws RuleException, DataException, LogicException {
+  public void testValidateValue_null() throws RuleException {
     Mockito.when(characteristic.getValue()).thenReturn(null);
     sut.setInput(characteristic);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateValue_empty() throws RuleException, DataException, LogicException {
+  public void testValidateValue_empty() throws RuleException {
     Mockito.when(characteristic.getValue()).thenReturn("");
-    sut.setInput(characteristic);
-    sut.apply();
-  }
-
-  @Test(expected = RuleException.class)
-  public void testValidateProduct_empty() throws RuleException, DataException, LogicException {
-    Mockito.when(characteristic.getProduct()).thenReturn(null);
     sut.setInput(characteristic);
     sut.apply();
   }

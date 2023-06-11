@@ -19,7 +19,6 @@ import java.util.Collections;
 /**
  * Test class for {@link UserValidatorImpl}
  */
-@SuppressWarnings("FieldMayBeFinal")
 public class TestUserValidatorImpl {
   User user;
   UserProfile userProfile;

@@ -18,7 +18,6 @@ import static gr.evansp.rules.RuleUtils.checkContainsOnlyNumbers;
 /**
  * Implementation for {@link UserProfileValidator}.
  */
-@SuppressWarnings("FieldMayBeFinal")
 public class UserProfileValidatorImpl implements UserProfileValidator {
   AddressValidator addressValidator = Factory.create(AddressValidator.class);
   @Getter

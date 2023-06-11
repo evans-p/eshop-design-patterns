@@ -1,37 +1,47 @@
 package gr.evansp.setup.product.impl.persistence;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
-import gr.evansp.setup.product.def.models.Characteristic;
+import gr.evansp.setup.product.def.models.Product;
+import gr.evansp.setup.product.def.persistence.ProductRepository;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Implementation of {@link ProductRepository}.
+ */
 @SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
-public class CharacteristicDAO implements DAO<Characteristic> {
+public class ProductRepositoryImpl implements ProductRepository {
   @Override
-  public Characteristic get(Long id) throws DataException {
-    if (id == null) {
+  public Product get(Long productId, Long categoryId) throws DataException {
+    if (productId == null) {
       return null;
     }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+
+    if (categoryId == null) {
+      return null;
+    }
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Characteristic characteristic = (Characteristic) session.get(Characteristic.class, id);
+      Product product = session.get(Product.class, new ProductPK(productId, categoryId));
       session.close();
-      return characteristic;
+      return product;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<Characteristic> getAll() throws DataException {
+  public List<Product> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "gr.evansp.setup.product.def.models.Characteristic";
+      String hql = "gr.evansp.setup.product.def.models.Product";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -40,7 +50,7 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void save(Characteristic entity) throws DataException {
+  public void save(Product entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
@@ -52,7 +62,7 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void update(Characteristic entity) throws DataException {
+  public void update(Product entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
@@ -64,7 +74,7 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void delete(Characteristic entity) throws DataException {
+  public void delete(Product entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
 
       session.beginTransaction();
@@ -73,5 +83,13 @@ public class CharacteristicDAO implements DAO<Characteristic> {
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
+  }
+
+  @Setter
+  @Getter
+  @AllArgsConstructor
+  private static class ProductPK {
+    private Long productId;
+    private Long categoryId;
   }
 }

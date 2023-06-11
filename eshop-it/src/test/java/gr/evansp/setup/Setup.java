@@ -1,0 +1,69 @@
+package gr.evansp.setup;
+
+import gr.evansp.factory.Factory;
+import gr.evansp.setup.product.def.models.Category;
+import gr.evansp.setup.product.def.models.Characteristic;
+import gr.evansp.setup.product.def.models.Product;
+import gr.evansp.setup.user.def.models.User;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Random;
+import java.util.Set;
+
+/**
+ * Creates sample Persistent Objects.
+ */
+public class Setup {
+  private static Random r = new Random();
+
+  public static User createSampleUser() {
+    User user = Factory.create(User.class);
+    user.setEmail(generateRandomNumber() + "example@example.com");
+    user.setPassword("@@1213TEstTesd@@");
+    return user;
+  }
+
+  public static Category createSampleCategory(Long id) {
+    Category category = Factory.create(Category.class);
+    category.setCategoryId(id);
+    category.setName("Category Name");
+    return category;
+  }
+
+  public static Characteristic createSampleCharacteristic(Long productId, Long characteristicId,
+                                                          Long categoryId) {
+    Characteristic characteristic = Factory.create(Characteristic.class);
+
+    characteristic.setCharacteristicId(characteristicId);
+    characteristic.setProductId(productId);
+    characteristic.setCategoryId(categoryId);
+    characteristic.setName("Characteristic Name");
+    characteristic.setValue("Characteristic Value");
+
+    return characteristic;
+  }
+
+  public static Product createSampleProduct(Long productId, Long categoryId) {
+    Product product = Factory.create(Product.class);
+
+    product.setName("ProductName");
+    product.setSKU("SKU");
+    product.setProductId(productId);
+    product.setCharacteristics(Set.of(createSampleCharacteristic(productId, null, categoryId)));
+    product.setCategoryId(categoryId);
+    product.setDateAdded(Calendar.getInstance().getTime());
+    product.setDateLastModified(Calendar.getInstance().getTime());
+    product.setPrice(BigDecimal.TEN);
+    product.setInventoryLimit(100);
+    product.setInventoryCount(100);
+
+    return product;
+  }
+
+  public static int generateRandomNumber() {
+    int low = 1;
+    int high = 10000;
+    return r.nextInt(high - low) + low;
+  }
+}

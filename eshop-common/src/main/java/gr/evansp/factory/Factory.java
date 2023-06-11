@@ -19,12 +19,17 @@ import java.util.Set;
 /**
  * Main factory of the application. Follows the abstract factory DP.
  * Can create only new objects that are tagged by the interfaces below:
- * [Boundary, Control, Entity]
+ * [Entity]
  */
 public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
   private static Map<Class, Class> interfaceToClassMap = new HashMap<>();
   private static Map<Class, Class> interfaceToDAOMap = new HashMap<>();
+
+  static {
+    fillInterfaceToDAOMap();
+    System.out.println(interfaceToDAOMap);
+  }
 
   /**
    * private noArgs constructor.
