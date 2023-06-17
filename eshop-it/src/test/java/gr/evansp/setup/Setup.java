@@ -4,7 +4,9 @@ import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
+import gr.evansp.setup.user.def.models.Address;
 import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.models.UserProfile;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -21,7 +23,32 @@ public class Setup {
     User user = Factory.create(User.class);
     user.setEmail(generateRandomNumber() + "example@example.com");
     user.setPassword("@@1213TEstTesd@@");
+    user.setUserProfile(createSampleUserProfile(null));
     return user;
+  }
+
+  public static Address createSampleAddress(Long addressId, Long userId) {
+    Address address = Factory.create(Address.class);
+
+    address.setUserId(userId);
+    address.setAddressId(addressId);
+    address.setCity("CIty");
+    address.setCountry("Country");
+    address.setStreetNumber("123");
+    address.setStreetName("StreetName");
+    address.setPostalCode("12345");
+
+    return address;
+  }
+
+  public static UserProfile createSampleUserProfile(Long id) {
+    UserProfile userProfile = Factory.create(UserProfile.class);
+
+    userProfile.setUserId(id);
+    userProfile.setFirstName("Evans");
+    userProfile.setLastName("Poulakis");
+    userProfile.setPhoneNo("1234567890");
+    return userProfile;
   }
 
   public static Category createSampleCategory(Long id) {

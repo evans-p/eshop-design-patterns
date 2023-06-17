@@ -1,9 +1,9 @@
-package gr.evansp.setup.product.impl.persistence;
+package gr.evansp.setup.user.impl.persistence;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
-import gr.evansp.setup.product.def.models.Category;
+import gr.evansp.setup.user.def.models.User;
+import gr.evansp.setup.user.def.persistence.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -11,30 +11,25 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of {@link DAO} {@link Category}.
+ * Implementation of {@link UserRepository}.
  */
-@SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
-public class CategoryDAO implements DAO<Category> {
+public class UserRepositoryImpl implements UserRepository {
   @Override
-  public Category get(Long id) throws DataException {
-    if (id == null) {
-      return null;
-    }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public User get(User user) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
-      Category address = (Category) session.get(Category.class, id);
+      User result = session.get(User.class, user.getUserId());
       session.close();
-      return address;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<Category> getAll() throws DataException {
+  public List<User> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "FROM gr.evansp.setup.product.def.models.Category";
+      String hql = "FROM gr.evansp.setup.user.def.models.User";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -43,9 +38,8 @@ public class CategoryDAO implements DAO<Category> {
   }
 
   @Override
-  public void save(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void save(User entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.persist(entity);
       session.getTransaction().commit();
@@ -55,9 +49,8 @@ public class CategoryDAO implements DAO<Category> {
   }
 
   @Override
-  public void update(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void update(User entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.merge(entity);
       session.getTransaction().commit();
@@ -67,9 +60,8 @@ public class CategoryDAO implements DAO<Category> {
   }
 
   @Override
-  public void delete(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void delete(User entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.remove(entity);
       session.getTransaction().commit();

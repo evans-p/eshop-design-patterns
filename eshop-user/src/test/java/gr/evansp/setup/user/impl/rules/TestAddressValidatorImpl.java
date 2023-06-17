@@ -40,12 +40,6 @@ public class TestAddressValidatorImpl {
   }
 
   @Test
-  public void testSetInput() {
-    sut.setInput(address);
-    Assert.assertEquals(address, sut.getInput());
-  }
-
-  @Test
   public void testApply_ok() throws RuleException, DataException, LogicException {
     sut.setInput(address);
     sut.apply();

@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Implementation of {@link Category}
+ * Implementation of {@link Category}.
  */
 @Getter
 @Setter

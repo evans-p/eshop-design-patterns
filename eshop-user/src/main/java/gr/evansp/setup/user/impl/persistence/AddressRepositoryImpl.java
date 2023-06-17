@@ -3,7 +3,8 @@ package gr.evansp.setup.user.impl.persistence;
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
-import gr.evansp.setup.user.def.models.UserProfile;
+import gr.evansp.setup.user.def.models.Address;
+import gr.evansp.setup.user.def.persistence.AddressRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -11,30 +12,28 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of {@link DAO} for {@link UserProfile}.
+ * Implementation of {@link DAO} for {@link Address}
  */
 @SuppressWarnings({"unused", "unchecked", "deprecation", "rawtypes"})
-public class UserProfileDAO implements DAO<UserProfile> {
+public class AddressRepositoryImpl implements AddressRepository {
+
   @Override
-  public UserProfile get(Long id) throws DataException {
-    if (id == null) {
-      return null;
-    }
+  public Address get(Address address) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      UserProfile userProfile = session.get(UserProfile.class, id);
+      Address result = session.get(Address.class, address);
       session.close();
-      return userProfile;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<UserProfile> getAll() throws DataException {
+  public List<Address> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "FROM gr.evansp.setup.user.def.models.UserProfile";
+      String hql = "FROM gr.evansp.setup.user.def.models.Address";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -43,8 +42,9 @@ public class UserProfileDAO implements DAO<UserProfile> {
   }
 
   @Override
-  public void save(UserProfile entity) throws DataException {
+  public void save(Address entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+
       session.beginTransaction();
       session.persist(entity);
       session.getTransaction().commit();
@@ -54,8 +54,9 @@ public class UserProfileDAO implements DAO<UserProfile> {
   }
 
   @Override
-  public void update(UserProfile entity) throws DataException {
+  public void update(Address entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+
       session.beginTransaction();
       session.merge(entity);
       session.getTransaction().commit();
@@ -65,8 +66,9 @@ public class UserProfileDAO implements DAO<UserProfile> {
   }
 
   @Override
-  public void delete(UserProfile entity) throws DataException {
+  public void delete(Address entity) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+
       session.beginTransaction();
       session.remove(entity);
       session.getTransaction().commit();

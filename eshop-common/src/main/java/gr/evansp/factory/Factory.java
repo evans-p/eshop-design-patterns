@@ -1,6 +1,5 @@
 package gr.evansp.factory;
 
-import gr.evansp.common.DAO;
 import gr.evansp.common.Entity;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -8,9 +7,6 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -24,12 +20,7 @@ import java.util.Set;
 public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
   private static Map<Class, Class> interfaceToClassMap = new HashMap<>();
-  private static Map<Class, Class> interfaceToDAOMap = new HashMap<>();
 
-  static {
-    fillInterfaceToDAOMap();
-    System.out.println(interfaceToDAOMap);
-  }
 
   /**
    * private noArgs constructor.
@@ -70,18 +61,6 @@ public class Factory {
     return null;
   }
 
-  public static <M extends Entity> DAO<M> createPersistence(Class<M> type) {
-    if (!interfaceToDAOMap.containsKey(type)) {
-      fillInterfaceToDAOMap();
-    }
-    try {
-      return (DAO<M>) interfaceToDAOMap.get(type).getConstructor().newInstance();
-    } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
-             | InvocationTargetException e) {
-      //EMPTY
-    }
-    return null;
-  }
 
   private static <M extends Entity> M createImplementation(Class<M> type) {
     try {
@@ -91,30 +70,6 @@ public class Factory {
       //EMPTY
     }
     return null;
-  }
-
-  private static <M extends Entity> void fillInterfaceToDAOMap() {
-    Reflections reflections = new Reflections(new ConfigurationBuilder()
-        .setUrls(ClasspathHelper.forPackage(BASE_PACKAGE_NAME))
-        .setScanners(new SubTypesScanner(false)));
-    Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
-    for (Class clazz : classes) {
-      if (clazz.isInterface()) {
-        continue;
-      }
-      if (!Arrays.asList(clazz.getInterfaces()).contains(DAO.class)) {
-        continue;
-      }
-      Type[] interfaces = clazz.getGenericInterfaces();
-      for (Type interfaze : interfaces) {
-        if (interfaze instanceof ParameterizedType) {
-          Type[] genericTypes = ((ParameterizedType) interfaze).getActualTypeArguments();
-          for (Type type1 : genericTypes) {
-            interfaceToDAOMap.put((Class) type1, clazz);
-          }
-        }
-      }
-    }
   }
 
   private static void fillInterfaceToClassMap() {

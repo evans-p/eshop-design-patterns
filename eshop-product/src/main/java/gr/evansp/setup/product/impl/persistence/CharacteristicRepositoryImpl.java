@@ -4,9 +4,6 @@ import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.persistence.CharacteristicRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -20,23 +17,13 @@ import java.util.List;
 public class CharacteristicRepositoryImpl implements CharacteristicRepository {
 
   @Override
-  public Characteristic get(Long characteristicId, Long productId, Long categoryId) throws DataException {
-    if (characteristicId == null) {
-      return null;
-    }
-    if (productId == null) {
-      return null;
-    }
-    if (categoryId == null) {
-      return null;
-    }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public Characteristic get(Characteristic characteristic) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
-      Characteristic characteristic = session.get(Characteristic.class,
-          new CharacteristicPK(characteristicId, productId, categoryId));
+      Characteristic result = session.get(Characteristic.class,
+          characteristic);
       session.close();
-      return characteristic;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
@@ -45,7 +32,7 @@ public class CharacteristicRepositoryImpl implements CharacteristicRepository {
   @Override
   public List<Characteristic> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "gr.evansp.setup.product.def.models.Characteristic";
+      String hql = " FROM gr.evansp.setup.product.def.models.Characteristic";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -55,7 +42,7 @@ public class CharacteristicRepositoryImpl implements CharacteristicRepository {
 
   @Override
   public void save(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -67,7 +54,7 @@ public class CharacteristicRepositoryImpl implements CharacteristicRepository {
 
   @Override
   public void update(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -79,7 +66,7 @@ public class CharacteristicRepositoryImpl implements CharacteristicRepository {
 
   @Override
   public void delete(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.remove(entity);
@@ -87,14 +74,5 @@ public class CharacteristicRepositoryImpl implements CharacteristicRepository {
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
-  }
-
-  @Setter
-  @Getter
-  @AllArgsConstructor
-  private static class CharacteristicPK {
-    private Long productId;
-    private Long categoryId;
-    private Long characteristicId;
   }
 }

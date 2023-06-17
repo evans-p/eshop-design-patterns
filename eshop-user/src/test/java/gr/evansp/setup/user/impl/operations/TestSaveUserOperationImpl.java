@@ -1,12 +1,12 @@
 package gr.evansp.setup.user.impl.operations;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.models.UserProfile;
+import gr.evansp.setup.user.def.persistence.UserRepository;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
 import org.junit.After;
@@ -29,7 +29,7 @@ public class TestSaveUserOperationImpl {
     userProfile = Mockito.mock(UserProfile.class);
     sut.validator = Mockito.mock(UserValidator.class);
     sut.nextUserIdQuestion = Mockito.mock(NextUserIdQuestion.class);
-    sut.dao = Mockito.mock(DAO.class);
+    sut.repository = Mockito.mock(UserRepository.class);
     sut.setInput(Mockito.mock(User.class));
   }
 
@@ -55,7 +55,7 @@ public class TestSaveUserOperationImpl {
     doNothing().when(userProfile).setUserId(isA(Long.class));
     doNothing().when(sut.validator).setInput(isA(User.class));
     doNothing().when(sut.validator).apply();
-    doNothing().when(sut.dao).save(isA(User.class));
+    doNothing().when(sut.repository).save(isA(User.class));
 
     sut.execute();
 
@@ -63,8 +63,8 @@ public class TestSaveUserOperationImpl {
     verify(sut.nextUserIdQuestion, times(1)).answer();
     verify(sut.input, times(1)).setUserId(isA(Long.class));
     verify(sut.validator, times(1)).apply();
-    verify(sut.dao, times(1)).save(isA(User.class));
-    verify(sut.dao, times(0)).update(isA(User.class));
+    verify(sut.repository, times(1)).save(isA(User.class));
+    verify(sut.repository, times(0)).update(isA(User.class));
   }
 
   @Test
@@ -72,7 +72,7 @@ public class TestSaveUserOperationImpl {
     when(sut.getInput().getUserId()).thenReturn(1L);
     doNothing().when(sut.validator).setInput(isA(User.class));
     doNothing().when(sut.validator).apply();
-    doNothing().when(sut.dao).update(isA(User.class));
+    doNothing().when(sut.repository).update(isA(User.class));
 
     sut.execute();
 
@@ -80,7 +80,7 @@ public class TestSaveUserOperationImpl {
     verify(sut.nextUserIdQuestion, times(0)).answer();
     verify(sut.input, times(0)).setUserId(isA(Long.class));
     verify(sut.validator, times(1)).apply();
-    verify(sut.dao, times(0)).save(isA(User.class));
-    verify(sut.dao, times(1)).update(isA(User.class));
+    verify(sut.repository, times(0)).save(isA(User.class));
+    verify(sut.repository, times(1)).update(isA(User.class));
   }
 }

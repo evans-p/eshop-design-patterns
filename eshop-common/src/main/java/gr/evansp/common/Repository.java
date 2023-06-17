@@ -10,6 +10,15 @@ import java.util.List;
 public interface Repository<M extends Entity> extends Entity {
 
   /**
+   * Gets Entity by key.
+   *
+   * @param product
+   * @return
+   * @throws DataException
+   */
+  M get(M product) throws DataException;
+
+  /**
    * Gets all entities.
    *
    * @return all entities.

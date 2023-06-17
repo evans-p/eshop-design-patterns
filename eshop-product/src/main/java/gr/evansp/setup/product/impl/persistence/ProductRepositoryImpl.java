@@ -4,9 +4,6 @@ import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.product.def.models.Product;
 import gr.evansp.setup.product.def.persistence.ProductRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -19,20 +16,13 @@ import java.util.List;
 @SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
 public class ProductRepositoryImpl implements ProductRepository {
   @Override
-  public Product get(Long productId, Long categoryId) throws DataException {
-    if (productId == null) {
-      return null;
-    }
-
-    if (categoryId == null) {
-      return null;
-    }
+  public Product get(Product product) throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Product product = session.get(Product.class, new ProductPK(productId, categoryId));
+      Product result = session.get(Product.class, product);
       session.close();
-      return product;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
@@ -41,7 +31,7 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public List<Product> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "gr.evansp.setup.product.def.models.Product";
+      String hql = "FROM gr.evansp.setup.product.def.models.Product";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -51,7 +41,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void save(Product entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -63,7 +53,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void update(Product entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -75,7 +65,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void delete(Product entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.remove(entity);
@@ -83,13 +73,5 @@ public class ProductRepositoryImpl implements ProductRepository {
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
-  }
-
-  @Setter
-  @Getter
-  @AllArgsConstructor
-  private static class ProductPK {
-    private Long productId;
-    private Long categoryId;
   }
 }

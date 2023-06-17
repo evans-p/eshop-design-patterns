@@ -16,16 +16,13 @@ import java.util.List;
 @SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
 public class CategoryRepositoryImpl implements CategoryRepository {
   @Override
-  public Category get(Long id) throws DataException {
-    if (id == null) {
-      return null;
-    }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+  public Category get(Category category) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Category category = (Category) session.get(Category.class, id);
+      Category result = session.get(Category.class, category.getCategoryId());
       session.close();
-      return category;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
@@ -44,7 +41,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
   @Override
   public void save(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.persist(entity);
@@ -56,7 +53,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
   @Override
   public void update(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.merge(entity);
@@ -68,7 +65,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
   @Override
   public void delete(Category entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
       session.remove(entity);

@@ -1,11 +1,11 @@
 package gr.evansp.setup.user.impl.operations;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
+import gr.evansp.setup.user.def.persistence.AddressRepository;
 import gr.evansp.setup.user.def.questions.NextAddressIdQuestion;
 import gr.evansp.setup.user.def.rules.AddressValidator;
 import org.junit.Before;
@@ -27,7 +27,7 @@ public class TestSaveAddressOperationImpl {
     sut = Factory.create(SaveAddressOperationImpl.class);
     sut.validator = Mockito.mock(AddressValidator.class);
     sut.question = Mockito.mock(NextAddressIdQuestion.class);
-    sut.dao = Mockito.mock(DAO.class);
+    sut.repository = Mockito.mock(AddressRepository.class);
     sut.setInput(Mockito.mock(Address.class));
   }
 
@@ -43,15 +43,15 @@ public class TestSaveAddressOperationImpl {
     when(sut.question.answer()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
     doNothing().when(sut.input).setAddressId(isA(Long.class));
-    doNothing().when(sut.dao).save(isA(Address.class));
+    doNothing().when(sut.repository).save(isA(Address.class));
     sut.execute();
 
     verify(sut.question, times(1)).ask();
     verify(sut.question, times(1)).answer();
     verify(sut.validator, times(1)).apply();
     verify(sut.validator, times(1)).setInput(isA(Address.class));
-    verify(sut.dao, times(1)).save(isA(Address.class));
-    verify(sut.dao, times(0)).update(isA(Address.class));
+    verify(sut.repository, times(1)).save(isA(Address.class));
+    verify(sut.repository, times(0)).update(isA(Address.class));
   }
 
   @Test
@@ -59,7 +59,7 @@ public class TestSaveAddressOperationImpl {
     when(sut.getInput().getAddressId()).thenReturn(1L);
     doNothing().when(sut.validator).apply();
     doNothing().when(sut.question).ask();
-    doNothing().when(sut.dao).update(isA(Address.class));
+    doNothing().when(sut.repository).update(isA(Address.class));
 
     sut.execute();
 
@@ -67,7 +67,7 @@ public class TestSaveAddressOperationImpl {
     verify(sut.question, times(0)).answer();
     verify(sut.validator, times(1)).apply();
     verify(sut.validator, times(1)).setInput(isA(Address.class));
-    verify(sut.dao, times(0)).save(isA(Address.class));
-    verify(sut.dao, times(1)).update(isA(Address.class));
+    verify(sut.repository, times(0)).save(isA(Address.class));
+    verify(sut.repository, times(1)).update(isA(Address.class));
   }
 }

@@ -1,12 +1,12 @@
 package gr.evansp.setup.user.impl.operations;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.User;
 import gr.evansp.setup.user.def.operations.SaveUserOperation;
+import gr.evansp.setup.user.def.persistence.UserRepository;
 import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import gr.evansp.setup.user.def.rules.UserValidator;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import lombok.Setter;
 public class SaveUserOperationImpl implements SaveUserOperation {
   UserValidator validator = Factory.create(UserValidator.class);
   NextUserIdQuestion nextUserIdQuestion = Factory.create(NextUserIdQuestion.class);
-  DAO<User> dao = Factory.createPersistence(User.class);
+  UserRepository repository = Factory.create(UserRepository.class);
   @Getter
   @Setter
   User input;
@@ -37,13 +37,13 @@ public class SaveUserOperationImpl implements SaveUserOperation {
       input.getUserProfile().setUserId(id);
       validator.setInput(input);
       validator.apply();
-      dao.save(input);
+      repository.save(input);
       return;
     }
 
     // Validate input.
     validator.setInput(input);
     validator.apply();
-    dao.update(input);
+    repository.update(input);
   }
 }

@@ -36,7 +36,7 @@ public class TestCRUDCategoryOperations extends Setup {
     category.setName("New Name");
     sut.execute();
     CategoryRepository repository = Factory.create(CategoryRepository.class);
-    Category returned = repository.get(category.getCategoryId());
+    Category returned = repository.get(category);
 
     assertEquals("New Name", returned.getName());
   }
@@ -50,7 +50,7 @@ public class TestCRUDCategoryOperations extends Setup {
     sut.execute();
 
     repository.delete(category);
-    assertNull(repository.get(category.getCategoryId()));
+    assertNull(repository.get(category));
   }
 
   @Test

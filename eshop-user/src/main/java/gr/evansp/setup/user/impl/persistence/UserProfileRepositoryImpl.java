@@ -1,37 +1,38 @@
-package gr.evansp.setup.product.impl.persistence;
+package gr.evansp.setup.user.impl.persistence;
 
 import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
-import gr.evansp.setup.product.def.models.Characteristic;
+import gr.evansp.setup.user.def.models.UserProfile;
+import gr.evansp.setup.user.def.persistence.UserProfileRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
-public class CharacteristicDAO implements DAO<Characteristic> {
+/**
+ * Implementation of {@link DAO} for {@link UserProfile}.
+ */
+@SuppressWarnings({"unused", "unchecked", "deprecation", "rawtypes"})
+public class UserProfileRepositoryImpl implements UserProfileRepository {
   @Override
-  public Characteristic get(Long id) throws DataException {
-    if (id == null) {
-      return null;
-    }
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
+  public UserProfile get(UserProfile userProfile) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      Characteristic characteristic = (Characteristic) session.get(Characteristic.class, id);
+      UserProfile result = session.get(UserProfile.class, userProfile.getUserId());
       session.close();
-      return characteristic;
+      return result;
     } catch (Exception e) {
       throw new DataException(Arrays.toString(e.getStackTrace()));
     }
   }
 
   @Override
-  public List<Characteristic> getAll() throws DataException {
+  public List<UserProfile> getAll() throws DataException {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-      String hql = "gr.evansp.setup.product.def.models.Characteristic";
+      String hql = "FROM gr.evansp.setup.user.def.models.UserProfile";
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
@@ -40,9 +41,8 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void save(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void save(UserProfile entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.persist(entity);
       session.getTransaction().commit();
@@ -52,9 +52,8 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void update(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void update(UserProfile entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.merge(entity);
       session.getTransaction().commit();
@@ -64,9 +63,8 @@ public class CharacteristicDAO implements DAO<Characteristic> {
   }
 
   @Override
-  public void delete(Characteristic entity) throws DataException {
-    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession();) {
-
+  public void delete(UserProfile entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
       session.beginTransaction();
       session.remove(entity);
       session.getTransaction().commit();

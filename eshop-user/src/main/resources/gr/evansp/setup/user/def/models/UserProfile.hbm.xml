@@ -28,7 +28,6 @@
             </key>
             <one-to-many class="gr.evansp.setup.user.def.models.Address"/>
         </set>
-        <!--        <one-to-one name="user" lazy="no-proxy" class="User" constrained="true"/>-->
         <subclass name="gr.evansp.setup.user.impl.models.UserProfileImpl" discriminator-value="U"/>
     </class>
 </hibernate-mapping>

@@ -1,12 +1,12 @@
 package gr.evansp.setup.user.impl.operations;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.user.def.models.Address;
 import gr.evansp.setup.user.def.operations.SaveAddressOperation;
+import gr.evansp.setup.user.def.persistence.AddressRepository;
 import gr.evansp.setup.user.def.questions.NextAddressIdQuestion;
 import gr.evansp.setup.user.def.rules.AddressValidator;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 public class SaveAddressOperationImpl implements SaveAddressOperation {
   AddressValidator validator = Factory.create(AddressValidator.class);
-  DAO<Address> dao = Factory.createPersistence(Address.class);
+  AddressRepository repository = Factory.create(AddressRepository.class);
   NextAddressIdQuestion question = Factory.create(NextAddressIdQuestion.class);
 
   @Getter
@@ -34,11 +34,11 @@ public class SaveAddressOperationImpl implements SaveAddressOperation {
       input.setAddressId(question.answer());
       validator.setInput(input);
       validator.apply();
-      dao.save(input);
+      repository.save(input);
       return;
     }
     validator.setInput(input);
     validator.apply();
-    dao.update(input);
+    repository.update(input);
   }
 }

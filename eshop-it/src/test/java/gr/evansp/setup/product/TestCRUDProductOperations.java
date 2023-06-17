@@ -14,8 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Integration test class for {@link Product}.
@@ -36,8 +37,10 @@ public class TestCRUDProductOperations extends Setup {
   public void testCreateNewProduct() throws DataException, LogicException, RuleException {
     Product product = createSampleProduct(null, category.getCategoryId());
     SaveProductOperation sut = Factory.create(SaveProductOperation.class);
+    ProductRepository repository = Factory.create(ProductRepository.class);
     sut.setInput(product);
     sut.execute();
+    assertNotNull(repository.get(product));
   }
 
   @Test
@@ -51,11 +54,36 @@ public class TestCRUDProductOperations extends Setup {
 
     product.setName("new Product Name");
     product.setPrice(new BigDecimal(1000));
+    product.setInventoryCount(1);
     sut.execute();
-    //TODO Fix THIS!
-    Product returned = repository.get(product.getProductId(), product.getCategoryId());
 
-    assertEquals(new BigDecimal(1000), returned.getPrice());
+    Product returned = repository.get(product);
+
+    assertEquals(Integer.valueOf(1), returned.getInventoryCount());
     assertEquals("new Product Name", returned.getName());
+    assertEquals(product, returned);
+  }
+
+  @Test
+  public void testDeleteProduct() throws DataException, LogicException, RuleException {
+    Product product = createSampleProduct(null, category.getCategoryId());
+    SaveProductOperation sut = Factory.create(SaveProductOperation.class);
+    ProductRepository repository = Factory.create(ProductRepository.class);
+
+    sut.setInput(product);
+    sut.execute();
+
+    repository.delete(product);
+    assertNull(repository.get(product));
+  }
+
+  @Test
+  public void testGetAll() throws DataException {
+    ProductRepository repository = Factory.create(ProductRepository.class);
+
+    List<Product> products = repository.getAll();
+
+    assertNotNull(products);
+    assertFalse(products.isEmpty());
   }
 }
