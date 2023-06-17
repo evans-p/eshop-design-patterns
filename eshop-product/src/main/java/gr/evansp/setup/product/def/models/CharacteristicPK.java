@@ -9,12 +9,12 @@ public interface CharacteristicPK extends ProductPK {
    *
    * @return Id.
    */
-  public Long getCharacteristicId();
+  Long getCharacteristicId();
 
   /**
    * Setter for Characteristic Id.
    *
    * @param characteristicId Id to set.
    */
-  public void setCharacteristicId(Long characteristicId);
+  void setCharacteristicId(Long characteristicId);
 }

@@ -23,13 +23,12 @@ import java.util.Set;
  */
 public class TestProductValidatorImpl {
   private Product product;
-  private Characteristic characteristic;
   private ProductValidatorImpl sut;
 
   @Before
   public void setup() {
     product = Mockito.mock(Product.class);
-    characteristic = Mockito.mock(Characteristic.class);
+    Characteristic characteristic = Mockito.mock(Characteristic.class);
     sut = Factory.create(ProductValidatorImpl.class);
 
     Mockito.when(product.getProductId()).thenReturn(10L);
@@ -170,7 +169,7 @@ public class TestProductValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateCharacteristics_null() throws RuleException, DataException, LogicException, ParseException {
+  public void testValidateCharacteristics_null() throws RuleException, DataException, LogicException {
 
     Mockito.when(product.getCharacteristics()).thenReturn(null);
     sut.setInput(product);
@@ -187,7 +186,7 @@ public class TestProductValidatorImpl {
   }
 
   @Test
-  public void testValidateDateLastModified_null() throws RuleException, DataException, LogicException, ParseException {
+  public void testValidateDateLastModified_null() throws RuleException, DataException, LogicException {
     Mockito.when(product.getDateLastModified()).thenReturn(null);
     sut.setInput(product);
     sut.apply();

@@ -14,11 +14,11 @@ public class RuleUtils {
   }
 
   public static boolean checkContainsOnlyNumbers(String str) {
-    return str.matches("^[0-9]+$");
+    return !str.matches("^[0-9]+$");
   }
 
   public static boolean checkContainsOnlyLetters(String str) {
-    return str.matches("^[a-zA-Z]+$");
+    return !str.matches("^[a-zA-Z]+$");
   }
 
   public static boolean checkContainsSymbol(String str) {

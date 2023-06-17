@@ -15,10 +15,10 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 public class ProductValidatorImpl implements ProductValidator {
+  private final CharacteristicValidator characteristicValidator = Factory.create(CharacteristicValidator.class);
   @Setter
   @Getter
   private Product input;
-  private CharacteristicValidator characteristicValidator = Factory.create(CharacteristicValidator.class);
 
   @Override
   public void apply() throws RuleException, DataException, LogicException {

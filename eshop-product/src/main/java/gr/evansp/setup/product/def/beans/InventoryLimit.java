@@ -11,12 +11,12 @@ public interface InventoryLimit {
    *
    * @return inventory limit
    */
-  public Integer getInventoryLimit();
+  Integer getInventoryLimit();
 
   /**
    * Setter for inventory limit.
    *
    * @param inventoryLimit inventory limit to set.
    */
-  public void setInventoryLimit(Integer inventoryLimit);
+  void setInventoryLimit(Integer inventoryLimit);
 }

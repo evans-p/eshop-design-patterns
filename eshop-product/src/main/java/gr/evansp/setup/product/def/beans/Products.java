@@ -7,20 +7,21 @@ import java.util.Set;
 /**
  * A set of {@link Product}s.
  */
+@SuppressWarnings("unused")
 public interface Products {
   /**
    * Getter for products.
    *
    * @return products.
    */
-  public Set<Product> getProducts();
+  Set<Product> getProducts();
 
   /**
    * Setter for products.
    *
    * @param products products to set.
    */
-  public void setProducts(Set<Product> products);
+  void setProducts(Set<Product> products);
 
 
 }

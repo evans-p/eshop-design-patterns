@@ -13,12 +13,12 @@ public interface SaveCategoryOperation extends Operation {
    *
    * @return input(Category).
    */
-  public Category getInput();
+  Category getInput();
 
   /**
    * Setter for the input.
    *
    * @param input Category to set.
    */
-  public void setInput(Category input);
+  void setInput(Category input);
 }

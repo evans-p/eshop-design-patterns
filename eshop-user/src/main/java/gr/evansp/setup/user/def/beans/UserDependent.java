@@ -5,18 +5,19 @@ import gr.evansp.setup.user.def.models.User;
 /**
  * Dependency on {@link User}
  */
+@SuppressWarnings("unused")
 public interface UserDependent {
   /**
    * Getter for user.
    *
    * @return user
    */
-  public User getUser();
+  User getUser();
 
   /**
    * Setter for user.
    *
    * @param user user to set.
    */
-  public void setUser(User user);
+  void setUser(User user);
 }

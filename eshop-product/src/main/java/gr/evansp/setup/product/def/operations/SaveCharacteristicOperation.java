@@ -13,13 +13,13 @@ public interface SaveCharacteristicOperation extends Operation {
    *
    * @return input(Characteristic).
    */
-  public Characteristic getInput();
+  Characteristic getInput();
 
   /**
    * Setter for the input.
    *
    * @param input Characteristic to set.
    */
-  public void setInput(Characteristic input);
+  void setInput(Characteristic input);
 }
 

@@ -59,7 +59,7 @@ public class AddressValidatorImpl implements AddressValidator {
     if (input.getStreetName().equals(StringConstants.EMPTY)) {
       return "Street name cannot be empty.";
     }
-    if (!checkContainsOnlyLetters(input.getStreetName())) {
+    if (checkContainsOnlyLetters(input.getStreetName())) {
       result += "Street name must contain only letters.";
     }
     return result;
@@ -73,7 +73,7 @@ public class AddressValidatorImpl implements AddressValidator {
     if (input.getStreetNumber().equals(StringConstants.EMPTY)) {
       return "Street number cannot be empty.";
     }
-    if (!checkContainsOnlyNumbers(input.getStreetNumber())) {
+    if (checkContainsOnlyNumbers(input.getStreetNumber())) {
       result += "Street number must contain only numbers.";
     }
     return result;
@@ -87,7 +87,7 @@ public class AddressValidatorImpl implements AddressValidator {
     if (input.getPostalCode().equals(StringConstants.EMPTY)) {
       return "Postal code cannot be empty.";
     }
-    if (!checkContainsOnlyNumbers(input.getPostalCode())) {
+    if (checkContainsOnlyNumbers(input.getPostalCode())) {
       result += "Postal Code must contain only numbers.";
     }
     return result;
@@ -101,7 +101,7 @@ public class AddressValidatorImpl implements AddressValidator {
     if (input.getCity().equals(StringConstants.EMPTY)) {
       return "City cannot be empty.";
     }
-    if (!checkContainsOnlyLetters(input.getCity())) {
+    if (checkContainsOnlyLetters(input.getCity())) {
       result += "City must contain only letters.";
     }
     return result;
@@ -115,7 +115,7 @@ public class AddressValidatorImpl implements AddressValidator {
     if (input.getCountry().equals(StringConstants.EMPTY)) {
       return "Country cannot be empty.";
     }
-    if (!checkContainsOnlyLetters(input.getCountry())) {
+    if (checkContainsOnlyLetters(input.getCountry())) {
       result += "Country must contain only letters.";
     }
     return result;

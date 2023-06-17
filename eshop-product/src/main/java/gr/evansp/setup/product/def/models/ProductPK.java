@@ -9,12 +9,12 @@ public interface ProductPK extends CategoryPK {
    *
    * @return Id.
    */
-  public Long getProductId();
+  Long getProductId();
 
   /**
    * Setter for product Id.
    *
    * @param productId id to set.
    */
-  public void setProductId(Long productId);
+  void setProductId(Long productId);
 }

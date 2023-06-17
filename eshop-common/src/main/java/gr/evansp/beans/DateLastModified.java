@@ -11,12 +11,12 @@ public interface DateLastModified {
    *
    * @return the date.
    */
-  public Date getDateLastModified();
+  Date getDateLastModified();
 
   /**
    * Set the date.
    *
    * @param dateLastModified the date to set.
    */
-  public void setDateLastModified(Date dateLastModified);
+  void setDateLastModified(Date dateLastModified);
 }

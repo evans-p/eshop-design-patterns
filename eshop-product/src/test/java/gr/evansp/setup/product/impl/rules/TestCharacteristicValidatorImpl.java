@@ -13,8 +13,8 @@ import org.mockito.Mockito;
  */
 @SuppressWarnings("FieldMayBeFinal")
 public class TestCharacteristicValidatorImpl {
+  private final CharacteristicValidatorImpl sut = Factory.create(CharacteristicValidatorImpl.class);
   private Characteristic characteristic;
-  private CharacteristicValidatorImpl sut = Factory.create(CharacteristicValidatorImpl.class);
 
   @Before
   public void setup() {

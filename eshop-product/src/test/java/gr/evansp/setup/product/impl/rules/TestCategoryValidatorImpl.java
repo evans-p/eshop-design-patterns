@@ -1,8 +1,6 @@
 package gr.evansp.setup.product.impl.rules;
 
 import gr.evansp.constants.StringConstants;
-import gr.evansp.exceptions.DataException;
-import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.product.def.models.Category;
@@ -15,8 +13,8 @@ import org.mockito.Mockito;
  * Test class for {@link CategoryValidatorImpl}
  */
 public class TestCategoryValidatorImpl {
+  private final CategoryValidatorImpl sut = Factory.create(CategoryValidatorImpl.class);
   private Category category;
-  private CategoryValidatorImpl sut = Factory.create(CategoryValidatorImpl.class);
 
   @Before
   public void setup() {
@@ -46,14 +44,14 @@ public class TestCategoryValidatorImpl {
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_null() throws RuleException, DataException, LogicException {
+  public void testValidateName_null() throws RuleException {
     Mockito.when(category.getName()).thenReturn(null);
     sut.setInput(category);
     sut.apply();
   }
 
   @Test(expected = RuleException.class)
-  public void testValidateName_empty() throws RuleException, DataException, LogicException {
+  public void testValidateName_empty() throws RuleException {
     Mockito.when(category.getName()).thenReturn(StringConstants.EMPTY);
     sut.setInput(category);
     sut.apply();

@@ -12,13 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 
 /**
  * Tests for {@link SaveAddressOperationImpl}.
  */
-@SuppressWarnings("unchecked")
 public class TestSaveAddressOperationImpl {
   SaveAddressOperationImpl sut;
 

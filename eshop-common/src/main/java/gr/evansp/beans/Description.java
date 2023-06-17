@@ -3,18 +3,19 @@ package gr.evansp.beans;
 /**
  * Something with a description.
  */
+@SuppressWarnings("unused")
 public interface Description {
   /**
    * Getter Description.
    *
    * @return Description.
    */
-  public String getDescription();
+  String getDescription();
 
   /**
    * Setter for Description.
    *
    * @param description Description to set.
    */
-  public void setDescription(String description);
+  void setDescription(String description);
 }

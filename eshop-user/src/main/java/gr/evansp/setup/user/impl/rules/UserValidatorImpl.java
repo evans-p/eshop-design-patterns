@@ -20,12 +20,11 @@ import static gr.evansp.rules.RuleUtils.*;
  */
 public class UserValidatorImpl implements UserValidator {
 
+  final UserProfileValidator validator = Factory.create(UserProfileValidator.class);
   @Setter
   @Getter
   User input;
-
   UserEmailExistsQuestion question = Factory.create(UserEmailExistsQuestion.class);
-  UserProfileValidator validator = Factory.create(UserProfileValidator.class);
 
   @Override
   public void apply() throws RuleException, DataException, LogicException {

@@ -9,12 +9,12 @@ public interface StreetName {
    *
    * @return the street name
    */
-  public String getStreetName();
+  String getStreetName();
 
   /**
    * Sets the street name.
    *
    * @param streetName the street name to set.
    */
-  public void setStreetName(String streetName);
+  void setStreetName(String streetName);
 }

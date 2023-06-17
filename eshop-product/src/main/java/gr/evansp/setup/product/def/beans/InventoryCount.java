@@ -11,12 +11,12 @@ public interface InventoryCount {
    *
    * @return inventory count
    */
-  public Integer getInventoryCount();
+  Integer getInventoryCount();
 
   /**
    * Setter for inventory count.
    *
    * @param count inventory count to set.
    */
-  public void setInventoryCount(Integer count);
+  void setInventoryCount(Integer count);
 }

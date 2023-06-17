@@ -9,12 +9,12 @@ public interface PhoneNo {
    *
    * @return the user's phone number.
    */
-  public String getPhoneNo();
+  String getPhoneNo();
 
   /**
    * Sets the users phone number.
    *
    * @param phoneNo the number to set.
    */
-  public void setPhoneNo(String phoneNo);
+  void setPhoneNo(String phoneNo);
 }

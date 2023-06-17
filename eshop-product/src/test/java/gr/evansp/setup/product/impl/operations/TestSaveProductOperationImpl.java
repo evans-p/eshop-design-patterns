@@ -16,7 +16,6 @@ import org.junit.Test;
 
 import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 
 /**

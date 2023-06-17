@@ -9,12 +9,12 @@ public interface Email {
    *
    * @return email
    */
-  public String getEmail();
+  String getEmail();
 
   /**
    * Setter for User email.
    *
    * @param email email to set
    */
-  public void setEmail(String email);
+  void setEmail(String email);
 }

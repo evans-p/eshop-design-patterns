@@ -5,19 +5,20 @@ import java.util.Date;
 /**
  * User's Date of birth
  */
+@SuppressWarnings("unused")
 public interface DateOfBirth {
   /**
    * Getter for dateOfBirth
    *
    * @return date dateOfBirth
    */
-  public Date getDateOfBirth();
+  Date getDateOfBirth();
 
   /**
    * Getter for dateOfBirth
    *
    * @param dateOfBirth dateOfBirth
    */
-  public void setDateOfBirth(Date dateOfBirth);
+  void setDateOfBirth(Date dateOfBirth);
 
 }

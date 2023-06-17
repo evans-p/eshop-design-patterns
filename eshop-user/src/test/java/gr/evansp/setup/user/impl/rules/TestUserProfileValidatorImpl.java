@@ -24,8 +24,8 @@ import java.util.Set;
  * Test class for {@link UserProfileValidator}
  */
 public class TestUserProfileValidatorImpl {
+  final UserProfileValidatorImpl sut = Factory.create(UserProfileValidatorImpl.class);
   UserProfile userProfile;
-  UserProfileValidatorImpl sut = Factory.create(UserProfileValidatorImpl.class);
 
   @Before
   public void setup() throws DataException, LogicException, RuleException {

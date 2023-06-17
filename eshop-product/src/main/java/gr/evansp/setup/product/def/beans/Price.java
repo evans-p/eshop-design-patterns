@@ -13,12 +13,12 @@ public interface Price {
    *
    * @return product price
    */
-  public BigDecimal getPrice();
+  BigDecimal getPrice();
 
   /**
    * Setter for product price.
    *
    * @param price price to set.
    */
-  public void setPrice(BigDecimal price);
+  void setPrice(BigDecimal price);
 }

@@ -11,12 +11,12 @@ public interface SKU {
    *
    * @return SKU
    */
-  public String getSKU();
+  String getSKU();
 
   /**
    * Setter for product SKU.
    *
    * @param sku SKU to set.
    */
-  public void setSKU(String sku);
+  void setSKU(String sku);
 }

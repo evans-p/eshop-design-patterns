@@ -17,9 +17,10 @@ import java.util.Set;
  * Can create only new objects that are tagged by the interfaces below:
  * [Entity]
  */
+@SuppressWarnings({"deprecation", "rawtypes", "unchecked"})
 public class Factory {
   private static final String BASE_PACKAGE_NAME = "gr";
-  private static Map<Class, Class> interfaceToClassMap = new HashMap<>();
+  private static final Map<Class, Class> interfaceToClassMap = new HashMap<>();
 
 
   /**
@@ -64,7 +65,7 @@ public class Factory {
 
   private static <M extends Entity> M createImplementation(Class<M> type) {
     try {
-      return (M) type.getConstructor().newInstance();
+      return type.getConstructor().newInstance();
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
              | InvocationTargetException e) {
       //EMPTY

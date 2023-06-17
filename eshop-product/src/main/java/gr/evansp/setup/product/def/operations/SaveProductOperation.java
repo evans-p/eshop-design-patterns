@@ -13,12 +13,12 @@ public interface SaveProductOperation extends Operation {
    *
    * @return input(Product).
    */
-  public Product getInput();
+  Product getInput();
 
   /**
    * Setter for the input.
    *
    * @param input Product to set.
    */
-  public void setInput(Product input);
+  void setInput(Product input);
 }

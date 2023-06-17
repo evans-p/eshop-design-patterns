@@ -13,5 +13,5 @@ public interface Operation extends Entity {
   /**
    * Main method of the operation. to be called to execute the operation.
    */
-  public void execute() throws DataException, RuleException, LogicException;
+  void execute() throws DataException, RuleException, LogicException;
 }

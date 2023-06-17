@@ -9,12 +9,12 @@ public interface Named {
    *
    * @return name.
    */
-  public String getName();
+  String getName();
 
   /**
    * Setter for name.
    *
    * @param name name to set
    */
-  public void setName(String name);
+  void setName(String name);
 }

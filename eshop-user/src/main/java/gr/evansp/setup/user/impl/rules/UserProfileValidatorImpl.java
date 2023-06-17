@@ -86,7 +86,7 @@ public class UserProfileValidatorImpl implements UserProfileValidator {
     if (input.getPhoneNo().equals(StringConstants.EMPTY)) {
       return "Phone number cannot be empty";
     }
-    if (!checkContainsOnlyNumbers(input.getPhoneNo())) {
+    if (checkContainsOnlyNumbers(input.getPhoneNo())) {
       result += "Phone number cannot contain letters.";
     }
     if (input.getPhoneNo().length() != 10) {

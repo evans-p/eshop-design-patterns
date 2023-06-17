@@ -9,12 +9,12 @@ public interface Password {
    *
    * @return pasword
    */
-  public String getPassword();
+  String getPassword();
 
   /**
    * Setter for User password.
    *
    * @param password password to set
    */
-  public void setPassword(String password);
+  void setPassword(String password);
 }

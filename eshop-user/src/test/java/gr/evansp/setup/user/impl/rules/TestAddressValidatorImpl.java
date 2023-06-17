@@ -17,8 +17,8 @@ import org.mockito.Mockito;
  */
 @SuppressWarnings("FieldMayBeFinal")
 public class TestAddressValidatorImpl {
+  private final AddressValidator sut = Factory.create(AddressValidator.class);
   private Address address;
-  private AddressValidator sut = Factory.create(AddressValidator.class);
 
   @Before
   public void setup() {

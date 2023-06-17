@@ -20,12 +20,11 @@ import java.util.Collections;
  * Test class for {@link UserValidatorImpl}
  */
 public class TestUserValidatorImpl {
+  final UserValidatorImpl sut = Factory.create(UserValidatorImpl.class);
   User user;
   UserProfile userProfile;
   UserProfileValidator userProfileValidator;
   UserEmailExistsQuestion question;
-  UserValidatorImpl sut = Factory.create(UserValidatorImpl.class);
-
 
   @Before
   public void setup() throws DataException, LogicException {

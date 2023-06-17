@@ -1,6 +1,5 @@
 package gr.evansp.setup.user.impl.persistence;
 
-import gr.evansp.common.DAO;
 import gr.evansp.exceptions.DataException;
 import gr.evansp.hibernate.HibernateConfiguration;
 import gr.evansp.setup.user.def.models.UserProfile;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of {@link DAO} for {@link UserProfile}.
+ * Implementation of {@link gr.evansp.common.Repository} for {@link UserProfile}.
  */
 @SuppressWarnings({"unused", "unchecked", "deprecation", "rawtypes"})
 public class UserProfileRepositoryImpl implements UserProfileRepository {

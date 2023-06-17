@@ -9,12 +9,12 @@ public interface StreetNumber {
    *
    * @return street number
    */
-  public String getStreetNumber();
+  String getStreetNumber();
 
   /**
    * Sets the street number.
    *
    * @param streetNumber street number to set
    */
-  public void setStreetNumber(String streetNumber);
+  void setStreetNumber(String streetNumber);
 }

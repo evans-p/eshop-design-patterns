@@ -11,12 +11,12 @@ public interface DateAdded {
    *
    * @return the date.
    */
-  public Date getDateAdded();
+  Date getDateAdded();
 
   /**
    * Set the date.
    *
    * @param dateAdded the date to set.
    */
-  public void setDateAdded(Date dateAdded);
+  void setDateAdded(Date dateAdded);
 }

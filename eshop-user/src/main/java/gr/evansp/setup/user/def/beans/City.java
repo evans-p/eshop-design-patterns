@@ -9,12 +9,12 @@ public interface City {
    *
    * @return the city.
    */
-  public String getCity();
+  String getCity();
 
   /**
    * Sets the city.
    *
    * @param city the city to set.
    */
-  public void setCity(String city);
+  void setCity(String city);
 }

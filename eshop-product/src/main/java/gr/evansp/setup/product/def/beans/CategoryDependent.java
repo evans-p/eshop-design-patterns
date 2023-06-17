@@ -5,19 +5,20 @@ import gr.evansp.setup.product.def.models.Category;
 /**
  * Something that dependeds on {@link Category}
  */
+@SuppressWarnings("unused")
 public interface CategoryDependent {
   /**
    * Getter for category.
    *
    * @return category.
    */
-  public Category getCategory();
+  Category getCategory();
 
   /**
    * Setter for category.
    *
    * @param category category to set.
    */
-  public void setCategory(Category category);
+  void setCategory(Category category);
 
 }

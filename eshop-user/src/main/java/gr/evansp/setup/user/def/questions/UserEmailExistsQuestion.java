@@ -12,12 +12,12 @@ public interface UserEmailExistsQuestion extends Question<Boolean> {
    *
    * @return input
    */
-  public User getInput();
+  User getInput();
 
   /**
    * setter for input.
    *
    * @param input input
    */
-  public void setInput(User input);
+  void setInput(User input);
 }

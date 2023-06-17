@@ -9,12 +9,12 @@ public interface LastName {
    *
    * @return last name.
    */
-  public String getLastName();
+  String getLastName();
 
   /**
    * Sets the last name.
    *
    * @param lastName the last name to set.
    */
-  public void setLastName(String lastName);
+  void setLastName(String lastName);
 }

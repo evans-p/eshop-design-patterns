@@ -11,12 +11,12 @@ public interface UserProfileDependent {
    *
    * @return UserProfile.
    */
-  public UserProfile getUserProfile();
+  UserProfile getUserProfile();
 
   /**
    * Setter for UserProfile
    *
    * @param userProfile UserProfile to set.
    */
-  public void setUserProfile(UserProfile userProfile);
+  void setUserProfile(UserProfile userProfile);
 }

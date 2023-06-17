@@ -5,18 +5,19 @@ import gr.evansp.setup.product.def.models.Characteristic;
 /**
  * Something that depends on {@link Characteristic}
  */
+@SuppressWarnings("unused")
 public interface CharacteristicDependent {
   /**
    * Getter for Characteristic.
    *
    * @return Characteristic
    */
-  public Characteristic getCharacteristic();
+  Characteristic getCharacteristic();
 
   /**
    * Setter for Characteristic.
    *
    * @param characteristic Characteristic to set.
    */
-  public void setCharacteristic(Characteristic characteristic);
+  void setCharacteristic(Characteristic characteristic);
 }

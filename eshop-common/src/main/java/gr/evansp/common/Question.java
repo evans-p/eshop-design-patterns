@@ -9,16 +9,13 @@ import gr.evansp.exceptions.LogicException;
 public interface Question<T> extends Entity {
   /**
    * Asks the question.
-   *
-   * @throws DataException
    */
-  public void ask() throws DataException, LogicException;
+  void ask() throws DataException, LogicException;
 
   /**
    * Gets the answer of the question.
    *
    * @return Result of the question.
-   * @throws DataException
    */
-  public T answer();
+  T answer();
 }

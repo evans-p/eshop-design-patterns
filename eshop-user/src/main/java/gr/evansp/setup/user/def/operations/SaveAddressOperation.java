@@ -13,12 +13,12 @@ public interface SaveAddressOperation extends Operation {
    *
    * @return input(Address).
    */
-  public Address getInput();
+  Address getInput();
 
   /**
    * Setter for the input.
    *
    * @param input Address to set.
    */
-  public void setInput(Address input);
+  void setInput(Address input);
 }

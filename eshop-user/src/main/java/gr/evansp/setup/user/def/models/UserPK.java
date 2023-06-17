@@ -9,12 +9,12 @@ public interface UserPK {
    *
    * @return user id.
    */
-  public Long getUserId();
+  Long getUserId();
 
   /**
    * Setter for user Id.
    *
    * @param userId id to set.
    */
-  public void setUserId(Long userId);
+  void setUserId(Long userId);
 }

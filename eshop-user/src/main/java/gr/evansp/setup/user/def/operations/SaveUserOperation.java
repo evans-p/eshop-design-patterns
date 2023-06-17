@@ -13,12 +13,12 @@ public interface SaveUserOperation extends Operation {
    *
    * @return input(User).
    */
-  public User getInput();
+  User getInput();
 
   /**
    * Setter for the input.
    *
    * @param input User to set.
    */
-  public void setInput(User input);
+  void setInput(User input);
 }

@@ -9,12 +9,12 @@ public interface Country {
    *
    * @return the country.
    */
-  public String getCountry();
+  String getCountry();
 
   /**
    * Sets the country.
    *
    * @param country the country to set.
    */
-  public void setCountry(String country);
+  void setCountry(String country);
 }

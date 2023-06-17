@@ -17,7 +17,7 @@ import java.util.Set;
  * Creates sample Persistent Objects.
  */
 public class Setup {
-  private static Random r = new Random();
+  private static final Random r = new Random();
 
   public static User createSampleUser() {
     User user = Factory.create(User.class);

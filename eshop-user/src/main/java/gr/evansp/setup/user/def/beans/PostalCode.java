@@ -9,12 +9,12 @@ public interface PostalCode {
    *
    * @return the postal code.
    */
-  public String getPostalCode();
+  String getPostalCode();
 
   /**
    * Sets the Postal code.
    *
    * @param postalCode the postal code to set.
    */
-  public void setPostalCode(String postalCode);
+  void setPostalCode(String postalCode);
 }

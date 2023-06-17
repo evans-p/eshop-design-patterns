@@ -13,12 +13,12 @@ public interface Characteristics {
    *
    * @return set of characteristics
    */
-  public Set<Characteristic> getCharacteristics();
+  Set<Characteristic> getCharacteristics();
 
   /**
    * Setter for product Characteristics.
    *
    * @param characteristics characteristics to set.
    */
-  public void setCharacteristics(Set<Characteristic> characteristics);
+  void setCharacteristics(Set<Characteristic> characteristics);
 }

@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 /**
  * Tests for {@link SaveUserProfileOperationImpl}
  */
-@SuppressWarnings("unchecked")
 public class TestSaveUserProfileOperationImpl {
   SaveUserProfileOperationImpl sut;
   UserProfile userProfile;

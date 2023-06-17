@@ -12,12 +12,12 @@ public interface SaveUserProfileOperation extends Operation {
    *
    * @return input(User).
    */
-  public UserProfile getInput();
+  UserProfile getInput();
 
   /**
    * Setter for the input.
    *
    * @param input User to set.
    */
-  public void setInput(UserProfile input);
+  void setInput(UserProfile input);
 }

@@ -9,12 +9,12 @@ public interface Value {
    *
    * @return value.
    */
-  public String getValue();
+  String getValue();
 
   /**
    * Setter for value.
    *
    * @param value value to set.
    */
-  public void setValue(String value);
+  void setValue(String value);
 }

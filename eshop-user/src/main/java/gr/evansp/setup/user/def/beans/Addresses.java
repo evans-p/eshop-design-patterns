@@ -7,18 +7,19 @@ import java.util.Set;
 /**
  * User Addresses.
  */
+@SuppressWarnings("unused")
 public interface Addresses {
   /**
    * Getter for addresses.
    *
    * @return addresses.
    */
-  public Set<Address> getAddresses();
+  Set<Address> getAddresses();
 
   /**
    * Setter for addresses.
    *
    * @param addresses addresses to set.
    */
-  public void setAddresses(Set<Address> addresses);
+  void setAddresses(Set<Address> addresses);
 }

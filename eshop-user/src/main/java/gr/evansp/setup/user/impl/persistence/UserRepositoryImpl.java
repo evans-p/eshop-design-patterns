@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Implementation of {@link UserRepository}.
  */
+@SuppressWarnings({"deprecation", "unused", "rawtypes", "unchecked"})
 public class UserRepositoryImpl implements UserRepository {
   @Override
   public User get(User user) throws DataException {

@@ -9,12 +9,12 @@ public interface AddressPK extends UserPK {
    *
    * @return address id.
    */
-  public Long getAddressId();
+  Long getAddressId();
 
   /**
    * Setter for address Id.
    *
    * @param addressId id to set.
    */
-  public void setAddressId(Long addressId);
+  void setAddressId(Long addressId);
 }

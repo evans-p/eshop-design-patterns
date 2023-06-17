@@ -9,12 +9,12 @@ public interface CategoryPK {
    *
    * @return Id.
    */
-  public Long getCategoryId();
+  Long getCategoryId();
 
   /**
    * Setter for category Id.
    *
    * @param categoryId Id to set
    */
-  public void setCategoryId(Long categoryId);
+  void setCategoryId(Long categoryId);
 }
