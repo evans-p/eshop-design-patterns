@@ -13,6 +13,7 @@
         <module>eshop-product</module>
         <module>eshop-user</module>
         <module>eshop-it</module>
+        <module>eshop-order</module>
     </modules>
 
     <properties>
@@ -63,6 +64,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -70,7 +72,6 @@
             <artifactId>reflections</artifactId>
             <version>0.10.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -80,11 +81,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
         </dependency>
     </dependencies>
 </project>
