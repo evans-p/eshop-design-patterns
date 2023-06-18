@@ -23,10 +23,5 @@ public class CartItemImpl implements CartItem {
     @EqualsAndHashCode.Include
     private Long cartId;
 
-    @EqualsAndHashCode.Include
-    private Long userId;
-
-    @EqualsAndHashCode.Include
-    
     private Long count;
 }

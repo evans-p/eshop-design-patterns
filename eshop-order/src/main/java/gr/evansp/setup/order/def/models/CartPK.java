@@ -1,11 +1,9 @@
 package gr.evansp.setup.order.def.models;
 
-import gr.evansp.setup.user.def.models.UserPK;
-
 /**
  * {@link Cart} primary key.
  */
-public interface CartPK extends UserPK {
+public interface CartPK {
     /**
      * Getter for Cart Id.
      *

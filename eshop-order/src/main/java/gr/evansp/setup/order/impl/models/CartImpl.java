@@ -21,8 +21,5 @@ public class CartImpl implements Cart {
     @EqualsAndHashCode.Include
     private Long cartId;
 
-    @EqualsAndHashCode.Include
-    private Long userId;
-
     private Set<CartItem> cartItems = new HashSet<>();
 }
