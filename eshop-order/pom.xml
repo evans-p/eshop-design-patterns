@@ -28,6 +28,12 @@
             <artifactId>eshop-user</artifactId>
             <version>${revision}</version>
         </dependency>
+
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
 </project>

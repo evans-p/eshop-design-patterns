@@ -86,9 +86,5 @@ CREATE SEQUENCE CATEGORY_ID_SEQUENCE START 100;
 CREATE SEQUENCE PRODUCT_ID_SEQUENCE START 100;
 CREATE SEQUENCE CHARACTERISTIC_ID_SEQUENCE START 100;
 
-
---TODO: Switch from DAO to repository Pattern.
---TODO: Move common functionality all all persistence workers (DAOs) to a common generic one.
---TODO: Update Tests
 --TODO: Make category name unique
 --TODO: Cleanup Pom.xml files. Move dependencies to parent.
