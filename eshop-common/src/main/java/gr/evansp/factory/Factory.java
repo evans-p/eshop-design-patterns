@@ -69,6 +69,7 @@ public class Factory {
     } catch (NoSuchMethodException | InstantiationException | IllegalAccessException
              | InvocationTargetException e) {
       //EMPTY
+      e.printStackTrace();
     }
     return null;
   }

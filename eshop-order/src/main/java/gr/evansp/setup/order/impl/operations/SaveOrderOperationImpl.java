@@ -26,7 +26,7 @@ public class SaveOrderOperationImpl implements SaveOrderOperation {
   @Override
   public void execute() throws DataException, RuleException, LogicException {
     if (input == null) {
-      throw new LogicException("Input(Cart) cannot be null.");
+      throw new LogicException("Input(Order) cannot be null.");
     }
 
     if (input.getOrderId() == null) {

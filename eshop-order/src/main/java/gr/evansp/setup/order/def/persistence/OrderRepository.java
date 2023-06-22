@@ -6,7 +6,6 @@ import gr.evansp.setup.order.def.models.Order;
 /**
  * Repository for {@link Order}.
  */
-@SuppressWarnings("unused")
 public interface OrderRepository extends Repository<Order> {
   //EMPTY
 }
