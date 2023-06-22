@@ -1,5 +1,6 @@
 package gr.evansp.setup.order.impl.models;
 
+import gr.evansp.constants.StringConstants;
 import gr.evansp.setup.order.def.enums.OrderStatus;
 import gr.evansp.setup.order.def.models.Cart;
 import gr.evansp.setup.order.def.models.Order;
@@ -25,11 +26,13 @@ public class OrderImpl implements Order {
   @EqualsAndHashCode.Include
   private Long userId;
 
-  @EqualsAndHashCode.Include
-  private Long addressId;
-
   private Cart cart;
   private Date dateAdded = Calendar.getInstance().getTime();
   private Date dateLastModified = Calendar.getInstance().getTime();
   private OrderStatus status = OrderStatus.PENDING;
+  private String streetName = StringConstants.EMPTY;
+  private String streetNumber = StringConstants.EMPTY;
+  private String postalCode = StringConstants.EMPTY;
+  private String city = StringConstants.EMPTY;
+  private String country = StringConstants.EMPTY;
 }

@@ -23,12 +23,12 @@ public class AddressValidatorImpl implements AddressValidator {
     StringBuilder builder = new StringBuilder();
 
     builder.append(validateAddressId());
+    builder.append(validateUserId());
     builder.append(validateCity());
     builder.append(validateCountry());
     builder.append(validatePostalCode());
     builder.append(validateStreetName());
     builder.append(validateStreetNameNumber());
-    builder.append(validateUserId());
 
     if (builder.toString().length() > 0) {
       throw new RuleException(builder.toString());

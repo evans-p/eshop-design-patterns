@@ -5,6 +5,7 @@ import gr.evansp.setup.product.def.models.Product;
 
 /**
  * Validator for {@link Product}. Must follow the rules below:
+ * <ul>
  * <li>product Id must not be null</li>
  * <li>SKU must not be null or empty</li>
  * <li>name must not be null or empty</li>
@@ -20,6 +21,7 @@ import gr.evansp.setup.product.def.models.Product;
  * <li>dateLastModified must be greater than or equal to dateAdded, if it is not null</li>
  * <li>Product characteristics must not be null or an empty set</li>
  * <li>each product characteristic must be validated, using {@link CharacteristicValidator}</li>
+ * <ul>
  */
 public interface ProductValidator extends Rule<Product> {
   //EMPTY
