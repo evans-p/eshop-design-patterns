@@ -6,7 +6,6 @@ import gr.evansp.setup.order.def.models.Order;
 /**
  * Saves or updates {@link Order}.
  */
-@SuppressWarnings("unused")
 public interface SaveOrderOperation extends Operation {
   /**
    * Getter for the input.
