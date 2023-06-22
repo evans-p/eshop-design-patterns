@@ -19,17 +19,17 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderImpl implements Order {
-    @EqualsAndHashCode.Include
-    private Long orderId;
+  @EqualsAndHashCode.Include
+  private Long orderId;
 
-    @EqualsAndHashCode.Include
-    private Long userId;
+  @EqualsAndHashCode.Include
+  private Long userId;
 
-    @EqualsAndHashCode.Include
-    private Long AddressId;
+  @EqualsAndHashCode.Include
+  private Long addressId;
 
-    private Cart cart;
-    private Date dateAdded = Calendar.getInstance().getTime();
-    private Date dateLastModified = Calendar.getInstance().getTime();
-    private OrderStatus status = OrderStatus.PENDING;
+  private Cart cart;
+  private Date dateAdded = Calendar.getInstance().getTime();
+  private Date dateLastModified = Calendar.getInstance().getTime();
+  private OrderStatus status = OrderStatus.PENDING;
 }
