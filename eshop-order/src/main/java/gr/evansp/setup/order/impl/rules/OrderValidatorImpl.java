@@ -21,7 +21,7 @@ public class OrderValidatorImpl implements OrderValidator {
   CartValidator validator = Factory.create(CartValidator.class);
   @Setter
   @Getter
-  private Order input;
+  Order input;
 
   public void apply() throws RuleException, DataException, LogicException {
     StringBuilder builder = new StringBuilder();

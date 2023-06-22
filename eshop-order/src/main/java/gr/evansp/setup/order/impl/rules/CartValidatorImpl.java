@@ -17,31 +17,31 @@ import lombok.Setter;
  * Implementation of {@link CartValidator}.
  */
 public class CartValidatorImpl implements CartValidator {
-    @Setter
-    @Getter
-    private Cart input;
-    private CartItemValidator validator = Factory.create(CartItemValidator.class);
+  CartItemValidator validator = Factory.create(CartItemValidator.class);
+  @Setter
+  @Getter
+  Cart input;
 
-    @Override
-    public void apply() throws RuleException, DataException, LogicException {
-        StringBuilder builder = new StringBuilder();
+  @Override
+  public void apply() throws RuleException, DataException, LogicException {
+    StringBuilder builder = new StringBuilder();
 
-        builder.append(validateCartId());
+    builder.append(validateCartId());
 
-        if (builder.length() > 0) {
-            throw new LogicException(builder.toString());
-        }
-
-        for (CartItem c : input.getCartItems()) {
-            validator.setInput(c);
-            validator.apply();
-        }
+    if (builder.length() > 0) {
+      throw new RuleException(builder.toString());
     }
 
-    private String validateCartId() {
-        if (input.getCartId().equals(null)) {
-            return "Cart Id cannot be null.";
-        }
-        return StringConstants.EMPTY;
+    for (CartItem c : input.getCartItems()) {
+      validator.setInput(c);
+      validator.apply();
     }
+  }
+
+  private String validateCartId() {
+    if (input.getCartId() == null) {
+      return "Cart Id cannot be null.";
+    }
+    return StringConstants.EMPTY;
+  }
 }
