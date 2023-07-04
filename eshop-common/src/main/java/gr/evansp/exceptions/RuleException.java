@@ -10,4 +10,8 @@ public class RuleException extends Exception {
   public RuleException(String e) {
     super(e);
   }
+
+  public RuleException(Throwable e) {
+    super(e);
+  }
 }

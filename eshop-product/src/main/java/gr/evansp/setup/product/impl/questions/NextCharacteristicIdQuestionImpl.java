@@ -6,8 +6,6 @@ import gr.evansp.setup.product.def.questions.NextCharacteristicIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 /**
  * Implementation of {@link NextCharacteristicIdQuestion}
  */
@@ -23,7 +21,7 @@ public class NextCharacteristicIdQuestionImpl implements NextCharacteristicIdQue
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('CHARACTERISTIC_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

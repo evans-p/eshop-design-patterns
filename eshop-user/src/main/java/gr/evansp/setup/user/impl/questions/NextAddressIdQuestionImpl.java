@@ -6,8 +6,6 @@ import gr.evansp.setup.user.def.questions.NextAddressIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 /**
  * Implementation of {@link NextAddressIdQuestion}
  */
@@ -22,7 +20,7 @@ public class NextAddressIdQuestionImpl implements NextAddressIdQuestion {
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('ADDRESS_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

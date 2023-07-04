@@ -7,7 +7,6 @@ import gr.evansp.setup.product.def.persistence.CategoryRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
       session.close();
       return result;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -35,7 +34,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -47,7 +46,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
       session.persist(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -59,7 +58,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
       session.merge(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -71,7 +70,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
       session.remove(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 }

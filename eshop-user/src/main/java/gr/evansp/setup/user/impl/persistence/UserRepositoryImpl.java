@@ -7,7 +7,6 @@ import gr.evansp.setup.user.def.persistence.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
       session.close();
       return result;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -34,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -45,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
       session.persist(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -56,7 +55,7 @@ public class UserRepositoryImpl implements UserRepository {
       session.merge(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -67,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
       session.remove(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 }

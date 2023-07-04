@@ -6,8 +6,6 @@ import gr.evansp.setup.product.def.questions.NextCategoryIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 @SuppressWarnings({"unused", "deprecation", "rawtypes"})
 public class NextCategoryIdQuestionImpl implements NextCategoryIdQuestion {
   private Long answer;
@@ -20,7 +18,7 @@ public class NextCategoryIdQuestionImpl implements NextCategoryIdQuestion {
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('CATEGORY_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

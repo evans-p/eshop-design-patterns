@@ -6,8 +6,6 @@ import gr.evansp.setup.order.def.questions.NextOrderIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 /**
  * Implementation of {@link NextOrderIdQuestion}.
  */
@@ -23,7 +21,7 @@ public class NextOrderIdQuestionImpl implements NextOrderIdQuestion {
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('ORDER_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

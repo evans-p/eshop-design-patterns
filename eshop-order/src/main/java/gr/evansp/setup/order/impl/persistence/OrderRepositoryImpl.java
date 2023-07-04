@@ -7,7 +7,6 @@ import gr.evansp.setup.order.def.persistence.OrderRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -26,7 +25,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       session.close();
       return result;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -37,7 +36,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       Query query = session.createQuery(hql);
       return query.getResultList();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -49,7 +48,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       session.persist(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -61,7 +60,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       session.merge(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 
@@ -73,7 +72,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       session.remove(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 }

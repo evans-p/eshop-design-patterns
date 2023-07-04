@@ -6,29 +6,27 @@ import gr.evansp.setup.order.def.questions.NextCartIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 /**
  * Implementation of {@link NextCartIdQuestion}.
  */
 @SuppressWarnings({"unused", "deprecation", "rawtypes"})
 public class NextCartIdQuestionImpl implements NextCartIdQuestion {
-    private Long answer;
+  private Long answer;
 
-    @Override
-    public void ask() throws DataException {
+  @Override
+  public void ask() throws DataException {
 
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
-            NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('CART_ID_SEQUENCE');");
-            answer = (Long) query.uniqueResult();
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+      NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('CART_ID_SEQUENCE');");
+      answer = (Long) query.uniqueResult();
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 
-    @Override
-    public Long answer() {
-        return answer;
-    }
+  @Override
+  public Long answer() {
+    return answer;
+  }
 }

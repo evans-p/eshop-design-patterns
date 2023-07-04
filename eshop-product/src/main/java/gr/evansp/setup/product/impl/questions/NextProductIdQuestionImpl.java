@@ -6,8 +6,6 @@ import gr.evansp.setup.product.def.questions.NextProductIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 @SuppressWarnings({"unused", "deprecation", "rawtypes"})
 public class NextProductIdQuestionImpl implements NextProductIdQuestion {
   private Long answer;
@@ -23,7 +21,7 @@ public class NextProductIdQuestionImpl implements NextProductIdQuestion {
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('PRODUCT_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

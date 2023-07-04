@@ -7,7 +7,6 @@ import gr.evansp.setup.order.def.persistence.CartRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,63 +15,63 @@ import java.util.List;
 @SuppressWarnings({"unused", "deprecation", "rawtypes", "unchecked"})
 public class CartRepositoryImpl implements CartRepository {
 
-    @Override
-    public Cart get(Cart cart) throws DataException {
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+  @Override
+  public Cart get(Cart cart) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
-            session.beginTransaction();
-            Cart result = session.get(Cart.class, cart.getCartId());
-            session.close();
-            return result;
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+      session.beginTransaction();
+      Cart result = session.get(Cart.class, cart.getCartId());
+      session.close();
+      return result;
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 
-    @Override
-    public List<Cart> getAll() throws DataException {
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
-            String hql = "FROM gr.evansp.setup.order.def.models.Cart";
-            Query query = session.createQuery(hql);
-            return query.getResultList();
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+  @Override
+  public List<Cart> getAll() throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+      String hql = "FROM gr.evansp.setup.order.def.models.Cart";
+      Query query = session.createQuery(hql);
+      return query.getResultList();
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 
-    @Override
-    public void save(Cart entity) throws DataException {
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+  @Override
+  public void save(Cart entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
-            session.beginTransaction();
-            session.persist(entity);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+      session.beginTransaction();
+      session.persist(entity);
+      session.getTransaction().commit();
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 
-    @Override
-    public void update(Cart entity) throws DataException {
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+  @Override
+  public void update(Cart entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
-            session.beginTransaction();
-            session.merge(entity);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+      session.beginTransaction();
+      session.merge(entity);
+      session.getTransaction().commit();
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 
-    @Override
-    public void delete(Cart entity) throws DataException {
-        try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
+  @Override
+  public void delete(Cart entity) throws DataException {
+    try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
-            session.beginTransaction();
-            session.remove(entity);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new DataException(Arrays.toString(e.getStackTrace()));
-        }
+      session.beginTransaction();
+      session.remove(entity);
+      session.getTransaction().commit();
+    } catch (Exception e) {
+      throw new DataException(e);
     }
+  }
 }

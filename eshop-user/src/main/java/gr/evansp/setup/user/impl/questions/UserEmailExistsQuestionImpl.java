@@ -10,7 +10,6 @@ import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class UserEmailExistsQuestionImpl implements UserEmailExistsQuestion {
@@ -39,7 +38,7 @@ public class UserEmailExistsQuestionImpl implements UserEmailExistsQuestion {
       }
       answer = true;
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

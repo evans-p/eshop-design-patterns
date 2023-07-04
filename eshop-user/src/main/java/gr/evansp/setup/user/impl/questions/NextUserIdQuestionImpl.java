@@ -6,8 +6,6 @@ import gr.evansp.setup.user.def.questions.NextUserIdQuestion;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
-import java.util.Arrays;
-
 
 @SuppressWarnings({"unused", "deprecation", "rawtypes"})
 public class NextUserIdQuestionImpl implements NextUserIdQuestion {
@@ -21,7 +19,7 @@ public class NextUserIdQuestionImpl implements NextUserIdQuestion {
       NativeQuery query = session.createNativeQuery("SELECT NEXTVAL('USER_ID_SEQUENCE');");
       answer = (Long) query.uniqueResult();
     } catch (Exception e) {
-      throw new DataException(Arrays.toString(e.getStackTrace()));
+      throw new DataException(e);
     }
   }
 

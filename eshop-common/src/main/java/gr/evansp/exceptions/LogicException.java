@@ -10,4 +10,8 @@ public class LogicException extends Exception {
   public LogicException(String e) {
     super(e);
   }
+
+  public LogicException(Throwable e) {
+    super(e);
+  }
 }
