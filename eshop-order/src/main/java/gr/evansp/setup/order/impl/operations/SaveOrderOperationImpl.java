@@ -23,8 +23,7 @@ public class SaveOrderOperationImpl implements SaveOrderOperation {
   OrderValidator validator = Factory.create(OrderValidator.class);
   NextOrderIdQuestion question = Factory.create(NextOrderIdQuestion.class);
   OrderRepository repository = Factory.create(OrderRepository.class);
-
-
+  
   @Override
   public void execute() throws LogicException, DataException, RuleException {
     if (input == null) {
