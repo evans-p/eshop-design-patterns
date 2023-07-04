@@ -61,5 +61,4 @@ public class TestSaveOrderItemOperationImpl {
   public void testExecute_ok() throws DataException, LogicException, RuleException {
     sut.execute();
   }
-
 }
