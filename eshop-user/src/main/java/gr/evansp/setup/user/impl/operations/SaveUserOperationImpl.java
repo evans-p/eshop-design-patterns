@@ -41,7 +41,6 @@ public class SaveUserOperationImpl implements SaveUserOperation {
       return;
     }
 
-    // Validate input.
     validator.setInput(input);
     validator.apply();
     repository.update(input);

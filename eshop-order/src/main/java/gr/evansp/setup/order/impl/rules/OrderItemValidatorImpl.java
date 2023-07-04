@@ -54,7 +54,7 @@ public class OrderItemValidatorImpl implements OrderItemValidator {
     }
 
     private String validateProductId() {
-        if (input.getCategoryId() == null) {
+        if (input.getProductId() == null) {
             return "Product Id cannot be null";
         }
         return StringConstants.EMPTY;
