@@ -5,12 +5,17 @@ import gr.evansp.exceptions.LogicException;
 import gr.evansp.exceptions.RuleException;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.order.def.models.Order;
+import gr.evansp.setup.order.def.models.OrderItem;
 import gr.evansp.setup.order.def.persistence.OrderRepository;
 import gr.evansp.setup.order.def.questions.NextOrderIdQuestion;
 import gr.evansp.setup.order.def.rules.OrderValidator;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
@@ -60,13 +65,30 @@ public class TestSaveOrderOperationImpl {
   }
 
   /**
-   * Test for {@link SaveCartOperationImpl#execute()}
+   * Test for {@link SaveOrderOperationImpl#execute()}
    * ok.
    */
   @Test
   public void testExecute_ok() throws DataException, LogicException, RuleException {
     sut.input.setOrderId(1L);
     sut.execute();
+  }
+
+  /**
+   * test for {@link SaveOrderOperationImpl#updateOrderItems()}
+   */
+  @Test
+  public void testUpdateOrderItems() {
+    OrderItem orderItem = Factory.create(OrderItem.class);
+
+    sut.input.setOrderItems(Set.of(orderItem));
+    sut.input.setOrderId(1L);
+    sut.input.setUserId(1L);
+
+    sut.updateOrderItems();
+
+    assertEquals(Optional.of(1L).get(), orderItem.getOrderId());
+    assertEquals(Optional.of(1L).get(), orderItem.getUserId());
   }
 
 }
