@@ -16,28 +16,28 @@ import lombok.Setter;
  * Implementation of {@link SaveCartOperation}.
  */
 public class SaveCartOperationImpl implements SaveCartOperation {
-  @Setter
-  @Getter
-  Cart input;
-  CartValidator cartValidator = Factory.create(CartValidator.class);
-  NextCartIdQuestion question = Factory.create(NextCartIdQuestion.class);
-  CartRepository repository = Factory.create(CartRepository.class);
+    @Setter
+    @Getter
+    Cart input;
+    CartValidator cartValidator = Factory.create(CartValidator.class);
+    NextCartIdQuestion question = Factory.create(NextCartIdQuestion.class);
+    CartRepository repository = Factory.create(CartRepository.class);
 
-  @Override
-  public void execute() throws DataException, RuleException, LogicException {
-    if (input == null) {
-      throw new LogicException("Input(Cart) cannot be null.");
-    }
+    @Override
+    public void execute() throws DataException, RuleException, LogicException {
+        if (input == null) {
+            throw new LogicException("Input(Cart) cannot be null.");
+        }
 
-    if (input.getCartId() == null) {
-      question.ask();
-      input.setCartId(question.answer());
-      cartValidator.setInput(input);
-      cartValidator.apply();
-      repository.save(input);
+        if (input.getCartId() == null) {
+            question.ask();
+            input.setCartId(question.answer());
+            cartValidator.setInput(input);
+            cartValidator.apply();
+            repository.save(input);
+        }
+        cartValidator.setInput(input);
+        cartValidator.apply();
+        repository.update(input);
     }
-    cartValidator.setInput(input);
-    cartValidator.apply();
-    repository.update(input);
-  }
 }

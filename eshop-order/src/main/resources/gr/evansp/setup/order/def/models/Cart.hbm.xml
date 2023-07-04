@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.evansp.setup.order.def.models">
+    <class name="Cart" table="TBCART">
+        <id name="cartId" type="java.lang.Long">
+            <column name="CART_ID" sql-type="BIGINT"/>
+        </id>
+        <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
+        <set name="cartItems" table="TBCARTITEM" lazy="false" inverse="true" fetch="select" cascade="all">
+            <key>
+                <column name="CART_ID" not-null="true"/>
+            </key>
+            <one-to-many class="gr.evansp.setup.order.def.models.CartItem"/>
+        </set>
+        <subclass name="gr.evansp.setup.order.impl.models.CartImpl" discriminator-value="C"/>
+    </class>
+</hibernate-mapping>

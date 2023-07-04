@@ -22,10 +22,9 @@ import gr.evansp.setup.order.def.models.Order;
  * <li>city must contain only letters</li>
  * <li>Country must not be null or empty</li>
  * <li>Country must contain only letters</li>
- * <li>Cart cannot be null and must be validated by the appropriate validator</li>
+ * <li>Cart Items cannot be null and must be validated by the appropriate validator</li>
  * </ul>
  */
-@SuppressWarnings("unused")
 public interface OrderValidator extends Rule<Order> {
-  //EMPTY
+    //EMPTY
 }

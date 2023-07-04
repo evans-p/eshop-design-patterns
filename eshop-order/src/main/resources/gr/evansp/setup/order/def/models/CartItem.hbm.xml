@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.evansp.setup.order.def.models">
+    <class name="CartItem" table="TBCARTITEM">
+        <composite-id>
+            <key-property name="cartId" column="CART_ID"/>
+            <key-property name="productId" column="PRODUCT_ID"/>
+            <key-property name="categoryId" column="CATEGORY_ID"/>
+        </composite-id>
+        <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
+        <property name="count" column="COUNT" type="java.lang.Long"/>
+        <subclass name="gr.evansp.setup.order.impl.models.CartItemImpl" discriminator-value="C"/>
+    </class>
+</hibernate-mapping>

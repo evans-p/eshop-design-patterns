@@ -18,5 +18,9 @@
         <mapping resource="/gr/evansp/setup/product/def/models/Category.hbm.xml"/>
         <mapping resource="/gr/evansp/setup/product/def/models/Product.hbm.xml"/>
         <mapping resource="/gr/evansp/setup/product/def/models/Characteristic.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/order/def/models/Cart.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/order/def/models/CartItem.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/order/def/models/Order.hbm.xml"/>
+        <mapping resource="/gr/evansp/setup/order/def/models/OrderItem.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

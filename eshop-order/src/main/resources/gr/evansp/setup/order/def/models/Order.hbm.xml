@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.evansp.setup.order.def.models">
+    <class name="Order" table="TBORDER">
+        <composite-id>
+            <key-property name="orderId" column="ORDER_ID"/>
+            <key-property name="userId" column="USER_ID"/>
+        </composite-id>
+        <discriminator type="java.lang.String" column="DISCRIMINATOR"/>
+
+        <property name="streetName" type="java.lang.String">
+            <column name="STREET_NAME" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="streetNumber" type="java.lang.String">
+            <column name="STREET_NUMBER" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="postalCode" type="java.lang.String">
+            <column name="POSTAL_CODE" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="city" type="java.lang.String">
+            <column name="CITY" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="country" type="java.lang.String">
+            <column name="COUNTRY" sql-type="VARCHAR(50)" not-null="true"/>
+        </property>
+        <property name="dateAdded" type="java.util.Date">
+            <column name="DATE_ADDED" sql-type="Date" not-null="true"/>
+        </property>
+        <property name="dateLastModified" type="java.util.Date">
+            <column name="DATE_LAST_MODIFIED" sql-type="Date"/>
+        </property>
+        <property name="status" column="STATUS">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">gr.evansp.setup.order.def.enums.OrderStatus</param>
+            </type>
+        </property>
+        <set name="orderItems" table="TBORDERITEM" lazy="false" inverse="true" fetch="select" cascade="all">
+            <key>
+                <column name="ORDER_ID" not-null="true"/>
+                <column name="USER_ID" not-null="true"/>
+            </key>
+            <one-to-many class="gr.evansp.setup.order.def.models.OrderItem"/>
+        </set>
+        <subclass name="gr.evansp.setup.order.impl.models.OrderImpl" discriminator-value="C"/>
+    </class>
+</hibernate-mapping>

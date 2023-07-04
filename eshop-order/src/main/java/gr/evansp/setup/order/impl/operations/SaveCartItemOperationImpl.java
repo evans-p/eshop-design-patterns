@@ -15,20 +15,20 @@ import lombok.Setter;
  * Implementation of {@link SaveCartItemOperation}.
  */
 public class SaveCartItemOperationImpl implements SaveCartItemOperation {
-  @Setter
-  @Getter
-  CartItem input;
-  CartItemValidator validator = Factory.create(CartItemValidator.class);
-  CartItemRepository repository = Factory.create(CartItemRepository.class);
+    @Setter
+    @Getter
+    CartItem input;
+    CartItemValidator validator = Factory.create(CartItemValidator.class);
+    CartItemRepository repository = Factory.create(CartItemRepository.class);
 
 
-  @Override
-  public void execute() throws DataException, RuleException, LogicException {
-    if (input == null) {
-      throw new LogicException("Input(CartItem) cannot be null.");
+    @Override
+    public void execute() throws DataException, RuleException, LogicException {
+        if (input == null) {
+            throw new LogicException("Input(CartItem) cannot be null.");
+        }
+        validator.setInput(input);
+        validator.apply();
+        repository.save(input);
     }
-    validator.setInput(input);
-    validator.apply();
-    repository.save(input);
-  }
 }
