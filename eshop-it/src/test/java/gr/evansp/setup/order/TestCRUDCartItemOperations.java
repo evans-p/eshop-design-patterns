@@ -121,7 +121,7 @@ public class TestCRUDCartItemOperations extends Setup {
 
   @Test
   public void testGetAll() throws DataException {
-    CartRepository cartRepository = Factory.create(CartRepository.class);
-    assertTrue(cartRepository.getAll().size() > 0);
+    CartItemRepository cartItemRepository = Factory.create(CartItemRepository.class);
+    assertTrue(cartItemRepository.getAll().size() > 0);
   }
 }
