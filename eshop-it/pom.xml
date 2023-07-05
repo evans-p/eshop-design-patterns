@@ -21,5 +21,11 @@
             <artifactId>eshop-product</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-order</artifactId>
+            <version>${revision}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,8 @@
 package gr.evansp.setup;
 
 import gr.evansp.factory.Factory;
+import gr.evansp.setup.order.def.models.Cart;
+import gr.evansp.setup.order.def.models.CartItem;
 import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
@@ -18,6 +20,23 @@ import java.util.Set;
  */
 public class Setup {
   private static final Random r = new Random();
+
+  public static CartItem createSampleCartItem(Long cartId, Long productId, Long categoryId) {
+    CartItem cartItem = Factory.create(CartItem.class);
+
+    cartItem.setCartId(cartId);
+    cartItem.setCategoryId(categoryId);
+    cartItem.setProductId(productId);
+    cartItem.setCount(2L);
+
+    return cartItem;
+  }
+
+  public static Cart createSampleCart(Long cartId) {
+    Cart cart = Factory.create(Cart.class);
+    cart.setCartId(cartId);
+    return cart;
+  }
 
   public static User createSampleUser() {
     User user = Factory.create(User.class);
