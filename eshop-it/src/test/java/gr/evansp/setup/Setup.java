@@ -3,6 +3,8 @@ package gr.evansp.setup;
 import gr.evansp.factory.Factory;
 import gr.evansp.setup.order.def.models.Cart;
 import gr.evansp.setup.order.def.models.CartItem;
+import gr.evansp.setup.order.def.models.Order;
+import gr.evansp.setup.order.def.models.OrderItem;
 import gr.evansp.setup.product.def.models.Category;
 import gr.evansp.setup.product.def.models.Characteristic;
 import gr.evansp.setup.product.def.models.Product;
@@ -20,6 +22,32 @@ import java.util.Set;
  */
 public class Setup {
   private static final Random r = new Random();
+
+  public static Order createSampleOrder(Long orderId, Long userId) {
+    Order order = Factory.create(Order.class);
+
+    order.setOrderId(orderId);
+    order.setUserId(userId);
+    order.setCity("CIty");
+    order.setCountry("Country");
+    order.setStreetNumber("123");
+    order.setStreetName("StreetName");
+    order.setPostalCode("12345");
+
+    return order;
+  }
+
+  public static OrderItem createSampleOrderItem(Long orderId, Long userId, Long categoryId, Long productId) {
+    OrderItem orderItem = Factory.create(OrderItem.class);
+
+    orderItem.setOrderId(orderId);
+    orderItem.setUserId(userId);
+    orderItem.setProductId(productId);
+    orderItem.setCategoryId(categoryId);
+    orderItem.setCount(4L);
+
+    return orderItem;
+  }
 
   public static CartItem createSampleCartItem(Long cartId, Long productId, Long categoryId) {
     CartItem cartItem = Factory.create(CartItem.class);
@@ -41,7 +69,7 @@ public class Setup {
   public static User createSampleUser() {
     User user = Factory.create(User.class);
     user.setEmail(generateRandomNumber() + "example@example.com");
-    user.setPassword("@@1213TEstTesd@@");
+    user.setPassword("@@1213TEstTest@@");
     user.setUserProfile(createSampleUserProfile(null));
     return user;
   }
@@ -109,7 +137,7 @@ public class Setup {
 
   public static int generateRandomNumber() {
     int low = 1;
-    int high = 10000;
+    int high = 10000000;
     return r.nextInt(high - low) + low;
   }
 }
