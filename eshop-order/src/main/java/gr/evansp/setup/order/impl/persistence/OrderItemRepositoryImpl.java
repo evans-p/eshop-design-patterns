@@ -43,7 +43,7 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     try (Session session = HibernateConfiguration.INSTANCE.getFactory().openSession()) {
 
       session.beginTransaction();
-      session.persist(entity);
+      session.saveOrUpdate(entity);
       session.getTransaction().commit();
     } catch (Exception e) {
       throw new DataException(e);
