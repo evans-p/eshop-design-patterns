@@ -7,6 +7,7 @@
         <version>${revision}</version>
     </parent>
     <artifactId>eshop-web</artifactId>
+    <packaging>war</packaging>
     <dependencies>
         <dependency>
             <groupId>gr.evansp</groupId>
