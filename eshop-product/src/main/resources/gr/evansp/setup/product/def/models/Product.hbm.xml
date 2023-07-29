@@ -36,7 +36,7 @@
              cascade="all">
             <key>
                 <column name="PRODUCT_ID" not-null="true"/>
-                <column name="CHARACTERISTIC_ID" not-null="true"/>
+                <column name="CATEGORY_ID" not-null="true"/>
             </key>
             <one-to-many class="gr.evansp.setup.product.def.models.Characteristic"/>
         </set>
