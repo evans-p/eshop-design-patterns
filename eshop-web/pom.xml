@@ -1,0 +1,28 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>gr.evansp</groupId>
+        <artifactId>eshop-design-patterns</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>eshop-web</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-user</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-product</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>gr.evansp</groupId>
+            <artifactId>eshop-order</artifactId>
+            <version>${revision}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
