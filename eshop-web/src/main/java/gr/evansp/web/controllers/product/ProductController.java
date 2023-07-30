@@ -1,4 +1,4 @@
-package gr.evansp.web.controllers;
+package gr.evansp.web.controllers.product;
 
 import gr.evansp.exceptions.DataException;
 import gr.evansp.exceptions.LogicException;
