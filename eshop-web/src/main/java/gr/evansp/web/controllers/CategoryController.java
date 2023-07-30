@@ -18,7 +18,7 @@ public class CategoryController {
 
   GetAllCategoriesWsOperation allCategoriesWsOperation = Factory.create(GetAllCategoriesWsOperation.class);
 
-  @GetMapping(CATEGORY_BASE_URL + "/")
+  @GetMapping(CATEGORY_BASE_URL + "/all")
   public List<Category> getAllCategories() {
     try {
       allCategoriesWsOperation.execute();
