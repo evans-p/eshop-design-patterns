@@ -1,5 +1,5 @@
 For packaging the whole project as a jar File.
-    mvn clean package spring-boot:repackage
+    mvn clean package spring-boot:repackage -DskipTests=true
 
 Run it locally
     mvn  clean spring-boot:run
